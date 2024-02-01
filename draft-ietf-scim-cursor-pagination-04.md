@@ -353,9 +353,52 @@ OPTIONAL.
    authenticated clients.  Another example would be for a Service
    Provider that implements cursor pagination to restrict the number of
    cursors that can be allocated by a client or enforce cursor lifetimes.
+   
+# IANA Considerations
+This specification amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643], for the urn:ietf:params:scim:api:messages:2.0:SearchRequest message URI and adds the following new fields:
+
+SCIM “cursor” attribute
+  
+  - Field Name:  cursor. 
+  - Status: permanent. 
+  - Specification Document: this specification, Section 2
+ - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
+
+SCIM “count” attribute
+
+  - Field Name: count
+  - Status: permanent
+  - Specification Document: this specification, Section 2
+  - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
+
+This specification amends the entry  for urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and adds the following fields:
+
+SCIM “nextCursor” attribute
+
+  - Field Name: nextCursor
+  - Status: permanent
+  - Specification Document: this specification, Section 2
+  - Comments: see section 3.4.2 of [RFC7644] System for Cross-domain Identity Management: Protocol
+
+SCIM “previousCursor” attribute  
+
+  - Field Name: previousCursor
+  - Status: permanent
+  - Specification Document: this specification, Section 2
+  - Comments: see section 3.4.2 of [RFC7644] System for Cross-domain Identity Management: Protocol
+
+
+This specification amends the entry  for urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig schema URI, and adds the following field:
+
+  SCIM “pagination” attribute
+  
+  - Field Name: pagination
+  - Status: permanent
+  - Specification Document: this specification, Section 4
+  - Comments: see section 5 of [RFC7643] System for Cross-domain Identity Management: Protocol
 
 # Change Log
-
+v04 - January 2024 - Added IANA Considerations
 v03 - January 2024 - Minor grammatical/typo fixes, rename + changes to maxPageSize SCP definition
 v02 - July 2023 - Typos/semantics, acknowledgements, expansion of cursorTimeout SCP definition
 v01 - May 2023 - Updated after Httpdir review.
