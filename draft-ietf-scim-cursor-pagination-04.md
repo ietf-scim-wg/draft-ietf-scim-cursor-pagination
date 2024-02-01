@@ -35,8 +35,7 @@ informative:
  This document defines additional SCIM (System for Cross-Domain Identity Management) query parameters and result
    attributes to allow use of cursor-based pagination in SCIM
    implementations that are implemented with existing code bases,
-   databases, or APIs where cursor-based pagination is already well-
-   established.
+   databases, or APIs where cursor-based pagination is already well established.
 
 
 --- middle
@@ -49,8 +48,7 @@ The two common patterns for result pagination are index-based pagination
    competing pagination patterns, this document simply recognizes that
    SCIM service providers are commonly implemented as an
    interoperability layer on top of already existing application
-   codebases, databases, and/or APIs that already have a well-
-   established pagination pattern.
+   codebases, databases, and/or APIs that already have a well established pagination pattern.
 
    Translating from an underlying cursor-based pagination pattern to the
    index-based pagination defined in Section 3.4.2.4 of [RFC7644]
@@ -75,7 +73,7 @@ The two common patterns for result pagination are index-based pagination
 
 # Query Parameters and Response Attributes
 
-The following table describes the URL pagination parameters requests for using cursor-based pagination:
+The following table describes the URL pagination parameters for requesting cursor-based pagination:
 
 | Parameter | Description |
 cursor | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contained characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
@@ -88,7 +86,8 @@ returned in a paged query response:
 
 | Element | Description |
 nextCursor | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include nextCursor in all paged query responses except when returning the last page. nextCursor is omitted from a response only to indicate that there are no more result pages. |
-previousCursor | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Use of previousCursor is OPTIONAL.
+previousCursor | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning previousCursor
+is OPTIONAL.
 {: title="Response Attributes"}
 
    Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
@@ -391,9 +390,54 @@ To mitigate such risks, the following strategies are recommended:
 
 ## Other Security References
 Using URIs to describe and locate resources has its own set of security considerations discussed in Section 7 of [RFC3986].
+IANA Considerations
+
+#IANA Considerations
+This specification amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643], for the urn:ietf:params:scim:api:messages:2.0:SearchRequest message URI and adds the following new fields:
+
+SCIM “cursor” attribute
+  
+  - Field Name:  cursor. 
+  - Status: permanent. 
+  - Specification Document: this specification, Section 2
+ - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
+
+SCIM “count” attribute
+
+  - Field Name: count
+  - Status: permanent
+  - Specification Document: this specification, Section 2
+  - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
+
+This specification amends the entry  for urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and adds the following fields:
+
+SCIM “nextCursor” attribute
+
+  - Field Name: nextCursor
+  - Status: permanent
+  - Specification Document: this specification, Section 2
+  - Comments: see section 3.4.2 of [RFC7644] System for Cross-domain Identity Management: Protocol
+
+SCIM “previousCursor” attribute  
+
+  - Field Name: previousCursor
+  - Status: permanent
+  - Specification Document: this specification, Section 2
+  - Comments: see section 3.4.2 of [RFC7644] System for Cross-domain Identity Management: Protocol
+
+
+This specification amends the entry  for urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig schema URI, and adds the following field:
+
+  SCIM “pagination” attribute
+  
+  - Field Name: pagination
+  - Status: permanent
+  - Specification Document: this specification, Section 4
+  - Comments: see section 5 of [RFC7643] System for Cross-domain Identity Management: Protocol
 
 # Change Log
 
+v04 - January 2024 - Added IANA Considerations section
 v04 - January 2024 - Added Security Considerations section
 v03 - January 2024 - Minor grammatical/typo fixes, rename + changes to maxPageSize SCP definition
 v02 - July 2023 - Typos/semantics, acknowledgements, expansion of cursorTimeout SCP definition
