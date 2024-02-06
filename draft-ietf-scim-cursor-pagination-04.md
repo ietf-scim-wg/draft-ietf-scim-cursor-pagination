@@ -35,8 +35,7 @@ informative:
  This document defines additional SCIM (System for Cross-Domain Identity Management) query parameters and result
    attributes to allow use of cursor-based pagination in SCIM
    implementations that are implemented with existing code bases,
-   databases, or APIs where cursor-based pagination is already well-
-   established.
+   databases, or APIs where cursor-based pagination is already well established.
 
 
 --- middle
@@ -49,8 +48,7 @@ The two common patterns for result pagination are index-based pagination
    competing pagination patterns, this document simply recognizes that
    SCIM service providers are commonly implemented as an
    interoperability layer on top of already existing application
-   codebases, databases, and/or APIs that already have a well-
-   established pagination pattern.
+   codebases, databases, and/or APIs that already have a well established pagination pattern.
 
    Translating from an underlying cursor-based pagination pattern to the
    index-based pagination defined in Section 3.4.2.4 of [RFC7644]
@@ -75,7 +73,7 @@ The two common patterns for result pagination are index-based pagination
 
 # Query Parameters and Response Attributes
 
-The following table describes the URL pagination parameters requests for using cursor-based pagination:
+The following table describes the URL pagination parameters for requesting cursor-based pagination:
 
 | Parameter | Description |
 cursor | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contained characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
@@ -88,7 +86,8 @@ returned in a paged query response:
 
 | Element | Description |
 nextCursor | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include nextCursor in all paged query responses except when returning the last page. nextCursor is omitted from a response only to indicate that there are no more result pages. |
-previousCursor | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Use of previousCursor is OPTIONAL.
+previousCursor | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning previousCursor
+is OPTIONAL.
 {: title="Response Attributes"}
 
    Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
