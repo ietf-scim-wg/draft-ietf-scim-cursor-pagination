@@ -9,9 +9,9 @@
 <meta content="Anjali Sehgal" name="author">
 <meta content="
        This document defines additional SCIM (System for Cross-Domain Identity Management) query parameters and result
-   attributes to allow use of cursor-based pagination in SCIM
-   implementations that are implemented with existing code bases,
-   databases, or APIs where cursor-based pagination is already well established. 
+attributes to allow use of cursor-based pagination in SCIM
+implementations that are implemented with existing code bases,
+databases, or APIs where cursor-based pagination is already well established. 
     " name="description">
 <meta content="xml2rfc 3.19.4" name="generator">
 <meta content="Internet-Draft" name="keyword">
@@ -1071,9 +1071,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines additional SCIM (System for Cross-Domain Identity Management) query parameters and result
-   attributes to allow use of cursor-based pagination in SCIM
-   implementations that are implemented with existing code bases,
-   databases, or APIs where cursor-based pagination is already well established.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+attributes to allow use of cursor-based pagination in SCIM
+implementations that are implemented with existing code bases,
+databases, or APIs where cursor-based pagination is already well established.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1295,85 +1295,85 @@ returned in a paged query response:<a href="#section-2-3" class="pilcrow">¶</a>
         </tbody>
       </table>
 <p id="section-2-5">Cursor values are opaque; clients <span class="bcp14">MUST</span> not make assumptions about their structure. When the client wants to retrieve
-   another result page for a query, it should query the same Service
-   Provider endpoint with all query parameters and values being
-   identical to the initial query with the exception of the cursor value
-   which should be set to a nextCursor (or previousCursor) value that
-   was returned by Service Provider in a previous response.<a href="#section-2-5" class="pilcrow">¶</a></p>
-<p id="section-2-6">For example, to retrieve the first 10 Users with userName starting
-   with "J", use an empty cursor and set the count to 10:<a href="#section-2-6" class="pilcrow">¶</a></p>
+another result page for a query, it should query the same Service
+Provider endpoint with all query parameters and values being
+identical to the initial query with the exception of the cursor value
+which should be set to a nextCursor (or previousCursor) value that
+was returned by Service Provider in a previous response.<a href="#section-2-5" class="pilcrow">¶</a></p>
+<p id="section-2-6">For example, to retrieve the first 10 Users with <code>userName</code> starting
+with <code>J</code>, use an empty cursor and set the count to 10:<a href="#section-2-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2-7">
 <pre>
-     GET /Users?filter=userName%20sw%20J&amp;cursor&amp;count=10
-     Host: example.com
-     Accept: application/scim+json
-     Authorization: Bearer U8YJcYYRMjbGeepD
+GET /Users?filter=userName%20sw%20J&amp;cursor&amp;count=10
+Host: example.com
+Accept: application/scim+json
+Authorization: Bearer U8YJcYYRMjbGeepD
 </pre><a href="#section-2-7" class="pilcrow">¶</a>
 </div>
 <p id="section-2-8">The SCIM provider in response to the query above returns metadata regarding pagination similar
 to the following example (actual resources removed for brevity):<a href="#section-2-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2-9">
 <pre>
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+HTTP/1.1 200 OK
+Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "nextCursor":"VZUTiyhEQJ94IR",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+{
+   "totalResults":100,
+   "itemsPerPage":10,
+   "nextCursor":"VZUTiyhEQJ94IR",
+   "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "Resources":[{
+      ...
+   }]
+}
 </pre><a href="#section-2-9" class="pilcrow">¶</a>
 </div>
 <p id="section-2-10">Given the example above, to request the next page or results, use the
-   same query parameters and values except set the cursor to the value
-   of nextCursor ("VZUTiyhEQJ94IR"):<a href="#section-2-10" class="pilcrow">¶</a></p>
+same query parameters and values except set the cursor to the value
+of <code>nextCursor</code> (<code>VZUTiyhEQJ94IR</code>):<a href="#section-2-10" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2-11">
 <pre>
-     GET /Users?filter=username%20sw%20J&amp;cursor=VZUTiyhEQJ94IR&amp;count=10
-     Host: example.com
-     Accept: application/scim+json
-     Authorization: Bearer U8YJcYYRMjbGeepD
+GET /Users?filter=username%20sw%20J&amp;cursor=VZUTiyhEQJ94IR&amp;count=10
+Host: example.com
+Accept: application/scim+json
+Authorization: Bearer U8YJcYYRMjbGeepD
 
-   HTTP/1.1 200 OK
-    Content-Type: application/scim+json
+HTTP/1.1 200 OK
+Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "previousCursor: "ze7L30kMiiLX6x"
-       "nextCursor":"YkU3OF86Pz0rGv",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+{
+   "totalResults": 100,
+   "itemsPerPage": 10,
+   "previousCursor: "ze7L30kMiiLX6x"
+   "nextCursor": "YkU3OF86Pz0rGv",
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "Resources":[{
+      ...
+   }]
+}
 </pre><a href="#section-2-11" class="pilcrow">¶</a>
 </div>
 <p id="section-2-12">In the example above, the response includes the <span class="bcp14">OPTIONAL</span>
-   previousCursor indicating that the Service Provider supports forward
-   and reverse traversal of result pages.<a href="#section-2-12" class="pilcrow">¶</a></p>
+previousCursor indicating that the Service Provider supports forward
+and reverse traversal of result pages.<a href="#section-2-12" class="pilcrow">¶</a></p>
 <p id="section-2-13">As described in Section 3.4.1 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> Service Providers <span class="bcp14">SHOULD</span>
-   return an accurate value for totalResults which is the total number
-   of resources for all pages.  Service Providers implementing cursor
-   pagination that are unable to estimate totalResults <span class="bcp14">MAY</span> choose to omit the totalResults attribute.<a href="#section-2-13" class="pilcrow">¶</a></p>
+return an accurate value for totalResults which is the total number
+of resources for all pages.  Service Providers implementing cursor
+pagination that are unable to estimate totalResults <span class="bcp14">MAY</span> choose to omit the totalResults attribute.<a href="#section-2-13" class="pilcrow">¶</a></p>
 <div id="pagination-errors">
 <section id="section-2.1">
         <h3 id="name-pagination-errors">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-pagination-errors" class="section-name selfRef">Pagination errors</a>
         </h3>
 <p id="section-2.1-1">If a Service Provider encounters invalid pagination query
-   parameters (invalid cursor value, count value, etc), or other error
-   condition, the Service Provider <span class="bcp14">SHOULD</span> return the appropriate HTTP
-   response status code and detailed JSON error response as defined in
-   Section 3.12 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>.  Most pagination error conditions would
-   generate an HTTP response with status code 400.  Since many pagination
-   error conditions are not user recoverable, error messages <span class="bcp14">SHOULD</span>
-   focus on communicating error details to the SCIM client developer.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1-2">For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in RFC 7644 Section 3.12, Table 9: SCIM Detail Error Keyword Values.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+parameters (invalid cursor value, count value, etc), or other error
+condition, the Service Provider <span class="bcp14">SHOULD</span> return the appropriate HTTP
+response status code and detailed JSON error response as defined in
+Section 3.12 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>.  Most pagination error conditions would
+generate an HTTP response with status code 400.  Since many pagination
+error conditions are not user recoverable, error messages <span class="bcp14">SHOULD</span>
+focus on communicating error details to the SCIM client developer.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> Section 3.12, Table 9: SCIM Detail Error Keyword Values.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 <span id="name-pagination-errors-2"></span><table class="center" id="table-3">
           <caption>
 <a href="#table-3" class="selfRef">Table 3</a>:
@@ -1412,7 +1412,7 @@ to the following example (actual resources removed for brevity):<a href="#sectio
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-sorting" class="section-name selfRef">Sorting</a>
         </h3>
 <p id="section-2.2-1">If sorting is implemented as described Section 3.4.2.3 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> ,
-   then cursor-paged results <span class="bcp14">SHOULD</span> be sorted.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+then cursor-paged results <span class="bcp14">SHOULD</span> be sorted.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cursors-as-the-only-pagination-method">
@@ -1421,35 +1421,34 @@ to the following example (actual resources removed for brevity):<a href="#sectio
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-cursors-as-the-only-paginat" class="section-name selfRef">Cursors as the Only Pagination Method</a>
         </h3>
 <p id="section-2.3-1">A SCIM Service Provider <span class="bcp14">MAY</span> require cursor-based pagination to
-   retrieve all results for a query by including a "nextCursor" value in
-   the response even when the query does not include the "cursor"
-   parameter.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+retrieve all results for a query by including a <code>nextCursor</code> value in
+the response even when the query does not include the "cursor"
+parameter.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <p id="section-2.3-2">For example:<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2.3-3">
 <pre>
-      GET /Users
-      Host: example.com
-      Accept: application/scim+json
-
+GET /Users
+Host: example.com
+Accept: application/scim+json
 </pre><a href="#section-2.3-3" class="pilcrow">¶</a>
 </div>
 <p id="section-2.3-4">The SCIM Service Provider may respond to the above query with a page
-   containing defaultPageSize results and a "nextCursor" value as shown
-   in the below example (Resources omitted for brevity):<a href="#section-2.3-4" class="pilcrow">¶</a></p>
+containing defaultPageSize results and a <code>nextCursor</code> value as shown
+in the below example (Resources omitted for brevity):<a href="#section-2.3-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2.3-5">
 <pre>
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+HTTP/1.1 200 OK
+Content-Type: application/scim+json
 
-     {
-       "totalResults":5000,
-       "itemsPerPage":100,
-       "nextCursor":"HPq72Pax3JUaNa",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+{
+   "totalResults": 5000,
+   "itemsPerPage": 100,
+   "nextCursor": "HPq72Pax3JUaNa",
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "Resources": [{
+      ...
+   }]
+}
 </pre><a href="#section-2.3-5" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1462,44 +1461,42 @@ to the following example (actual resources removed for brevity):<a href="#sectio
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-querying-resources-using-ht" class="section-name selfRef">Querying Resources using HTTP POST</a>
       </h2>
 <p id="section-3-1">Section 3.4.2.4 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> defines how clients <span class="bcp14">MAY</span> execute the HTTP
-   POST method combined with the "/.search" path extension to issue
-   execute queries without passing parameters on the URL.  When using
-   "/.search", the client would pass the parameters defined in Section 2<a href="#section-3-1" class="pilcrow">¶</a></p>
+POST method combined with the "/.search" path extension to issue
+execute queries without passing parameters on the URL.  When using
+<code>/.search</code>, the client would pass the parameters defined in Section 2<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-2">
 <pre>
-     POST /User/.search
-     Host: example.com
-     Accept: application/scim+json
-     Authorization: Bearer U8YJcYYRMjbGeepD
+POST /User/.search
+Host: example.com
+Accept: application/scim+json
+Authorization: Bearer U8YJcYYRMjbGeepD
 
-     {
-       "schemas": [
-         "urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
-       "attributes": ["displayName", "userName"],
-       "filter":
-          "displayName sw \"smith\"",
-       "cursor": "",
-       "count": 10
-     }
+{
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+   "attributes": ["displayName", "userName"],
+   "filter": "displayName sw \"smith\"",
+   "cursor": "",
+   "count": 10
+}
 </pre><a href="#section-3-2" class="pilcrow">¶</a>
 </div>
 <p id="section-3-3">Which would return a result containing a "nextCursor" value which may
-   be used by the client in a subsequent call to return the next page of
-   resources<a href="#section-3-3" class="pilcrow">¶</a></p>
+be used by the client in a subsequent call to return the next page of
+resources<a href="#section-3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-4">
 <pre>
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+HTTP/1.1 200 OK
+Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "nextCursor":"VZUTiyhEQJ94IR",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+{
+   "totalResults": 100,
+   "itemsPerPage": 10,
+   "nextCursor": "VZUTiyhEQJ94IR",
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "Resources": [{
+      ...
+   }]
+}
 </pre><a href="#section-3-4" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1510,10 +1507,10 @@ to the following example (actual resources removed for brevity):<a href="#sectio
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-service-provider-configurat" class="section-name selfRef">Service Provider Configuration</a>
       </h2>
 <p id="section-4-1">The <code>/ServiceProviderConfig</code> resource defined in Section 4 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>
-   facilitates discovery of SCIM service provider features.  A SCIM
-   Service provider implementing cursor-based pagination <span class="bcp14">SHOULD</span> include
-   the following additional attribute in JSON document returned by the
-   /ServiceProviderConfig endpoint:<a href="#section-4-1" class="pilcrow">¶</a></p>
+facilitates discovery of SCIM service provider features.  A SCIM
+Service provider implementing cursor-based pagination <span class="bcp14">SHOULD</span> include
+the following additional attribute in JSON document returned by the
+<code>/ServiceProviderConfig</code> endpoint:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-4-2">
         <dt id="section-4-2.1">pagination</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.2">

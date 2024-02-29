@@ -178,52 +178,52 @@ Table of Contents
    Provider in a previous response.
 
    For example, to retrieve the first 10 Users with userName starting
-   with "J", use an empty cursor and set the count to 10:
+   with J, use an empty cursor and set the count to 10:
 
-        GET /Users?filter=userName%20sw%20J&cursor&count=10
-        Host: example.com
-        Accept: application/scim+json
-        Authorization: Bearer U8YJcYYRMjbGeepD
+   GET /Users?filter=userName%20sw%20J&cursor&count=10
+   Host: example.com
+   Accept: application/scim+json
+   Authorization: Bearer U8YJcYYRMjbGeepD
 
    The SCIM provider in response to the query above returns metadata
    regarding pagination similar to the following example (actual
    resources removed for brevity):
 
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+   HTTP/1.1 200 OK
+   Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "nextCursor":"VZUTiyhEQJ94IR",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+   {
+      "totalResults":100,
+      "itemsPerPage":10,
+      "nextCursor":"VZUTiyhEQJ94IR",
+      "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+      "Resources":[{
+         ...
+      }]
+   }
 
    Given the example above, to request the next page or results, use the
    same query parameters and values except set the cursor to the value
-   of nextCursor ("VZUTiyhEQJ94IR"):
+   of nextCursor (VZUTiyhEQJ94IR):
 
-     GET /Users?filter=username%20sw%20J&cursor=VZUTiyhEQJ94IR&count=10
-     Host: example.com
-     Accept: application/scim+json
-     Authorization: Bearer U8YJcYYRMjbGeepD
+   GET /Users?filter=username%20sw%20J&cursor=VZUTiyhEQJ94IR&count=10
+   Host: example.com
+   Accept: application/scim+json
+   Authorization: Bearer U8YJcYYRMjbGeepD
 
    HTTP/1.1 200 OK
-    Content-Type: application/scim+json
+   Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "previousCursor: "ze7L30kMiiLX6x"
-       "nextCursor":"YkU3OF86Pz0rGv",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+   {
+      "totalResults": 100,
+      "itemsPerPage": 10,
+      "previousCursor: "ze7L30kMiiLX6x"
+      "nextCursor": "YkU3OF86Pz0rGv",
+      "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+      "Resources":[{
+         ...
+      }]
+   }
 
    In the example above, the response includes the OPTIONAL
    previousCursor indicating that the Service Provider supports forward
@@ -249,7 +249,7 @@ Table of Contents
 
    For HTTP status code 400 (Bad Request) responses, the following
    detail error types are defined.  These error types extend the list of
-   error types defined in RFC 7644 Section 3.12, Table 9: SCIM Detail
+   error types defined in [RFC7644] Section 3.12, Table 9: SCIM Detail
    Error Keyword Values.
 
    +===============+==================================+===============+
@@ -281,71 +281,69 @@ Table of Contents
 2.3.  Cursors as the Only Pagination Method
 
    A SCIM Service Provider MAY require cursor-based pagination to
-   retrieve all results for a query by including a "nextCursor" value in
+   retrieve all results for a query by including a nextCursor value in
    the response even when the query does not include the "cursor"
    parameter.
 
    For example:
 
-         GET /Users
-         Host: example.com
-         Accept: application/scim+json
+   GET /Users
+   Host: example.com
+   Accept: application/scim+json
 
    The SCIM Service Provider may respond to the above query with a page
-   containing defaultPageSize results and a "nextCursor" value as shown
-   in the below example (Resources omitted for brevity):
+   containing defaultPageSize results and a nextCursor value as shown in
+   the below example (Resources omitted for brevity):
 
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+   HTTP/1.1 200 OK
+   Content-Type: application/scim+json
 
-     {
-       "totalResults":5000,
-       "itemsPerPage":100,
-       "nextCursor":"HPq72Pax3JUaNa",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+   {
+      "totalResults": 5000,
+      "itemsPerPage": 100,
+      "nextCursor": "HPq72Pax3JUaNa",
+      "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+      "Resources": [{
+         ...
+      }]
+   }
 
 3.  Querying Resources using HTTP POST
 
    Section 3.4.2.4 of [RFC7644] defines how clients MAY execute the HTTP
    POST method combined with the "/.search" path extension to issue
    execute queries without passing parameters on the URL.  When using
-   "/.search", the client would pass the parameters defined in Section 2
+   /.search, the client would pass the parameters defined in Section 2
 
-        POST /User/.search
-        Host: example.com
-        Accept: application/scim+json
-        Authorization: Bearer U8YJcYYRMjbGeepD
+  POST /User/.search
+  Host: example.com
+  Accept: application/scim+json
+  Authorization: Bearer U8YJcYYRMjbGeepD
 
-        {
-          "schemas": [
-            "urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
-          "attributes": ["displayName", "userName"],
-          "filter":
-             "displayName sw \"smith\"",
-          "cursor": "",
-          "count": 10
-        }
+  {
+     "schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+     "attributes": ["displayName", "userName"],
+     "filter": "displayName sw \"smith\"",
+     "cursor": "",
+     "count": 10
+  }
 
    Which would return a result containing a "nextCursor" value which may
    be used by the client in a subsequent call to return the next page of
    resources
 
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+   HTTP/1.1 200 OK
+   Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "nextCursor":"VZUTiyhEQJ94IR",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+   {
+      "totalResults": 100,
+      "itemsPerPage": 10,
+      "nextCursor": "VZUTiyhEQJ94IR",
+      "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+      "Resources": [{
+         ...
+      }]
+   }
 
 4.  Service Provider Configuration
 
