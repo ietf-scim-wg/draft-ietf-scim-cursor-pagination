@@ -1,7 +1,7 @@
 ---
 title: "Cursor-based Pagination of SCIM Resources"
 abbrev: "SCIM Cursor Pagination"
-docname: draft-ietf-scim-cursor-pagination-04
+docname: draft-ietf-scim-cursor-pagination-latest
 category: std
 
 ipr: trust200902
