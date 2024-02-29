@@ -275,14 +275,14 @@ Table of Contents
 
 2.2.  Sorting
 
-   If sorting is implemented as described Section 3.4.2.3 of [RFC7644] ,
+   If sorting is implemented as described Section 3.4.2.3 of [RFC7644],
    then cursor-paged results SHOULD be sorted.
 
 2.3.  Cursors as the Only Pagination Method
 
    A SCIM Service Provider MAY require cursor-based pagination to
    retrieve all results for a query by including a nextCursor value in
-   the response even when the query does not include the "cursor"
+   the response even when the query does not include the cursor
    parameter.
 
    For example:
@@ -311,7 +311,7 @@ Table of Contents
 3.  Querying Resources using HTTP POST
 
    Section 3.4.2.4 of [RFC7644] defines how clients MAY execute the HTTP
-   POST method combined with the "/.search" path extension to issue
+   POST method combined with the /.search path extension to issue
    execute queries without passing parameters on the URL.  When using
    /.search, the client would pass the parameters defined in Section 2
 
@@ -328,7 +328,7 @@ Table of Contents
      "count": 10
   }
 
-   Which would return a result containing a "nextCursor" value which may
+   Which would return a result containing a nextCursor value which may
    be used by the client in a subsequent call to return the next page of
    resources
 
@@ -516,7 +516,7 @@ Table of Contents
    To mitigate such risks, the following strategies are recommended:
 
    *  Implementation of rate limiting to control the volume and cadence
-      of &cursor requests.  This approach should adhere to established
+      of cursor requests.  This approach should adhere to established
       standards for rate limiting, details of which can be found in
       [RFC6585].
 
@@ -551,7 +551,7 @@ Table of Contents
    urn:ietf:params:scim:api:messages:2.0:SearchRequest message URI and
    adds the following new fields:
 
-   SCIM “cursor” attribute
+   SCIM cursor attribute
 
    *  Field Name: cursor.
 
@@ -562,7 +562,7 @@ Table of Contents
    *  Comments: see section 3.4.3 of [RFC7644] System for Cross-domain
       Identity Management: Protocol
 
-   SCIM “count” attribute
+   SCIM count attribute
 
    *  Field Name: count
 
@@ -577,7 +577,7 @@ Table of Contents
    urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and
    adds the following fields:
 
-   SCIM “nextCursor” attribute
+   SCIM nextCursor attribute
 
    *  Field Name: nextCursor
 
@@ -588,7 +588,7 @@ Table of Contents
    *  Comments: see section 3.4.2 of [RFC7644] System for Cross-domain
       Identity Management: Protocol
 
-   SCIM “previousCursor” attribute
+   SCIM previousCursor attribute
 
    *  Field Name: previousCursor
 
@@ -603,7 +603,7 @@ Table of Contents
    urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig schema
    URI, and adds the following field:
 
-   SCIM “pagination” attribute
+   SCIM pagination attribute
 
    *  Field Name: pagination
 

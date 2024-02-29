@@ -1260,13 +1260,17 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
         </thead>
         <tbody>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">cursor</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>cursor</code>
+</td>
             <td class="text-left" rowspan="1" colspan="1">The string value of the nextCursor attribute from a previous result page. The cursor value <span class="bcp14">MUST</span> be empty or omitted for the first request of a cursor-paginated query. This value may only contained characters from the unreserved characters set defined in section 2.2 of <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>
 </td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">count</td>
-            <td class="text-left" rowspan="1" colspan="1">A positive integer. Specifies the desired maximum number of query results per page, e.g., count=10. When specified, the service provider <span class="bcp14">MUST NOT</span> return more results than specified, although it <span class="bcp14">MAY</span> return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>count</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">A positive integer. Specifies the desired maximum number of query results per page, e.g., <code>count=10</code>. When specified, the service provider <span class="bcp14">MUST NOT</span> return more results than specified, although it <span class="bcp14">MAY</span> return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.</td>
           </tr>
         </tbody>
       </table>
@@ -1285,12 +1289,16 @@ returned in a paged query response:<a href="#section-2-3" class="pilcrow">¶</a>
         </thead>
         <tbody>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">nextCursor</td>
-            <td class="text-left" rowspan="1" colspan="1">A cursor value string that <span class="bcp14">MAY</span> be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination <span class="bcp14">MUST</span> include nextCursor in all paged query responses except when returning the last page. nextCursor is omitted from a response only to indicate that there are no more result pages.</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>nextCursor</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">A cursor value string that <span class="bcp14">MAY</span> be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination <span class="bcp14">MUST</span> include <code>nextCursor</code> in all paged query responses except when returning the last page. <code>nextCursor</code> is omitted from a response only to indicate that there are no more result pages.</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">previousCursor</td>
-            <td class="text-left" rowspan="1" colspan="1">A cursor value string that <span class="bcp14">MAY</span> be used in a subsequent request to obtain the previous page of results. Returning previousCursor is <span class="bcp14">OPTIONAL</span>.</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>previousCursor</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">A cursor value string that <span class="bcp14">MAY</span> be used in a subsequent request to obtain the previous page of results. Returning <code>previousCursor</code> is <span class="bcp14">OPTIONAL</span>.</td>
           </tr>
         </tbody>
       </table>
@@ -1298,7 +1306,7 @@ returned in a paged query response:<a href="#section-2-3" class="pilcrow">¶</a>
 another result page for a query, it should query the same Service
 Provider endpoint with all query parameters and values being
 identical to the initial query with the exception of the cursor value
-which should be set to a nextCursor (or previousCursor) value that
+which should be set to a <code>nextCursor</code> (or <code>previousCursor</code>) value that
 was returned by Service Provider in a previous response.<a href="#section-2-5" class="pilcrow">¶</a></p>
 <p id="section-2-6">For example, to retrieve the first 10 Users with <code>userName</code> starting
 with <code>J</code>, use an empty cursor and set the count to 10:<a href="#section-2-6" class="pilcrow">¶</a></p>
@@ -1388,19 +1396,28 @@ focus on communicating error details to the SCIM client developer.<a href="#sect
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">invalidCursor</td>
-              <td class="text-left" rowspan="1" colspan="1">Cursor value is invalid. Cursor value should be empty to request the first page and set to the nextCursor or previousCursor value for subsequent queries.</td>
-              <td class="text-left" rowspan="1" colspan="1">GET (Section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>)</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>invalidCursor</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">Cursor value is invalid. Cursor value should be empty to request the first page and set to the <code>nextCursor</code> or <code>previousCursor</code> value for subsequent queries.</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>GET</code> (Section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>)</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">expiredCursor</td>
-              <td class="text-left" rowspan="1" colspan="1">Cursor has expired. Do not wait longer than cursorTimeout (600 sec) to request additional pages.</td>
-              <td class="text-left" rowspan="1" colspan="1">GET (Section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>)</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>expiredCursor</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">Cursor has expired. Do not wait longer than <code>cursorTimeout</code> (600 sec) to request additional pages.</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>GET</code> (Section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>)</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">invalidCount</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>invalidCount</code>
+</td>
               <td class="text-left" rowspan="1" colspan="1">Count value is invalid. Count value must be between 1 - and maxPageSize (500)</td>
-              <td class="text-left" rowspan="1" colspan="1">GET (Section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>)</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>GET</code> (Section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>)</td>
             </tr>
           </tbody>
         </table>
@@ -1411,7 +1428,7 @@ focus on communicating error details to the SCIM client developer.<a href="#sect
         <h3 id="name-sorting">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-sorting" class="section-name selfRef">Sorting</a>
         </h3>
-<p id="section-2.2-1">If sorting is implemented as described Section 3.4.2.3 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> ,
+<p id="section-2.2-1">If sorting is implemented as described Section 3.4.2.3 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>,
 then cursor-paged results <span class="bcp14">SHOULD</span> be sorted.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1422,7 +1439,7 @@ then cursor-paged results <span class="bcp14">SHOULD</span> be sorted.<a href="#
         </h3>
 <p id="section-2.3-1">A SCIM Service Provider <span class="bcp14">MAY</span> require cursor-based pagination to
 retrieve all results for a query by including a <code>nextCursor</code> value in
-the response even when the query does not include the "cursor"
+the response even when the query does not include the <code>cursor</code>
 parameter.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <p id="section-2.3-2">For example:<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2.3-3">
@@ -1461,7 +1478,7 @@ Content-Type: application/scim+json
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-querying-resources-using-ht" class="section-name selfRef">Querying Resources using HTTP POST</a>
       </h2>
 <p id="section-3-1">Section 3.4.2.4 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> defines how clients <span class="bcp14">MAY</span> execute the HTTP
-POST method combined with the "/.search" path extension to issue
+<code>POST</code> method combined with the <code>/.search</code> path extension to issue
 execute queries without passing parameters on the URL.  When using
 <code>/.search</code>, the client would pass the parameters defined in Section 2<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-2">
@@ -1480,7 +1497,7 @@ Authorization: Bearer U8YJcYYRMjbGeepD
 }
 </pre><a href="#section-3-2" class="pilcrow">¶</a>
 </div>
-<p id="section-3-3">Which would return a result containing a "nextCursor" value which may
+<p id="section-3-3">Which would return a result containing a <code>nextCursor</code> value which may
 be used by the client in a subsequent call to return the next page of
 resources<a href="#section-3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-4">
@@ -1569,7 +1586,7 @@ Accept: application/scim+json
 </div>
 <p id="section-4-6">A service provider supporting both cursor-based pagination and index-
 based pagination would return a document similar to the following
-(full ServiceProviderConfig schema defined in Section 5 of <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>
+(full <code>ServiceProviderConfig</code> schema defined in Section 5 of <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>
 has been omitted for brevity):<a href="#section-4-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4-7">
 <pre>
@@ -1599,7 +1616,7 @@ to provide authentication, rate limiting, IP allow/block lists,
 logging and monitoring, response caching, etc.<a href="#section-4-8" class="pilcrow">¶</a></p>
 <p id="section-4-9">For example, an obvious protection against abuse is for the Service
 Provider to require client authentication in order to retrieve large
-result sets and enforce an overriding totalResults limit for non-
+result sets and enforce an overriding <code>totalResults</code> limit for non-
 authenticated clients.  Another example would be for a Service
 Provider that implements cursor pagination to restrict the number of
 cursors that can be allocated by a client or enforce cursor lifetimes.<a href="#section-4-9" class="pilcrow">¶</a></p>
@@ -1675,7 +1692,7 @@ It is not required to tie a cursor to specific actor. However, if a cursor is ti
 <p id="section-5.4-2">To mitigate such risks, the following strategies are recommended:<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.4-3.1">
-            <p id="section-5.4-3.1.1">Implementation of rate limiting to control the volume and cadence of &amp;cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in <span>[<a href="#RFC6585" class="cite xref">RFC6585</a>]</span>.<a href="#section-5.4-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.4-3.1.1">Implementation of rate limiting to control the volume and cadence of cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in <span>[<a href="#RFC6585" class="cite xref">RFC6585</a>]</span>.<a href="#section-5.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.4-3.2">
             <p id="section-5.4-3.2.1">Cursory mechanisms must be designed in a manner that avoids any additional consumption of server resources with the initiation of new &amp;cursor requests.<a href="#section-5.4-3.2.1" class="pilcrow">¶</a></p>
@@ -1709,10 +1726,10 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
 <p id="section-6-1">This specification amends the registry "SCIM Schema URIs for Data Resources" established by <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>, for the <code>urn:ietf:params:scim:api:messages:2.0:SearchRequest</code> message URI and adds the following new fields:<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">SCIM “cursor” attribute<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-2">SCIM <code>cursor</code> attribute<a href="#section-6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-3.1">
-          <p id="section-6-3.1.1">Field Name:  cursor.<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
+          <p id="section-6-3.1.1">Field Name: <code>cursor</code>.<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-3.2">
           <p id="section-6-3.2.1">Status: permanent.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
@@ -1724,10 +1741,10 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
           <p id="section-6-3.4.1">Comments: see section 3.4.3 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> System for Cross-domain Identity Management: Protocol<a href="#section-6-3.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-6-4">SCIM “count” attribute<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-4">SCIM <code>count</code> attribute<a href="#section-6-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-5.1">
-          <p id="section-6-5.1.1">Field Name: count<a href="#section-6-5.1.1" class="pilcrow">¶</a></p>
+          <p id="section-6-5.1.1">Field Name: <code>count</code><a href="#section-6-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-5.2">
           <p id="section-6-5.2.1">Status: permanent<a href="#section-6-5.2.1" class="pilcrow">¶</a></p>
@@ -1740,10 +1757,10 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-6-6">This specification amends the entry  for urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and adds the following fields:<a href="#section-6-6" class="pilcrow">¶</a></p>
-<p id="section-6-7">SCIM “nextCursor” attribute<a href="#section-6-7" class="pilcrow">¶</a></p>
+<p id="section-6-7">SCIM <code>nextCursor</code> attribute<a href="#section-6-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-8.1">
-          <p id="section-6-8.1.1">Field Name: nextCursor<a href="#section-6-8.1.1" class="pilcrow">¶</a></p>
+          <p id="section-6-8.1.1">Field Name: <code>nextCursor</code><a href="#section-6-8.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-8.2">
           <p id="section-6-8.2.1">Status: permanent<a href="#section-6-8.2.1" class="pilcrow">¶</a></p>
@@ -1755,10 +1772,10 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
           <p id="section-6-8.4.1">Comments: see section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> System for Cross-domain Identity Management: Protocol<a href="#section-6-8.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-6-9">SCIM “previousCursor” attribute<a href="#section-6-9" class="pilcrow">¶</a></p>
+<p id="section-6-9">SCIM <code>previousCursor</code> attribute<a href="#section-6-9" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-10.1">
-          <p id="section-6-10.1.1">Field Name: previousCursor<a href="#section-6-10.1.1" class="pilcrow">¶</a></p>
+          <p id="section-6-10.1.1">Field Name: <code>previousCursor</code><a href="#section-6-10.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-10.2">
           <p id="section-6-10.2.1">Status: permanent<a href="#section-6-10.2.1" class="pilcrow">¶</a></p>
@@ -1771,10 +1788,10 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-6-11">This specification amends the entry  for urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig schema URI, and adds the following field:<a href="#section-6-11" class="pilcrow">¶</a></p>
-<p id="section-6-12">SCIM “pagination” attribute<a href="#section-6-12" class="pilcrow">¶</a></p>
+<p id="section-6-12">SCIM <code>pagination</code> attribute<a href="#section-6-12" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-13.1">
-          <p id="section-6-13.1.1">Field Name: pagination<a href="#section-6-13.1.1" class="pilcrow">¶</a></p>
+          <p id="section-6-13.1.1">Field Name: <code>pagination</code><a href="#section-6-13.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-13.2">
           <p id="section-6-13.2.1">Status: permanent<a href="#section-6-13.2.1" class="pilcrow">¶</a></p>
