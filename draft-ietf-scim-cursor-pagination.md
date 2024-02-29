@@ -36,10 +36,10 @@ informative:
 
 --- abstract
 
- This document defines additional SCIM (System for Cross-Domain Identity Management) query parameters and result
-   attributes to allow use of cursor-based pagination in SCIM
-   implementations that are implemented with existing code bases,
-   databases, or APIs where cursor-based pagination is already well established.
+This document defines additional SCIM (System for Cross-Domain Identity Management) query parameters and result
+attributes to allow use of cursor-based pagination in SCIM
+implementations that are implemented with existing code bases,
+databases, or APIs where cursor-based pagination is already well established.
 
 
 --- middle
@@ -84,7 +84,6 @@ The following table describes the URL pagination parameters for requesting curso
 | count | A positive integer. Specifies the desired maximum number of query results per page, e.g., count=10. When specified, the service provider MUST NOT return more results than specified, although it MAY return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.
 {: title="Query Parameters"}
 
-
 The following table describes cursor-based pagination attributes
 returned in a paged query response:
 
@@ -93,87 +92,87 @@ returned in a paged query response:
 | previousCursor | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning previousCursor is OPTIONAL.
 {: title="Response Attributes"}
 
-   Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
-   another result page for a query, it should query the same Service
-   Provider endpoint with all query parameters and values being
-   identical to the initial query with the exception of the cursor value
-   which should be set to a nextCursor (or previousCursor) value that
-   was returned by Service Provider in a previous response.
+Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
+another result page for a query, it should query the same Service
+Provider endpoint with all query parameters and values being
+identical to the initial query with the exception of the cursor value
+which should be set to a nextCursor (or previousCursor) value that
+was returned by Service Provider in a previous response.
 
-   For example, to retrieve the first 10 Users with userName starting
-   with "J", use an empty cursor and set the count to 10:
+For example, to retrieve the first 10 Users with `userName` starting
+with `J`, use an empty cursor and set the count to 10:
 
 ~~~
-     GET /Users?filter=userName%20sw%20J&cursor&count=10
-     Host: example.com
-     Accept: application/scim+json
-     Authorization: Bearer U8YJcYYRMjbGeepD
+GET /Users?filter=userName%20sw%20J&cursor&count=10
+Host: example.com
+Accept: application/scim+json
+Authorization: Bearer U8YJcYYRMjbGeepD
 ~~~
 
-   The SCIM provider in response to the query above returns metadata regarding pagination similar
+The SCIM provider in response to the query above returns metadata regarding pagination similar
 to the following example (actual resources removed for brevity):
 
 ~~~
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+HTTP/1.1 200 OK
+Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "nextCursor":"VZUTiyhEQJ94IR",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+{
+   "totalResults":100,
+   "itemsPerPage":10,
+   "nextCursor":"VZUTiyhEQJ94IR",
+   "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "Resources":[{
+      ...
+   }]
+}
 ~~~
 
-   Given the example above, to request the next page or results, use the
-   same query parameters and values except set the cursor to the value
-   of nextCursor ("VZUTiyhEQJ94IR"):
+Given the example above, to request the next page or results, use the
+same query parameters and values except set the cursor to the value
+of `nextCursor` (`VZUTiyhEQJ94IR`):
 
 ~~~
-     GET /Users?filter=username%20sw%20J&cursor=VZUTiyhEQJ94IR&count=10
-     Host: example.com
-     Accept: application/scim+json
-     Authorization: Bearer U8YJcYYRMjbGeepD
+GET /Users?filter=username%20sw%20J&cursor=VZUTiyhEQJ94IR&count=10
+Host: example.com
+Accept: application/scim+json
+Authorization: Bearer U8YJcYYRMjbGeepD
 
-   HTTP/1.1 200 OK
-    Content-Type: application/scim+json
+HTTP/1.1 200 OK
+Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "previousCursor: "ze7L30kMiiLX6x"
-       "nextCursor":"YkU3OF86Pz0rGv",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+{
+   "totalResults": 100,
+   "itemsPerPage": 10,
+   "previousCursor: "ze7L30kMiiLX6x"
+   "nextCursor": "YkU3OF86Pz0rGv",
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "Resources":[{
+      ...
+   }]
+}
 ~~~
 
-   In the example above, the response includes the OPTIONAL
-   previousCursor indicating that the Service Provider supports forward
-   and reverse traversal of result pages.
+In the example above, the response includes the OPTIONAL
+previousCursor indicating that the Service Provider supports forward
+and reverse traversal of result pages.
 
-   As described in Section 3.4.1 of [RFC7644] Service Providers SHOULD
-   return an accurate value for totalResults which is the total number
-   of resources for all pages.  Service Providers implementing cursor
-   pagination that are unable to estimate totalResults MAY choose to omit the totalResults attribute.
+As described in Section 3.4.1 of [RFC7644] Service Providers SHOULD
+return an accurate value for totalResults which is the total number
+of resources for all pages.  Service Providers implementing cursor
+pagination that are unable to estimate totalResults MAY choose to omit the totalResults attribute.
 
 ## Pagination errors
 
-   If a Service Provider encounters invalid pagination query
-   parameters (invalid cursor value, count value, etc), or other error
-   condition, the Service Provider SHOULD return the appropriate HTTP
-   response status code and detailed JSON error response as defined in
-   Section 3.12 of [RFC7644].  Most pagination error conditions would
-   generate an HTTP response with status code 400.  Since many pagination
-   error conditions are not user recoverable, error messages SHOULD
-   focus on communicating error details to the SCIM client developer.
+If a Service Provider encounters invalid pagination query
+parameters (invalid cursor value, count value, etc), or other error
+condition, the Service Provider SHOULD return the appropriate HTTP
+response status code and detailed JSON error response as defined in
+Section 3.12 of [RFC7644].  Most pagination error conditions would
+generate an HTTP response with status code 400.  Since many pagination
+error conditions are not user recoverable, error messages SHOULD
+focus on communicating error details to the SCIM client developer.
 
-   For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in RFC 7644 Section 3.12, Table 9: SCIM Detail Error Keyword Values.
+For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in [RFC7644] Section 3.12, Table 9: SCIM Detail Error Keyword Values.
 
 | scimType | Description | Applicability |
 | invalidCursor | Cursor value is invalid. Cursor value should be empty to request the first page and set to the nextCursor or previousCursor value for subsequent queries.| GET (Section 3.4.2 of [RFC7644])|
@@ -183,95 +182,91 @@ to the following example (actual resources removed for brevity):
 
 ## Sorting
 
-   If sorting is implemented as described Section 3.4.2.3 of [RFC7644] ,
-   then cursor-paged results SHOULD be sorted.
+If sorting is implemented as described Section 3.4.2.3 of [RFC7644] ,
+then cursor-paged results SHOULD be sorted.
 
 ## Cursors as the Only Pagination Method
 
-  A SCIM Service Provider MAY require cursor-based pagination to
-   retrieve all results for a query by including a "nextCursor" value in
-   the response even when the query does not include the "cursor"
-   parameter.
+A SCIM Service Provider MAY require cursor-based pagination to
+retrieve all results for a query by including a `nextCursor` value in
+the response even when the query does not include the "cursor"
+parameter.
 
-   For example:
-
-~~~
-
-      GET /Users
-      Host: example.com
-      Accept: application/scim+json
+For example:
 
 ~~~
+GET /Users
+Host: example.com
+Accept: application/scim+json
+~~~
 
-   The SCIM Service Provider may respond to the above query with a page
-   containing defaultPageSize results and a "nextCursor" value as shown
-   in the below example (Resources omitted for brevity):
+The SCIM Service Provider may respond to the above query with a page
+containing defaultPageSize results and a `nextCursor` value as shown
+in the below example (Resources omitted for brevity):
 
 ~~~
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+HTTP/1.1 200 OK
+Content-Type: application/scim+json
 
-     {
-       "totalResults":5000,
-       "itemsPerPage":100,
-       "nextCursor":"HPq72Pax3JUaNa",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+{
+   "totalResults": 5000,
+   "itemsPerPage": 100,
+   "nextCursor": "HPq72Pax3JUaNa",
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "Resources": [{
+      ...
+   }]
+}
 ~~~
 
 # Querying Resources using HTTP POST
 
-  Section 3.4.2.4 of [RFC7644] defines how clients MAY execute the HTTP
-   POST method combined with the "/.search" path extension to issue
-   execute queries without passing parameters on the URL.  When using
-   "/.search", the client would pass the parameters defined in Section 2
+Section 3.4.2.4 of [RFC7644] defines how clients MAY execute the HTTP
+POST method combined with the "/.search" path extension to issue
+execute queries without passing parameters on the URL.  When using
+`/.search`, the client would pass the parameters defined in Section 2
 
 ~~~
-     POST /User/.search
-     Host: example.com
-     Accept: application/scim+json
-     Authorization: Bearer U8YJcYYRMjbGeepD
+POST /User/.search
+Host: example.com
+Accept: application/scim+json
+Authorization: Bearer U8YJcYYRMjbGeepD
 
-     {
-       "schemas": [
-         "urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
-       "attributes": ["displayName", "userName"],
-       "filter":
-          "displayName sw \"smith\"",
-       "cursor": "",
-       "count": 10
-     }
+{
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+   "attributes": ["displayName", "userName"],
+   "filter": "displayName sw \"smith\"",
+   "cursor": "",
+   "count": 10
+}
 ~~~
 
-   Which would return a result containing a "nextCursor" value which may
-   be used by the client in a subsequent call to return the next page of
-   resources
+Which would return a result containing a "nextCursor" value which may
+be used by the client in a subsequent call to return the next page of
+resources
 
 ~~~
-     HTTP/1.1 200 OK
-     Content-Type: application/scim+json
+HTTP/1.1 200 OK
+Content-Type: application/scim+json
 
-     {
-       "totalResults":100,
-       "itemsPerPage":10,
-       "nextCursor":"VZUTiyhEQJ94IR",
-       "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
-       "Resources":[{
-          ...
-        }]
-     }
+{
+   "totalResults": 100,
+   "itemsPerPage": 10,
+   "nextCursor": "VZUTiyhEQJ94IR",
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "Resources": [{
+      ...
+   }]
+}
 ~~~
 
 # Service Provider Configuration
 
- The `/ServiceProviderConfig` resource defined in Section 4 of [RFC7644]
-   facilitates discovery of SCIM service provider features.  A SCIM
-   Service provider implementing cursor-based pagination SHOULD include
-   the following additional attribute in JSON document returned by the
-   /ServiceProviderConfig endpoint:
+The `/ServiceProviderConfig` resource defined in Section 4 of [RFC7644]
+facilitates discovery of SCIM service provider features.  A SCIM
+Service provider implementing cursor-based pagination SHOULD include
+the following additional attribute in JSON document returned by the
+`/ServiceProviderConfig` endpoint:
 
 pagination
 : A complex type that indicates pagination configuration options.
