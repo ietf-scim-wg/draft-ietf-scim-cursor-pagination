@@ -2,7 +2,7 @@
 
 This is the working area for the IETF [SCIM Working Group](https://datatracker.ietf.org/wg/scim/documents/) Internet-Draft, "Cursor-based Pagination of SCIM Resources".
 
-* [Editor's Copy](https://ietf-scim-wg.github.io/draft-ietf-scim-cursor-pagination/#go.draft-ietf-scim-cursor-pagination.html)
+* [Editor's Copy](https://ietf-scim-wg.github.io/draft-ietf-scim-cursor-pagination/draft-ietf-scim-cursor-pagination.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-scim-cursor-pagination)
 * [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-scim-cursor-pagination)
 * [Compare Editor's Copy to Working Group Draft](https://ietf-scim-wg.github.io/draft-ietf-scim-cursor-pagination/#go.draft-ietf-scim-cursor-pagination.diff)
