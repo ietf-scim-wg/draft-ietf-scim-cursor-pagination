@@ -221,8 +221,8 @@ Content-Type: application/scim+json
 
 ## Backwards Compatibility Considerations
 
-Implementers of SCIM Service Providers that previously supported 
-index-based pagination and are adding support for cursor-based pagination 
+Implementers of SCIM Service Providers that previously supported
+index-based pagination and are adding support for cursor-based pagination
 should carefully consider the impact to existing SCIM Clients before
 changing the default pagination method in a return set. SCIM Clients
 that previously expected index-based pagination may not be compatible
