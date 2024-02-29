@@ -80,23 +80,23 @@ is already well-established.
 The following table describes the URL pagination parameters for requesting cursor-based pagination:
 
 | Parameter | Description |
-| cursor | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contained characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
-| count | A positive integer. Specifies the desired maximum number of query results per page, e.g., count=10. When specified, the service provider MUST NOT return more results than specified, although it MAY return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.
+| `cursor` | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contained characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
+| `count` | A positive integer. Specifies the desired maximum number of query results per page, e.g., `count=10`. When specified, the service provider MUST NOT return more results than specified, although it MAY return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.
 {: title="Query Parameters"}
 
 The following table describes cursor-based pagination attributes
 returned in a paged query response:
 
 | Element | Description |
-| nextCursor | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include nextCursor in all paged query responses except when returning the last page. nextCursor is omitted from a response only to indicate that there are no more result pages. |
-| previousCursor | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning previousCursor is OPTIONAL.
+| `nextCursor` | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include `nextCursor` in all paged query responses except when returning the last page. `nextCursor` is omitted from a response only to indicate that there are no more result pages. |
+| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.
 {: title="Response Attributes"}
 
 Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
 another result page for a query, it should query the same Service
 Provider endpoint with all query parameters and values being
 identical to the initial query with the exception of the cursor value
-which should be set to a nextCursor (or previousCursor) value that
+which should be set to a `nextCursor` (or `previousCursor`) value that
 was returned by Service Provider in a previous response.
 
 For example, to retrieve the first 10 Users with `userName` starting
@@ -174,22 +174,22 @@ focus on communicating error details to the SCIM client developer.
 
 For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in [RFC7644] Section 3.12, Table 9: SCIM Detail Error Keyword Values.
 
-| scimType | Description | Applicability |
-| invalidCursor | Cursor value is invalid. Cursor value should be empty to request the first page and set to the nextCursor or previousCursor value for subsequent queries.| GET (Section 3.4.2 of [RFC7644])|
-| expiredCursor | Cursor has expired. Do not wait longer than cursorTimeout (600 sec) to request additional pages.| GET (Section 3.4.2 of [RFC7644])|
-| invalidCount | Count value is invalid. Count value must be between 1 - and maxPageSize (500) | GET (Section 3.4.2 of [RFC7644])|
+| `scimType` | Description | Applicability |
+| `invalidCursor` | Cursor value is invalid. Cursor value should be empty to request the first page and set to the `nextCursor` or `previousCursor` value for subsequent queries.| `GET` (Section 3.4.2 of [RFC7644])|
+| `expiredCursor` | Cursor has expired. Do not wait longer than `cursorTimeout` (600 sec) to request additional pages.| `GET` (Section 3.4.2 of [RFC7644])|
+| `invalidCount` | Count value is invalid. Count value must be between 1 - and maxPageSize (500) | `GET` (Section 3.4.2 of [RFC7644])|
 {: title="Pagination Errors"}
 
 ## Sorting
 
-If sorting is implemented as described Section 3.4.2.3 of [RFC7644] ,
+If sorting is implemented as described Section 3.4.2.3 of [RFC7644],
 then cursor-paged results SHOULD be sorted.
 
 ## Cursors as the Only Pagination Method
 
 A SCIM Service Provider MAY require cursor-based pagination to
 retrieve all results for a query by including a `nextCursor` value in
-the response even when the query does not include the "cursor"
+the response even when the query does not include the `cursor`
 parameter.
 
 For example:
@@ -222,7 +222,7 @@ Content-Type: application/scim+json
 # Querying Resources using HTTP POST
 
 Section 3.4.2.4 of [RFC7644] defines how clients MAY execute the HTTP
-POST method combined with the "/.search" path extension to issue
+`POST` method combined with the `/.search` path extension to issue
 execute queries without passing parameters on the URL.  When using
 `/.search`, the client would pass the parameters defined in Section 2
 
@@ -241,7 +241,7 @@ Authorization: Bearer U8YJcYYRMjbGeepD
 }
 ~~~
 
-Which would return a result containing a "nextCursor" value which may
+Which would return a result containing a `nextCursor` value which may
 be used by the client in a subsequent call to return the next page of
 resources
 
@@ -313,7 +313,7 @@ Accept: application/scim+json
 
 A service provider supporting both cursor-based pagination and index-
 based pagination would return a document similar to the following
-(full ServiceProviderConfig schema defined in Section 5 of [RFC7643]
+(full `ServiceProviderConfig` schema defined in Section 5 of [RFC7643]
 has been omitted for brevity):
 
 ~~~
@@ -344,7 +344,7 @@ logging and monitoring, response caching, etc.
 
 For example, an obvious protection against abuse is for the Service
 Provider to require client authentication in order to retrieve large
-result sets and enforce an overriding totalResults limit for non-
+result sets and enforce an overriding `totalResults` limit for non-
 authenticated clients.  Another example would be for a Service
 Provider that implements cursor pagination to restrict the number of
 cursors that can be allocated by a client or enforce cursor lifetimes.
@@ -383,7 +383,7 @@ The concern for availability primarily stems from the potential for Denial of Se
 
 To mitigate such risks, the following strategies are recommended:
 
-* Implementation of rate limiting to control the volume and cadence of &cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in [RFC6585].
+* Implementation of rate limiting to control the volume and cadence of cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in [RFC6585].
 * Cursory mechanisms must be designed in a manner that avoids any additional consumption of server resources with the initiation of new &cursor requests.
 * It is advisable to establish a ceiling on the number of cursors permissible at any given time. Alternatively, the adoption of an opaque identifier system that conservatively utilizes resources may be used.
 * Token invalidation mechanisms (including mechanisms triggered by permissions changes) must be designed to be resource-efficient to prevent them from being exploited for DoS attacks.
@@ -398,42 +398,41 @@ IANA Considerations
 
 This specification amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643], for the `urn:ietf:params:scim:api:messages:2.0:SearchRequest` message URI and adds the following new fields:
 
-SCIM “cursor” attribute
+SCIM `cursor` attribute
 
- - Field Name:  cursor.
+ - Field Name: `cursor`.
  - Status: permanent.
  - Specification Document: this specification, Section 2
  - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
 
-SCIM “count” attribute
+SCIM `count` attribute
 
-  - Field Name: count
+  - Field Name: `count`
   - Status: permanent
   - Specification Document: this specification, Section 2
   - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
 
 This specification amends the entry  for urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and adds the following fields:
 
-SCIM “nextCursor” attribute
+SCIM `nextCursor` attribute
 
-  - Field Name: nextCursor
+  - Field Name: `nextCursor`
   - Status: permanent
   - Specification Document: this specification, Section 2
   - Comments: see section 3.4.2 of [RFC7644] System for Cross-domain Identity Management: Protocol
 
-SCIM “previousCursor” attribute
+SCIM `previousCursor` attribute
 
-  - Field Name: previousCursor
+  - Field Name: `previousCursor`
   - Status: permanent
   - Specification Document: this specification, Section 2
   - Comments: see section 3.4.2 of [RFC7644] System for Cross-domain Identity Management: Protocol
-
 
 This specification amends the entry  for urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig schema URI, and adds the following field:
 
-SCIM “pagination” attribute
+SCIM `pagination` attribute
 
-  - Field Name: pagination
+  - Field Name: `pagination`
   - Status: permanent
   - Specification Document: this specification, Section 4
   - Comments: see section 5 of [RFC7643] System for Cross-domain Identity Management: Protocol
