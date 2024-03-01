@@ -715,7 +715,7 @@ Authors' Addresses
 
    Danny Zollner (editor)
    Microsoft
-   Email: zollnerd@microsoft.com
+   Email: danny.zollner@microsoft.com
 
 
    Anjali Sehgal
