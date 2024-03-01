@@ -18,7 +18,7 @@ author:
    -
     name: Danny Zollner
     organization: Microsoft
-    email: zollnerd@microsoft.com
+    email: danny.zollner@microsoft.com
     role: editor
    -
     name: Anjali Sehgal
