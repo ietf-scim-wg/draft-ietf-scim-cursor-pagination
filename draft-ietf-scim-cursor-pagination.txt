@@ -5,8 +5,8 @@
 SCIM                                                     D. Zollner, Ed.
 Internet-Draft                                                 Microsoft
 Intended status: Standards Track                               A. Sehgal
-Expires: 1 September 2024                            Amazon Web Services
-                                                        29 February 2024
+Expires: 2 September 2024                            Amazon Web Services
+                                                            1 March 2024
 
 
                Cursor-based Pagination of SCIM Resources
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2024.
+   This Internet-Draft will expire on 2 September 2024.
 
 Copyright Notice
 
@@ -71,6 +71,7 @@ Table of Contents
      2.1.  Pagination errors
      2.2.  Sorting
      2.3.  Cursors as the Only Pagination Method
+     2.4.  Backwards Compatibility Considerations
    3.  Querying Resources using HTTP POST
    4.  Service Provider Configuration
    5.  Security Considerations
@@ -307,6 +308,22 @@ Table of Contents
          ...
       }]
    }
+
+2.4.  Backwards Compatibility Considerations
+
+   Implementers of SCIM service providers that previously supported
+   index-based pagination and are adding support for cursor-based
+   pagination should carefully consider the impact to existing SCIM
+   clients before changing the default pagination method in a return
+   set.  SCIM clients that previously expected index-based pagination
+   may not be compatible with cursor-based pagination without making
+   changes to the SCIM client.  Adding cursor-based pagination support
+   but leaving the default return set pagination method as-is will not
+   impact existing SCIM clients.
+
+   SCIM clients can query the provider configuration endpoint to
+   determine if index-based, cursor-based or both types of pagination
+   are supported.
 
 3.  Querying Resources using HTTP POST
 
@@ -621,6 +638,8 @@ Table of Contents
    *  Added IANA Considerations section
 
    *  Added Security Considerations section
+
+   *  Added Backwards Compatibility Considerations section
 
    -03
 
