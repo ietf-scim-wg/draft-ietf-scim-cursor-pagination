@@ -1,0 +1,411 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-03-03T00:45:47.727552+00:00",
+  "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOJDk96s5fkIuW",
+      "title": "Resource Exhaustion / Denial of Service ",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/issues/1",
+      "state": "CLOSED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "dhs-aws"
+      ],
+      "labels": [],
+      "body": "Creating this issue based on comments provided during the call for adoption:\r\n\r\nHow does the proposed specification address resource exhaustion or denial of service when multiple cursors are maintained over a period of time?",
+      "createdAt": "2023-02-28T15:40:03Z",
+      "updatedAt": "2024-01-22T18:14:00Z",
+      "closedAt": "2024-01-22T18:13:59Z",
+      "comments": [
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I suggest adding additional content to Section 5 that reads similar to the following:\r\n\r\n`Service Provider implementors MAY consider not implementing cursor-based pagination in light of these security considerations.\r\n`",
+          "createdAt": "2023-03-02T15:11:41Z",
+          "updatedAt": "2023-03-02T15:11:41Z"
+        },
+        {
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This might be better explained in a few sentences in the introduction, to provide more context for when this extension applies in the first place.",
+          "createdAt": "2023-03-02T16:16:11Z",
+          "updatedAt": "2023-03-02T16:16:11Z"
+        },
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks Aaron.  As discussed on today's call we'll aim to get the changes into a draft ahead of the IETF116 deadline.",
+          "createdAt": "2023-03-02T17:03:28Z",
+          "updatedAt": "2023-03-02T17:03:28Z"
+        },
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I believe this issue can now be closed.  ",
+          "createdAt": "2024-01-22T18:14:00Z",
+          "updatedAt": "2024-01-22T18:14:00Z"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOJDk96s5fkJ2g",
+      "title": "Resource locking",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/issues/2",
+      "state": "CLOSED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This issue was raised originally during the call for adoption.\r\n\r\nHow does the specification address locking resources when a resource is part of an active cursor?  Does this prevent updates to the underlying resources? ",
+      "createdAt": "2023-02-28T15:42:36Z",
+      "updatedAt": "2024-01-22T18:14:44Z",
+      "closedAt": "2024-01-22T18:14:44Z",
+      "comments": [
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The question is, in essence, \u201cif I have an active cursor and update the Nth record in the cursor, does the record update? And does the cursor update?\u201d  I think we need two separate answers.  First, we should consider adding guidance such as:\r\n \r\n`Implementors MUST NOT prevent resources from being updated (locking resources) while implementing cursor pagination.`\r\n \r\nHowever, this change may lead to a lack of clarity about the state of the data in the cursor.  One way to address this is to enable options to support a point in time cursor vs. strongly consistent read where updates are included.  For example:\r\n \r\n```\r\n     GET /Users?filter=username%20sw%20J&cursor&count=10&consistentRead\r\n     Host: example.com\r\n     Accept: application/scim+json\r\n     Authorization: Bearer U8YJcYYRMjbGeepD\r\n \r\n     GET /Users?filter=username%20sw%20J&cursor&count=10&pointInTimeRead\r\n     Host: example.com\r\n     Accept: application/scim+json\r\n     Authorization: Bearer U8YJcYYRMjbGeepD\r\n```\r\n\r\nSimilar changes will need to be enabled for `POST` requests for consistency.  Note that there is no implementation guidance.  How an implementation achieves this is up to the implementer if they choose to implement cursor based pagination.\r\n \r\nIf we go this route, we'll also need to include some additional fields in the service provider configuration.  A first pass at defining these fields is below:\r\n \r\n```\r\n      cursorType A complex type that indicates support for cursor read strategies.  If cursor-based\r\n      paginations are enabled this value is REQUIRED and at least one subvalue MUST be true.\r\n \r\n         consistentRead A Boolean type indicating support for strongly consistent reads. \r\n         The client will always be returned the freshest data. OPTIONAL.\r\n \r\n         pointInTimeRead A Boolean type indicating support for cursors returning data as it existed at\r\n         the time of query execution. Changes to the dataset are not reflected in the cursor. OPTIONAL.\r\n \r\n```\r\n\r\n",
+          "createdAt": "2023-03-02T15:22:10Z",
+          "updatedAt": "2023-03-02T15:22:10Z"
+        },
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Today's WG meeting discussed this issue at length.  The only item we came to a general consensus on is that locking resources when a cursor is open is undesirable and a potential security flaw.  \r\n\r\nWe did not come to any conclusions on whether cursors are point in time or strongly consistent reads.  Please add your use cases to #3 in order to help identify which of these patterns is the desired end state.",
+          "createdAt": "2023-03-02T17:13:29Z",
+          "updatedAt": "2023-03-02T17:13:29Z"
+        },
+        {
+          "author": "jaudriga",
+          "authorAssociation": "NONE",
+          "body": "I agree with what was said during yesterday's WG meeting that defining two options might not be desirable for interoperability reasons.\r\n\r\nAs far as I can see one important use case for cusor-based pagination is paging through large amounts of data. In recent discussions one important aspect was that caching large amounts of data may lead to high resource consumption and potentially DoS. For point in time read, it is my understanding that the whole data set would need to be cached. For the other option keeping references to the result set should suffice. This is probably an important disadvantage of point in time, when the goal is paging through a really large data set.\r\n\r\nOn another note it seems that not all systems support strongly consistent read. E.g. [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html) does not support it in all circumstances.\r\n\r\nInstead of having two options here it might make sense to state that the result set will contain \"eventually consistent\" data? This would not impose additional requirements on SCIM server implementations. Of course clients would then need to cope with the situation that results will be partially up to date regarding the point in time when they opened up their cursor. As far as I can see will then affect how clients handle future delta queries.\r\n",
+          "createdAt": "2023-03-03T10:05:00Z",
+          "updatedAt": "2023-03-03T10:05:00Z"
+        },
+        {
+          "author": "ansg-aws",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Below is the what we can add to the document.\r\n\r\n*********\r\nImplementors MUST NOT prevent resources from being updated (locking resources) while implementing cursor pagination. New objects can be added or existing objects can be removed or updated. \r\n\r\nResult sets MUST implement eventually consistent data. Result sets MAY implement strongly consistent datasets.\r\n\r\nThe cursor based pagination gaurantees that records are not skipped nor appear as duplicates. New records MAY be appended to the cursor. Deletions MAY be absent from the returned record set if a page is retrieved after the deletion has occurred.\r\n***********************\r\n",
+          "createdAt": "2023-03-14T17:53:44Z",
+          "updatedAt": "2023-03-14T17:53:44Z"
+        },
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "s/gaurantees/guarantees/ in the previous comment.\r\n",
+          "createdAt": "2023-03-14T23:19:35Z",
+          "updatedAt": "2023-03-14T23:19:35Z"
+        },
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Given the progress on the draft and WGLC, I will close this issue.",
+          "createdAt": "2024-01-22T18:14:44Z",
+          "updatedAt": "2024-01-22T18:14:44Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOJDk96s5fy7i0",
+      "title": "Cursor Based Pagination Use Cases",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/issues/3",
+      "state": "OPEN",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "What are your use cases for cursor based pagination?  In order to resolve the discussion on #2 we'd like to work backwards from the implementation use cases to ensure the proposed changes accurately reflect the needs of implementors.  Please add your use cases here.",
+      "createdAt": "2023-03-02T17:10:49Z",
+      "updatedAt": "2023-03-14T23:57:08Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "ansg-aws",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The SCIM Cursor based pagination applies to the same use cases as index based pagination does. It's an alternative to index based pagination. Line#86 through 93 provides the need for cursor based pagination as an alternative. For Issue#2 we have provided a verbiage on the issue. We will update the next draft with the new language. Hence, the use cases for the pagination as generic requirement should be covered under the SCIM Use Cases document. ",
+          "createdAt": "2023-03-14T22:09:43Z",
+          "updatedAt": "2023-03-14T22:09:43Z"
+        },
+        {
+          "author": "pamelatech",
+          "authorAssociation": "NONE",
+          "body": "Here is a use case that maybe we can react to and then tune/reject:  \r\nScenario:  a SCIM server offers a total set of 5 million user objects and a SCIM client wants to keep those objects synchronized in their own systems.   The SCIM client requests a paginated list of all 5 million objects, and are served 1000 objects at a time.  This means that 5000 separate fetches will be required for the SCIM client to completely synchronize their data set.  Due to performance/throttling reasons, it take 5 hours for all 5000 fetches to complete.  During that 5 hours, objects in the sorting order in which the data is served change:   object 1 is deleted after 10 minutes, object 5 is deleted after 4 hours, object 4500 is deleted after 15 minutes.  a new object is created that would be #4800 for a new query 3 hours after the initial paginated response is created.  Object #300 changes one hour in, and object 2500 changes two hours in.  What does the dataset look like for an index-paginated result set, a strongly consistent result set and an eventually consistent result set?    Assuming I've picked the right times and object numbers, I think we should be able to see the differences in what state the client will be in at the end of processing the entire result set.  None of the result sets at the client will exactly mirror the state at the scim server, but hopefully there is a simple way to summarize what developers can know they have at the end.  Let me know if that kind of approach makes sense.  ",
+          "createdAt": "2023-03-14T23:57:07Z",
+          "updatedAt": "2023-03-14T23:57:07Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 4,
+      "id": "PR_kwDOJDk96s5kWeTk",
+      "title": "Updating to v3",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/4",
+      "state": "MERGED",
+      "author": "ZollnerdMSFT",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Removed v00 txt file and added v03 markdown/yaml file",
+      "createdAt": "2024-01-17T20:15:10Z",
+      "updatedAt": "2024-01-22T18:08:49Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "f00862f9088ca6f7238774a9e4984eb6f37212ce",
+      "headRepository": "ZollnerdMSFT/draft-ietf-scim-cursor-pagination",
+      "headRefName": "main",
+      "headRefOid": "3a7f4e3a03b7ff8aa7eabb2841b2fa218c3cd8cf",
+      "closedAt": "2024-01-22T18:08:49Z",
+      "mergedAt": "2024-01-22T18:08:49Z",
+      "mergedBy": "aaronpk",
+      "mergeCommit": {
+        "oid": "c991e691731a483752f1bf47849de64d2f7b1b6d"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOJDk96s5lmNxf",
+      "title": "Added security considerations section",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/5",
+      "state": "MERGED",
+      "author": "planux",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Added security considerations section\r\n- Renamed file from draft-ietf-scim-cursor-pagination-03 to draft-ietf-scim-cursor-pagination-04 and updated appropriate version mentions",
+      "createdAt": "2024-01-31T17:11:55Z",
+      "updatedAt": "2024-01-31T17:12:34Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "c991e691731a483752f1bf47849de64d2f7b1b6d",
+      "headRepository": "planux/draft-ietf-scim-cursor-pagination",
+      "headRefName": "planux-add-security-considerations",
+      "headRefOid": "dd2a759533bc6c3c13e1f73c5ce08ea4b6a483e3",
+      "closedAt": "2024-01-31T17:12:34Z",
+      "mergedAt": "2024-01-31T17:12:34Z",
+      "mergedBy": "ZollnerdMSFT",
+      "mergeCommit": {
+        "oid": "baeb9107bde4ff572477581938fbdc334b48ef7e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJDk96s5ltcRg",
+      "title": "Update draft-ietf-scim-cursor-pagination-04.md",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/6",
+      "state": "MERGED",
+      "author": "ansg-aws",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Added IANA Considerations section",
+      "createdAt": "2024-02-01T14:35:36Z",
+      "updatedAt": "2024-02-06T15:58:02Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "baeb9107bde4ff572477581938fbdc334b48ef7e",
+      "headRepository": "ansg-aws/draft-ietf-scim-cursor-pagination",
+      "headRefName": "add-IANA-Changes--v04",
+      "headRefOid": "c07cf4f6214d866488496f199bf0410ac53d5fd2",
+      "closedAt": "2024-02-06T15:58:02Z",
+      "mergedAt": "2024-02-06T15:58:02Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "c0a937f1a50c9dcb8f3a8257354facdb71366d92"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOJDk96s5ltpnZ",
+      "title": "Updates for nits v04",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/7",
+      "state": "MERGED",
+      "author": "ansg-aws",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In the Abstract and Introduction, a nit:\r\n\u201cis already well established\u201d should not be hyphenated, as it\u2019s not a modifier\r\n(whereas \u201ca well-established pagination pattern\u201d is correctly hyphenated).\r\n**Resolution**: removed hyphen\r\n\r\n\u2014 Section 2 \u2014\r\n\r\nThe following table describes the URL pagination parameters requests\r\nfor using cursor-based pagination:\r\n\r\nI think the word \u201crequests\u201d is extra and should be removed (or perhaps \u201cusing\u201d\r\nshould be replaced by \u201crequesting\u201d).\r\n\r\n**Resolution**: replaced \"requests for using\" with \"for requesting\"\r\n\r\nIn the second table you say \u201cUse of previousCursor is OPTIONAL.\u201d That seems to\r\nsay that using it in a subsequent request is optional, which is already said in\r\nthe previous sentence. I think this one should say, \u201cReturning previousCursor\r\nis OPTIONAL.\u201d\r\n\r\n**Resolution**: replaced \u201cUse of previousCursor is OPTIONAL.\u201d with \"Returning previousCursor\r\nis OPTIONAL.\"\r\nb933bfd\r\n",
+      "createdAt": "2024-02-01T15:02:56Z",
+      "updatedAt": "2024-02-06T15:58:24Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "baeb9107bde4ff572477581938fbdc334b48ef7e",
+      "headRepository": "ansg-aws/draft-ietf-scim-cursor-pagination",
+      "headRefName": "updates-for-nits-v04",
+      "headRefOid": "b933bfd5b0236b0f03d84985aabc95ff7a7bf4b0",
+      "closedAt": "2024-02-06T15:58:23Z",
+      "mergedAt": "2024-02-06T15:58:23Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "f5b0edeb2630b8a9d7a67fe80c074a8d7aabeb38"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJDk96s5oUzer",
+      "title": "Add backwards compatibility considerations",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/8",
+      "state": "MERGED",
+      "author": "planux",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In response to feedback, adding section describing backwards compatibility in cases where the SCIM Service Provider is contemplating switching the default pagination method on return sets to the cursor-based method.",
+      "createdAt": "2024-02-29T18:12:12Z",
+      "updatedAt": "2024-03-01T16:50:33Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "dd1b4229f5318136f2e94f00c08c3572e7760397",
+      "headRepository": "planux/draft-ietf-scim-cursor-pagination",
+      "headRefName": "planux-backwards-compat-considerations",
+      "headRefOid": "b8ccbf319462606290b21d4ea9b53a2dca5e9734",
+      "closedAt": "2024-03-01T16:49:48Z",
+      "mergedAt": "2024-03-01T16:49:48Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "ba7f7254803d578c3c30ba9aaf5d7d51150eb0e5"
+      },
+      "comments": [
+        {
+          "author": "ansg-aws",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Reviewed, Approved.",
+          "createdAt": "2024-03-01T16:50:32Z",
+          "updatedAt": "2024-03-01T16:50:32Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJDk96s5x8GHB",
+          "commit": {
+            "abbreviatedOid": "b8ccbf3"
+          },
+          "author": "ZollnerdMSFT",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Reviewed, approved.",
+          "createdAt": "2024-03-01T16:49:48Z",
+          "updatedAt": "2024-03-01T16:49:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOJDk96s5obpSB",
+      "title": "Changed owner email for Danny",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/9",
+      "state": "MERGED",
+      "author": "ZollnerdMSFT",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-01T17:04:44Z",
+      "updatedAt": "2024-03-01T17:04:57Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "ba7f7254803d578c3c30ba9aaf5d7d51150eb0e5",
+      "headRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "headRefName": "doc-owner-update",
+      "headRefOid": "89542108d2ca8cf7ab29cf236780621ca5fd8fc4",
+      "closedAt": "2024-03-01T17:04:53Z",
+      "mergedAt": "2024-03-01T17:04:53Z",
+      "mergedBy": "ZollnerdMSFT",
+      "mergeCommit": {
+        "oid": "79d001a40151048c1cbbc14ad45ee11eaa79a534"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOJDk96s5obqtg",
+      "title": "Revert \"Changed owner email for Danny\"",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/10",
+      "state": "MERGED",
+      "author": "ZollnerdMSFT",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Reverts ietf-scim-wg/draft-ietf-scim-cursor-pagination#9",
+      "createdAt": "2024-03-01T17:08:19Z",
+      "updatedAt": "2024-03-01T17:08:33Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "79d001a40151048c1cbbc14ad45ee11eaa79a534",
+      "headRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "headRefName": "revert-9-doc-owner-update",
+      "headRefOid": "cde78adb8819bf69611714c68d0c144811aaf2ea",
+      "closedAt": "2024-03-01T17:08:25Z",
+      "mergedAt": "2024-03-01T17:08:25Z",
+      "mergedBy": "ZollnerdMSFT",
+      "mergeCommit": {
+        "oid": "2b7bc70b6d8145c4473da6769ac3499768774524"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
