@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-10T00:46:52.771433+00:00",
+  "timestamp": "2024-03-12T00:42:40.553807+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -199,9 +199,24 @@
       "labels": [],
       "body": "I've read the paging cursor, specification. How long can a client guarantee they can use the nextCursor value?  ",
       "createdAt": "2024-03-04T11:59:52Z",
-      "updatedAt": "2024-03-04T11:59:52Z",
+      "updatedAt": "2024-03-11T13:34:28Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ansg-aws",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thank you Andrew for the question. It depends on the Server Implementor. The Server Provider Configuration exposes the \"cursorTimeout\" parameter to guarantee that clients can use the nextCursor value for the duration of Timeout period. ",
+          "createdAt": "2024-03-11T11:40:49Z",
+          "updatedAt": "2024-03-11T11:41:51Z"
+        },
+        {
+          "author": "andrewclymer",
+          "authorAssociation": "NONE",
+          "body": "Thanks, can't believe  I missed it",
+          "createdAt": "2024-03-11T13:34:26Z",
+          "updatedAt": "2024-03-11T13:34:26Z"
+        }
+      ]
     }
   ],
   "pulls": [
