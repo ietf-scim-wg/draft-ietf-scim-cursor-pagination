@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-12T00:42:40.553807+00:00",
+  "timestamp": "2024-03-14T00:42:49.365549+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -192,15 +192,15 @@
       "id": "I_kwDOJDk96s6BJNIL",
       "title": "Cursor lifetime",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "andrewclymer",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "I've read the paging cursor, specification. How long can a client guarantee they can use the nextCursor value?  ",
       "createdAt": "2024-03-04T11:59:52Z",
-      "updatedAt": "2024-03-11T13:34:28Z",
-      "closedAt": null,
+      "updatedAt": "2024-03-12T14:16:08Z",
+      "closedAt": "2024-03-12T14:16:08Z",
       "comments": [
         {
           "author": "ansg-aws",
