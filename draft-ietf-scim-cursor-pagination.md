@@ -93,10 +93,10 @@ returned in a paged query response:
 {: title="Response Attributes"}
 
 Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
-another result page for a query, it should query the same Service
+another result page for a query, it SHOULD query the same Service
 Provider endpoint with all query parameters and values being
 identical to the initial query with the exception of the cursor value
-which should be set to a `nextCursor` (or `previousCursor`) value that
+which SHOULD be set to a `nextCursor` (or `previousCursor`) value that
 was returned by Service Provider in a previous response.
 
 For example, to retrieve the first 10 Users with `userName` starting
@@ -165,7 +165,7 @@ pagination that are unable to estimate totalResults MAY choose to omit the total
 
 If a Service Provider encounters invalid pagination query
 parameters (invalid cursor value, count value, etc), or other error
-condition, the Service Provider SHOULD return the appropriate HTTP
+conditions, the Service Provider SHOULD return the appropriate HTTP
 response status code and detailed JSON error response as defined in
 Section 3.12 of [RFC7644].  Most pagination error conditions would
 generate an HTTP response with status code 400.  Since many pagination
@@ -175,7 +175,7 @@ focus on communicating error details to the SCIM client developer.
 For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in [RFC7644] Section 3.12, Table 9: SCIM Detail Error Keyword Values.
 
 | `scimType` | Description | Applicability |
-| `invalidCursor` | Cursor value is invalid. Cursor value should be empty to request the first page and set to the `nextCursor` or `previousCursor` value for subsequent queries.| `GET` (Section 3.4.2 of [RFC7644])|
+| `invalidCursor` | Cursor value is invalid. Cursor value SHOULD be empty to request the first page and set to the `nextCursor` or `previousCursor` value for subsequent queries.| `GET` (Section 3.4.2 of [RFC7644])|
 | `expiredCursor` | Cursor has expired. Do not wait longer than `cursorTimeout` (600 sec) to request additional pages.| `GET` (Section 3.4.2 of [RFC7644])|
 | `invalidCount` | Count value is invalid. Count value must be between 1 - and maxPageSize (500) | `GET` (Section 3.4.2 of [RFC7644])|
 {: title="Pagination Errors"}
@@ -223,12 +223,12 @@ Content-Type: application/scim+json
 
 Implementers of SCIM service providers that previously supported
 index-based pagination and are adding support for cursor-based pagination
-should carefully consider the impact to existing SCIM clients before
+SHOULD carefully consider the impact to existing SCIM clients before
 changing the default pagination method in a return set. SCIM clients
 that previously expected index-based pagination may not be compatible
 with cursor-based pagination without making changes to the SCIM client.
 Adding cursor-based pagination support but leaving the default return
-set pagination method as-is will not impact existing SCIM clients.
+set pagination method as-is SHOULD not impact existing SCIM clients.
 
 SCIM clients can query the provider configuration endpoint to determine
 if index-based, cursor-based or both types of pagination are supported.
@@ -365,7 +365,7 @@ cursors that can be allocated by a client or enforce cursor lifetimes.
 
 # Security Considerations
 
-This section elaborates on the security considerations associated with the implementation of cursor pagination in SCIM. It is imperative that implementers consider the following security aspects to safeguard against both deliberate attacks and inadvertent misuse that may compromise the system's security posture.
+This section elaborates on the security considerations associated with the implementation of cursor pagination in SCIM. This draft is under the same security and privacy considerations of those described in RFC 7644. It is imperative that implementers consider the following security aspects to safeguard against both deliberate attacks and inadvertent misuse that may compromise the system's security posture.
 
 ## Threat Model and Security Environment
 
