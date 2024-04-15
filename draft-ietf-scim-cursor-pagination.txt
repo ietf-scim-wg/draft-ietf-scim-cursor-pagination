@@ -5,8 +5,8 @@
 SCIM                                                     D. Zollner, Ed.
 Internet-Draft                                                 Microsoft
 Intended status: Standards Track                               A. Sehgal
-Expires: 2 September 2024                            Amazon Web Services
-                                                            1 March 2024
+Expires: 17 October 2024                             Amazon Web Services
+                                                           15 April 2024
 
 
                Cursor-based Pagination of SCIM Resources
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 September 2024.
+   This Internet-Draft will expire on 17 October 2024.
 
 Copyright Notice
 
@@ -172,9 +172,9 @@ Table of Contents
 
    Cursor values are opaque; clients MUST not make assumptions about
    their structure.  When the client wants to retrieve another result
-   page for a query, it should query the same Service Provider endpoint
+   page for a query, it SHOULD query the same Service Provider endpoint
    with all query parameters and values being identical to the initial
-   query with the exception of the cursor value which should be set to a
+   query with the exception of the cursor value which SHOULD be set to a
    nextCursor (or previousCursor) value that was returned by Service
    Provider in a previous response.
 
@@ -239,7 +239,7 @@ Table of Contents
 2.1.  Pagination errors
 
    If a Service Provider encounters invalid pagination query parameters
-   (invalid cursor value, count value, etc), or other error condition,
+   (invalid cursor value, count value, etc), or other error conditions,
    the Service Provider SHOULD return the appropriate HTTP response
    status code and detailed JSON error response as defined in
    Section 3.12 of [RFC7644].  Most pagination error conditions would
@@ -257,7 +257,7 @@ Table of Contents
    | scimType      | Description                      | Applicability |
    +===============+==================================+===============+
    | invalidCursor | Cursor value is invalid.  Cursor | GET (Section  |
-   |               | value should be empty to request | 3.4.2 of      |
+   |               | value SHOULD be empty to request | 3.4.2 of      |
    |               | the first page and set to the    | [RFC7644])    |
    |               | nextCursor or previousCursor     |               |
    |               | value for subsequent queries.    |               |
@@ -313,12 +313,12 @@ Table of Contents
 
    Implementers of SCIM service providers that previously supported
    index-based pagination and are adding support for cursor-based
-   pagination should carefully consider the impact to existing SCIM
+   pagination SHOULD carefully consider the impact to existing SCIM
    clients before changing the default pagination method in a return
    set.  SCIM clients that previously expected index-based pagination
    may not be compatible with cursor-based pagination without making
    changes to the SCIM client.  Adding cursor-based pagination support
-   but leaving the default return set pagination method as-is will not
+   but leaving the default return set pagination method as-is SHOULD not
    impact existing SCIM clients.
 
    SCIM clients can query the provider configuration endpoint to
@@ -445,10 +445,12 @@ Table of Contents
 5.  Security Considerations
 
    This section elaborates on the security considerations associated
-   with the implementation of cursor pagination in SCIM.  It is
-   imperative that implementers consider the following security aspects
-   to safeguard against both deliberate attacks and inadvertent misuse
-   that may compromise the system's security posture.
+   with the implementation of cursor pagination in SCIM.  This draft is
+   under the same security and privacy considerations of those described
+   in RFC 7644.  It is imperative that implementers consider the
+   following security aspects to safeguard against both deliberate
+   attacks and inadvertent misuse that may compromise the system's
+   security posture.
 
 5.1.  Threat Model and Security Environment
 
