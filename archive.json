@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-14T01:00:20.203540+00:00",
+  "timestamp": "2024-04-16T00:43:51.556206+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -443,26 +443,49 @@
       "id": "PR_kwDOJDk96s5sMdaW",
       "title": "Updates-for-nancy's-feedback",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/12",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ansg-aws",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "* I do not see any of the \u201cshould\u201d as \u201cSHOULD\u201d though in some of the reading \u00a0Perhaps there are instances in which they are perhaps requirements and should be capitalized. Done\r\nSimli\r\n* Section 2.4 \u201c\u2026method as-is will not impact\u201d,\u00a0 this statement implies that\u00a0 \u00a0\u00a0 any implementation that adds cursor-based pagination support not impact \u00a0\u00a0 existing clients but that is based on implementation, my recommendation\u00a0 \u00a0\u00a0 is to make the \u201cwill\u201d to a \u201cshould\u201d.\r\nDone\r\n\u00a0\r\n* Section 5: it would be good to mention that this draft is under the same Security and privacy considerations of those described in RFC 7644. Done\r\n\r\nEditorial Nits\r\n* Section 2.1 \u201c\u2026other error condition\u201d should read \u201c\u2026.other error conditions\u201d Done",
       "createdAt": "2024-04-10T02:14:02Z",
-      "updatedAt": "2024-04-10T02:14:02Z",
+      "updatedAt": "2024-04-15T15:26:47Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "baseRefName": "main",
       "baseRefOid": "707fd6f084eaec2c9de0ac9df8277936a82621ae",
       "headRepository": "ansg-aws/draft-ietf-scim-cursor-pagination",
       "headRefName": "Updates-for-nancy's-feedback",
       "headRefOid": "82b2612240df6b2275344bfad6a09042d62a718c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-04-15T15:26:46Z",
+      "mergedAt": "2024-04-15T15:26:46Z",
+      "mergedBy": "ZollnerdMSFT",
+      "mergeCommit": {
+        "oid": "32a0b2f9051183af23b1d8043b515430c93199a4"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJDk96s53SyuK",
+          "commit": {
+            "abbreviatedOid": "82b2612"
+          },
+          "author": "ZollnerdMSFT",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-15T15:22:57Z",
+          "updatedAt": "2024-04-15T15:22:57Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "Restructure sentence to add normative requirement? Wording here feels weird..",
+              "createdAt": "2024-04-15T15:22:57Z",
+              "updatedAt": "2024-04-15T15:22:57Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
