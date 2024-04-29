@@ -80,7 +80,7 @@ is already well-established.
 The following table describes the URL pagination parameters for requesting cursor-based pagination:
 
 | Parameter | Description |
-| `cursor` | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contained characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
+| `cursor` | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contain characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
 | `count` | A positive integer. Specifies the desired maximum number of query results per page, e.g., `count=10`. When specified, the service provider MUST NOT return more results than specified, although it MAY return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.
 {: title="Query Parameters"}
 
@@ -161,7 +161,7 @@ return an accurate value for totalResults which is the total number
 of resources for all pages.  Service Providers implementing cursor
 pagination that are unable to estimate totalResults MAY choose to omit the totalResults attribute.
 
-## Pagination errors
+## Pagination Errors
 
 If a Service Provider encounters invalid pagination query
 parameters (invalid cursor value, count value, etc), or other error
@@ -172,12 +172,12 @@ generate an HTTP response with status code 400.  Since many pagination
 error conditions are not user recoverable, error messages SHOULD
 focus on communicating error details to the SCIM client developer.
 
-For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in [RFC7644] Section 3.12, Table 9: SCIM Detail Error Keyword Values.
+For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in [RFC7644] Section 3.12, Table 9: SCIM Detail Error Keyword Values. The values contained in parenthesis in the description table (cursorTimeout and maxPageSize) SHOULD be integers representing the limits described by the cursorTimeout and maxPageSize attributes defined in this document's Service Provider Configuration section. 
 
 | `scimType` | Description | Applicability |
 | `invalidCursor` | Cursor value is invalid. Cursor value SHOULD be empty to request the first page and set to the `nextCursor` or `previousCursor` value for subsequent queries.| `GET` (Section 3.4.2 of [RFC7644])|
-| `expiredCursor` | Cursor has expired. Do not wait longer than `cursorTimeout` (600 sec) to request additional pages.| `GET` (Section 3.4.2 of [RFC7644])|
-| `invalidCount` | Count value is invalid. Count value must be between 1 - and maxPageSize (500) | `GET` (Section 3.4.2 of [RFC7644])|
+| `expiredCursor` | Cursor has expired. Do not wait longer than (`cursorTimeout`) seconds to request additional pages.| `GET` (Section 3.4.2 of [RFC7644])|
+| `invalidCount` | Count value is invalid. Count value must be between 1 - and (`maxPageSize`). | `GET` (Section 3.4.2 of [RFC7644])|
 {: title="Pagination Errors"}
 
 ## Sorting
@@ -235,7 +235,7 @@ if index-based, cursor-based or both types of pagination are supported.
 
 # Querying Resources using HTTP POST
 
-Section 3.4.2.4 of [RFC7644] defines how clients MAY execute the HTTP
+Section 3.4.3 of [RFC7644] defines how clients MAY execute the HTTP
 `POST` method combined with the `/.search` path extension to issue
 execute queries without passing parameters on the URL.  When using
 `/.search`, the client would pass the parameters defined in Section 2
@@ -255,9 +255,9 @@ Authorization: Bearer U8YJcYYRMjbGeepD
 }
 ~~~
 
-Which would return a result containing a `nextCursor` value which may
+which would return a result containing a `nextCursor` value which may
 be used by the client in a subsequent call to return the next page of
-resources
+resources.
 
 ~~~
 HTTP/1.1 200 OK
@@ -279,39 +279,39 @@ Content-Type: application/scim+json
 The `/ServiceProviderConfig` resource defined in Section 4 of [RFC7644]
 facilitates discovery of SCIM service provider features.  A SCIM
 Service provider implementing cursor-based pagination SHOULD include
-the following additional attribute in JSON document returned by the
+the following additional attribute in the JSON document returned by the
 `/ServiceProviderConfig` endpoint:
 
 pagination
 : A complex type that indicates pagination configuration options.
 OPTIONAL.
 
-cursor
-: A Boolean value specifying support of cursor-based pagination.
-REQUIRED.
+   cursor
+   : A Boolean value specifying support of cursor-based pagination.
+   REQUIRED.
 
-index
-: A Boolean value specifying support of index-based pagination.
-REQUIRED.
+   index
+   : A Boolean value specifying support of index-based pagination.
+   REQUIRED.
 
-defaultPageSize
-: Non-negative integer value specifying the default number of results
-returned in a page when a count is not specified in the query.
-OPTIONAL.
+   defaultPageSize
+   : Positive integer value specifying the default number of results
+   returned in a page when a count is not specified in the query.
+   OPTIONAL.
 
-maxPageSize
-: Non-negative integer specifying the maximum number of results
-returned in a page regardless of what is specified for the count
-in a query. The maximum number of results returned may be further
-restricted by other criteria. OPTIONAL.
+   maxPageSize
+   : Positive integer specifying the maximum number of results
+   returned in a page regardless of what is specified for the count
+   in a query. The maximum number of results returned may be further
+   restricted by other criteria. OPTIONAL.
 
-cursorTimeout
-: Non-negative integer specifying the maximum number seconds that a
-cursor is valid between page requests.  Clients waiting too long
-between cursor pagination requests may receive an invalid cursor
-error response. No value being specified may mean that there is no
-cursor timeout or that the cursor timeout is not a static
-duration.  OPTIONAL.
+   cursorTimeout
+   : Positive integer specifying the maximum number of seconds that a
+   cursor is valid between page requests.  Clients waiting too long
+   between cursor pagination requests may receive an invalid cursor
+   error response. No value being specified may mean that there is no
+   cursor timeout or that the cursor timeout is not a static
+   duration.  OPTIONAL.
 
 Before using cursor-based pagination, a SCIM client MAY fetch the
 Service Provider Configuration document from the SCIM service
@@ -348,11 +348,11 @@ Content-Type: application/scim+json
 }
 ~~~
 
-Service Provider implementors SHOULD ensure that misuse of pagination
+Service Provider implementers SHOULD ensure that misuse of pagination
 by a SCIM client does not deplete Service Provider resources or
-prevent valid requests from other clients being handled.  Defenses
-for a SCIM Service Provider are similar those used to protect other
-Web API services -- including the use of a "Web API gateway" layer,
+prevent valid requests from other clients from being handled.  Defenses
+for a SCIM Service Provider are similar to those used to protect other
+Web API services -- including the use of a "Web API gateway" layer
 to provide authentication, rate limiting, IP allow/block lists,
 logging and monitoring, response caching, etc.
 
@@ -406,11 +406,10 @@ To mitigate such risks, the following strategies are recommended:
 ## Other Security References
 
 Using URIs to describe and locate resources has its own set of security considerations discussed in Section 7 of [RFC3986].
-IANA Considerations
 
 # IANA Considerations
 
-This specification amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643], for the `urn:ietf:params:scim:api:messages:2.0:SearchRequest` message URI and adds the following new fields:
+This specification amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643], for the `urn:ietf:params:scim:api:messages:2.0:SearchRequest` message URI and adds the following new field:
 
 SCIM `cursor` attribute
 
@@ -418,13 +417,6 @@ SCIM `cursor` attribute
  - Status: permanent.
  - Specification Document: this specification, Section 2
  - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
-
-SCIM `count` attribute
-
-  - Field Name: `count`
-  - Status: permanent
-  - Specification Document: this specification, Section 2
-  - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
 
 This specification amends the entry  for urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and adds the following fields:
 
@@ -452,6 +444,10 @@ SCIM `pagination` attribute
   - Comments: see section 5 of [RFC7643] System for Cross-domain Identity Management: Protocol
 
 # Change Log
+
+-05
+
+* Minor grammatical/typo fixes, clarified error messages, changed non-negative integer -> positive integer for SCP sub-attribute values, removed "count" from IANA Considerations. 
 
 -04
 
