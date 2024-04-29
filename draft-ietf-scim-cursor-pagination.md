@@ -486,4 +486,3 @@ The editor would also like to acknowledge the contributions of the following ind
 * Dean H. Saxe - Amazon Web Services
 * Pamela Dingle - Microsoft
 * Paul Lanzi - Remediant
-
