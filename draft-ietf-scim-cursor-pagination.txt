@@ -5,8 +5,8 @@
 SCIM                                                     D. Zollner, Ed.
 Internet-Draft                                                 Microsoft
 Intended status: Standards Track                               A. Sehgal
-Expires: 17 October 2024                             Amazon Web Services
-                                                           15 April 2024
+Expires: 2 December 2024                             Amazon Web Services
+                                                             31 May 2024
 
 
                Cursor-based Pagination of SCIM Resources
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 October 2024.
+   This Internet-Draft will expire on 2 December 2024.
 
 Copyright Notice
 
@@ -565,8 +565,8 @@ Table of Contents
 
 6.  IANA Considerations
 
-   This specification amends the registry "SCIM Schema URIs for Data
-   Resources" established by [RFC7643], for the
+   This specification requests IANA to amends the registry "SCIM Schema
+   URIs for Data Resources" established by [RFC7643], for the
    urn:ietf:params:scim:api:messages:2.0:SearchRequest message URI and
    adds the following new fields:
 
