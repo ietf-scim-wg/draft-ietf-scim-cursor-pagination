@@ -286,11 +286,11 @@ pagination
 : A complex type that indicates pagination configuration options.
 OPTIONAL.
 
-cursor
+- cursor
 : A Boolean value specifying support of cursor-based pagination.
 REQUIRED.
 
-index
+- index
 : A Boolean value specifying support of index-based pagination.
 REQUIRED.
 
@@ -306,12 +306,7 @@ in a query. The maximum number of results returned may be further
 restricted by other criteria. OPTIONAL.
 
 cursorTimeout
-: Non-negative integer specifying the maximum number seconds that a
-cursor is valid between page requests.  Clients waiting too long
-between cursor pagination requests may receive an invalid cursor
-error response. No value being specified may mean that there is no
-cursor timeout or that the cursor timeout is not a static
-duration.  OPTIONAL.
+: Positive integer specifying the minimum number of seconds that a cursor is valid between page requests. Clients waiting too long between cursor pagination requests may receive an invalid cursor error response. No value being specified may mean that there is no cursor timeout or that the cursor timeout is not a static duration.  OPTIONAL.
 
 Before using cursor-based pagination, a SCIM client MAY fetch the
 Service Provider Configuration document from the SCIM service
