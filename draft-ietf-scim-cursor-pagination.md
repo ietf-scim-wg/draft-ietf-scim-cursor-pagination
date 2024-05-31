@@ -410,7 +410,7 @@ IANA Considerations
 
 # IANA Considerations
 
-This specification amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643], for the `urn:ietf:params:scim:api:messages:2.0:SearchRequest` message URI and adds the following new fields:
+This specification requests IANA to amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643], for the `urn:ietf:params:scim:api:messages:2.0:SearchRequest` message URI and adds the following new fields:
 
 SCIM `cursor` attribute
 
