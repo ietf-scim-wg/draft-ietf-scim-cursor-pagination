@@ -185,6 +185,14 @@ For HTTP status code 400 (Bad Request) responses, the following detail error typ
 If sorting is implemented as described Section 3.4.2.3 of [RFC7644],
 then cursor-paged results SHOULD be sorted.
 
+## Default Pagination Method
+
+When a service provider supports both index- and cursor-based pagination, clients can use the 'startIndex' and 'cursor' query parameters to request a specific method. 
+
+Service providers supporting both pagination methods MUST choose a pagination method to use when responding to requests that have not specified a pagination query parameter. Service providers MUST NOT return an error due to the pagination method being unspecified when pagination is required to complete the response. 
+
+If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing. 
+
 ## Cursors as the Only Pagination Method
 
 A service provider MAY require cursor-based pagination to
@@ -294,24 +302,30 @@ index
 : A Boolean value specifying support of index-based pagination.
 REQUIRED.
 
+defaultPaginationMethod
+: A string value specifying the type of pagination that the service provider defaults to when the client has not specified which method it wishes to use. Possible values are "cursor" and "index".  OPTIONAL.
+
 defaultPageSize
-: Non-negative integer value specifying the default number of results
+: Positive integer value specifying the default number of results
 returned in a page when a count is not specified in the query.
 OPTIONAL.
 
 maxPageSize
-: Non-negative integer specifying the maximum number of results
+: Positive integer specifying the maximum number of results
 returned in a page regardless of what is specified for the count
 in a query. The maximum number of results returned may be further
 restricted by other criteria. OPTIONAL.
 
 cursorTimeout
-: Non-negative integer specifying the maximum number seconds that a
-cursor is valid between page requests.  Clients waiting too long
+: Positive integer specifying the maximum number seconds that a
+cursor is guaranteed to be valid between page requests.  Clients waiting too long
 between cursor pagination requests may receive an invalid cursor
-error response. No value being specified may mean that there is no
-cursor timeout or that the cursor timeout is not a static
-duration.  OPTIONAL.
+error response.  OPTIONAL.
+
+Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients MUST NOT interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:
+
+* Service providers containing multiple resource types may have different values set for each resource type.
+* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.     
 
 Before using cursor-based pagination, a SCIM client MAY fetch the
 Service Provider Configuration document from the SCIM service
@@ -341,7 +355,11 @@ Content-Type: application/scim+json
 
    "pagination": {
       "cursor": true,
-      "index": true
+      "index": true,
+      "defaultPaginationMethod": "cursor",
+      "defaultPageSize": 100,
+      "maxPageSize": 250,
+      "cursorTimeout": 3600
    },
 
    ...
