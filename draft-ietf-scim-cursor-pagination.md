@@ -60,7 +60,7 @@ ultimately requires the SCIM service provider to fully iterate the
 underlying cursor, store the results, and then serve indexed pages
 from the stored results.  This task of "pagination translation"
 dramatically increases complexity and memory requirements for
-implementing a SCIM Service Provider, and may be an impediment to
+implementing a SCIM service provider, and may be an impediment to
 SCIM adoption for some applications and identity systems.
 
 This document defines a simple addition to the SCIM protocol that
@@ -93,11 +93,11 @@ returned in a paged query response:
 {: title="Response Attributes"}
 
 Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
-another result page for a query, it SHOULD query the same Service
-Provider endpoint with all query parameters and values being
+another result page for a query, it SHOULD query the same service
+provider endpoint with all query parameters and values being
 identical to the initial query with the exception of the cursor value
 which SHOULD be set to a `nextCursor` (or `previousCursor`) value that
-was returned by Service Provider in a previous response.
+was returned by service provider in a previous response.
 
 For example, to retrieve the first 10 Users with `userName` starting
 with `J`, use an empty cursor and set the count to 10:
@@ -153,19 +153,19 @@ Content-Type: application/scim+json
 ~~~
 
 In the example above, the response includes the OPTIONAL
-previousCursor indicating that the Service Provider supports forward
+previousCursor indicating that the service provider supports forward
 and reverse traversal of result pages.
 
-As described in Section 3.4.1 of [RFC7644] Service Providers SHOULD
+As described in Section 3.4.1 of [RFC7644] service providers SHOULD
 return an accurate value for totalResults which is the total number
-of resources for all pages.  Service Providers implementing cursor
+of resources for all pages.  Service providers implementing cursor
 pagination that are unable to estimate totalResults MAY choose to omit the totalResults attribute.
 
 ## Pagination errors
 
-If a Service Provider encounters invalid pagination query
+If a service provider encounters invalid pagination query
 parameters (invalid cursor value, count value, etc), or other error
-conditions, the Service Provider SHOULD return the appropriate HTTP
+conditions, the service provider SHOULD return the appropriate HTTP
 response status code and detailed JSON error response as defined in
 Section 3.12 of [RFC7644].  Most pagination error conditions would
 generate an HTTP response with status code 400.  Since many pagination
@@ -187,7 +187,7 @@ then cursor-paged results SHOULD be sorted.
 
 ## Cursors as the Only Pagination Method
 
-A SCIM Service Provider MAY require cursor-based pagination to
+A service provider MAY require cursor-based pagination to
 retrieve all results for a query by including a `nextCursor` value in
 the response even when the query does not include the `cursor`
 parameter.
@@ -200,7 +200,7 @@ Host: example.com
 Accept: application/scim+json
 ~~~
 
-The SCIM Service Provider may respond to the above query with a page
+The service provider may respond to the above query with a page
 containing defaultPageSize results and a `nextCursor` value as shown
 in the below example (Resources omitted for brevity):
 
@@ -278,7 +278,7 @@ Content-Type: application/scim+json
 
 The `/ServiceProviderConfig` resource defined in Section 4 of [RFC7644]
 facilitates discovery of SCIM service provider features.  A SCIM
-Service provider implementing cursor-based pagination SHOULD include
+service provider implementing cursor-based pagination SHOULD include
 the following additional attribute in JSON document returned by the
 `/ServiceProviderConfig` endpoint:
 
@@ -348,19 +348,19 @@ Content-Type: application/scim+json
 }
 ~~~
 
-Service Provider implementors SHOULD ensure that misuse of pagination
-by a SCIM client does not deplete Service Provider resources or
+Service provider implementors SHOULD ensure that misuse of pagination
+by a SCIM client does not deplete service provider resources or
 prevent valid requests from other clients being handled.  Defenses
-for a SCIM Service Provider are similar those used to protect other
+for a SCIM service provider are similar those used to protect other
 Web API services -- including the use of a "Web API gateway" layer,
 to provide authentication, rate limiting, IP allow/block lists,
 logging and monitoring, response caching, etc.
 
-For example, an obvious protection against abuse is for the Service
-Provider to require client authentication in order to retrieve large
+For example, an obvious protection against abuse is for the service
+provider to require client authentication in order to retrieve large
 result sets and enforce an overriding `totalResults` limit for non-
-authenticated clients.  Another example would be for a Service
-Provider that implements cursor pagination to restrict the number of
+authenticated clients.  Another example would be for a service
+provider that implements cursor pagination to restrict the number of
 cursors that can be allocated by a client or enforce cursor lifetimes.
 
 # Security Considerations
@@ -371,8 +371,8 @@ This section elaborates on the security considerations associated with the imple
 
 The threat landscape is characterized by two primary types of actors:
 
-1. Unauthenticated and Authenticated Malicious Actors: These individuals or entities represent a malevolent threat. Their objectives include unauthorized access to data, alteration, or deletion through cursor-enabled queries. They may also seek to deplete server resources deliberately, aiming to cause a denial-of-service state, thereby reducing service availability.
-2. Authenticated Benign Users: This category includes legitimate users who, due to confusion or a lack of understanding, inadvertently engage in actions that consume server resources excessively. Such actions, while not ill-intended, can lead to unintended denial of service by overwhelming the system's capacity.
+1. Unauthenticated and Authenticated Malicious Actors: These individuals or entities represent a malevolent threat. Their objectives include unauthorized access to data, alteration, or deletion through cursor-enabled queries. They may also seek to deplete service provider resources deliberately, aiming to cause a denial-of-service state, thereby reducing service availability.
+2. Authenticated Benign Users: This category includes legitimate users who, due to confusion or a lack of understanding, inadvertently engage in actions that consume service provider resources excessively. Such actions, while not ill-intended, can lead to unintended denial of service by overwhelming the system's capacity.
 
 ## Confidentiality
 
@@ -380,25 +380,25 @@ To ensure that confidential data remains appropriately secured:
 
 * Implementors MUST ensure that pagination through results sets is strictly confined to the data that the actor's current identity has been authorized to access. This holds true even in cases where the actor has obtained a cursor pertaining to a result set that was generated by a different actor.
 * Authorization checks MUST BE continuously applied as an actor navigates through the result set associated with a cursor. Under no circumstances should possession of a cursor be interpreted as granting any supplementary access privileges to the actor.
-* In alignment with Section 2, cursor values are to be treated as opaque entities. Clients are strictly prohibited from making any inferences or assumptions about their internal structure.
-* The system MUST handle error scenarios gracefully, while not exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the system should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the system to log different messages to a log accessible by administrators or other authorized personnel.
+* In alignment with Section 2, cursor values SHOULD be treated as opaque entities. Clients should avoid making any inferences or assumptions about their internal structure.
+* The system SHOULD handle error scenarios gracefully, while not exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the system should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the system to log different messages to a log accessible by administrators or other authorized personnel.
 
 ## Integrity
 
-The extension discussed herein is query-only and does not inherently pose a substantial risk to data integrity. However, the focus is placed on safeguarding the integrity of the applications and clients that depend on this extension, rather than the integrity of the Service Provider. Specific considerations include:
+The extension discussed herein is query-only and does not inherently pose a substantial risk to data integrity. However, the focus is placed on safeguarding the integrity of the applications and clients that depend on this extension, rather than the integrity of the service provider. Specific considerations include:
 It is not required to tie a cursor to specific actor. However, if a cursor is tied to an actor and if the actor's permissions change, and the actor is still using the cursor, the actor may miss records OR there may be unauthorized access to data.
 
-* Servers are authorized to invalidate all tokens/watermarks corresponding to an actor immediately following a change in permissions. This ensures that any queries executed post-permission change, utilizing old tokens/watermarks, will be denied.
-* As an alternative approach, servers may opt to retain the existing tokens/watermarks but must ensure that any metadata tied to the result set, such as record counts, is updated to reflect the new permissions accurately.
+* When possible, service providers SHOULD invalidate all tokens/watermarks corresponding to an actor immediately following a change in permissions. This ensures that any queries executed post-permission change, utilizing old tokens/watermarks, will be denied.
+* As an alternative approach, service provider may opt to retain the existing tokens/watermarks but must ensure that any metadata tied to the result set, such as record counts, is updated to reflect the new permissions accurately.
 
 ## Availability
 
-The concern for availability primarily stems from the potential for Denial of Service (DoS) attacks. If the server elects to retain substantial data or metadata for each cursor, numerous concurrent queries with &cursor could strain and eventually exhaust server resources. This could be orchestrated by an attacker with malicious intent or could occur innocuously as a result of actions taken by a benign but confused actor.
+The concern for availability primarily stems from the potential for Denial of Service (DoS) attacks. If the service provider elects to retain substantial data or metadata for each cursor, numerous concurrent queries with &cursor could strain and eventually exhaust service provider resources. This could be orchestrated by an attacker with malicious intent or could occur innocuously as a result of actions taken by a benign but confused actor.
 
 To mitigate such risks, the following strategies are recommended:
 
 * Implementation of rate limiting to control the volume and cadence of cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in [RFC6585].
-* Cursory mechanisms must be designed in a manner that avoids any additional consumption of server resources with the initiation of new &cursor requests.
+* Cursor mechanisms must be designed in a manner that avoids any additional consumption of service provider resources with the initiation of new &cursor requests.
 * It is advisable to establish a ceiling on the number of cursors permissible at any given time. Alternatively, the adoption of an opaque identifier system that conservatively utilizes resources may be used.
 * Token invalidation mechanisms (including mechanisms triggered by permissions changes) must be designed to be resource-efficient to prevent them from being exploited for DoS attacks.
 * Actors may face challenges in maintaining a seamless pagination experience if their permissions are in a state of flux. Proactive measures should be taken to ensure that permission changes do not disrupt the user experience.
