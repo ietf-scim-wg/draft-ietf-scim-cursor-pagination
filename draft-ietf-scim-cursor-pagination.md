@@ -15,6 +15,9 @@ pi: [toc, sortrefs, symrefs]
 submissionType: IETF
 
 author:
+    name: Matt Peterson
+    organization: Entrust
+    email: matt.peterson@entrust.com
    -
     name: Danny Zollner
     organization: Microsoft
@@ -93,7 +96,7 @@ returned in a paged query response:
 {: title="Response Attributes"}
 
 Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
-another result page for a query, it SHOULD query the same service
+another result page for a query, it MUST query the same service
 provider endpoint with all query parameters and values being
 identical to the initial query with the exception of the cursor value
 which SHOULD be set to a `nextCursor` (or `previousCursor`) value that
@@ -471,6 +474,9 @@ SCIM `pagination` attribute
 
 # Change Log
 
+-05
+* Various updates in response to WG/IETF Last Call feedback
+
 -04
 
 * Added IANA Considerations section
@@ -494,18 +500,14 @@ SCIM `pagination` attribute
 * Adopted by SCIM WG.
 
 
-# Acknowledgments
+# Acknowledgments and Contributions
 {:numbered="false"}
 
-The editor would like to acknowledge the tremendous contribution of Matt Peterson for his work in authoring the original versions of this draft and in providing continuing feedback after stepping back.
+The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section. 
 
-* Matt Peterson - One Identity
-
-The editor would also like to acknowledge the contributions of the following individuals who provided valuable feedback while reviewing the draft:
+The authors would also like to acknowledge the following individuals who provided valuable feedback while reviewing the draft:
 
 * Aaron Parecki - Okta
 * David Brossard - Axiomatics
 * Dean H. Saxe - Amazon Web Services
 * Pamela Dingle - Microsoft
-* Paul Lanzi - Remediant
-
