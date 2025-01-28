@@ -1,7 +1,7 @@
 ---
 title: "Cursor-based Pagination of SCIM Resources"
 abbrev: "SCIM Cursor Pagination"
-docname: draft-ietf-scim-cursor-pagination-05
+docname: draft-ietf-scim-cursor-pagination-latest
 category: std
 
 ipr: trust200902
@@ -512,4 +512,5 @@ The authors would also like to acknowledge the following individuals who provide
 * Aaron Parecki - Okta
 * David Brossard - Axiomatics
 * Dean H. Saxe - Amazon Web Services
-* Pamela Dingle - Microsoft
+* Pamela Dingle - Microsoft
+
