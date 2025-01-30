@@ -5,8 +5,8 @@
 SCIM                                                     D. Zollner, Ed.
 Internet-Draft                                                 Microsoft
 Intended status: Standards Track                               A. Sehgal
-Expires: 2 December 2024                             Amazon Web Services
-                                                             31 May 2024
+Expires: 3 August 2025                               Amazon Web Services
+                                                         30 January 2025
 
 
                Cursor-based Pagination of SCIM Resources
@@ -47,11 +47,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 December 2024.
+   This Internet-Draft will expire on 3 August 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
