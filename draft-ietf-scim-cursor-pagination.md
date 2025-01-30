@@ -199,8 +199,6 @@ Service providers supporting both pagination methods MUST choose a pagination me
 
 If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing.
 
-If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing.
-
 ## Cursors as the Only Pagination Method
 
 A service provider MAY require cursor-based pagination to
@@ -331,7 +329,7 @@ between cursor pagination requests may receive an invalid cursor
 error response.  OPTIONAL.
 
 Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients MUST NOT interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:
-* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.
+
 * Service providers containing multiple resource types may have different values set for each resource type.
 * Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.
 
