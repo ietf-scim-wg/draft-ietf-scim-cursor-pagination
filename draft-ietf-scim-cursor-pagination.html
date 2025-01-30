@@ -5,6 +5,7 @@
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>Cursor-based Pagination of SCIM Resources</title>
+<meta content="Matt Peterson" name="author">
 <meta content="Danny Zollner" name="author">
 <meta content="Anjali Sehgal" name="author">
 <meta content="
@@ -1052,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <td class="right">January 2025</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Zollner &amp; Sehgal</td>
+<td class="left">Peterson, et al.</td>
 <td class="center">Expires 3 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1074,6 +1075,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="expires"><time datetime="2025-08-03">3 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
+<div class="author">
+      <div class="author-name">M. Peterson</div>
+<div class="org">Entrust</div>
+</div>
 <div class="author">
       <div class="author-name">D. Zollner, <span class="editor">Ed.</span>
 </div>
@@ -1211,10 +1216,10 @@ databases, or APIs where cursor-based pagination is already well established.<a 
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-change-log" class="internal xref">Change Log</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-acknowledgments-and-contrib" class="internal xref">Acknowledgments and Contributions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref"></a><a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
@@ -1241,7 +1246,7 @@ ultimately requires the SCIM service provider to fully iterate the
 underlying cursor, store the results, and then serve indexed pages
 from the stored results.  This task of "pagination translation"
 dramatically increases complexity and memory requirements for
-implementing a SCIM Service Provider, and may be an impediment to
+implementing a SCIM service provider, and may be an impediment to
 SCIM adoption for some applications and identity systems.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document defines a simple addition to the SCIM protocol that
 allows SCIM service providers to reuse underlying cursors without
@@ -1325,11 +1330,11 @@ returned in a paged query response:<a href="#section-2-3" class="pilcrow">¶</a>
         </tbody>
       </table>
 <p id="section-2-5">Cursor values are opaque; clients <span class="bcp14">MUST</span> not make assumptions about their structure. When the client wants to retrieve
-another result page for a query, it <span class="bcp14">SHOULD</span> query the same Service
-Provider endpoint with all query parameters and values being
+another result page for a query, it <span class="bcp14">MUST</span> query the same service
+provider endpoint with all query parameters and values being
 identical to the initial query with the exception of the cursor value
 which <span class="bcp14">SHOULD</span> be set to a <code>nextCursor</code> (or <code>previousCursor</code>) value that
-was returned by Service Provider in a previous response.<a href="#section-2-5" class="pilcrow">¶</a></p>
+was returned by service provider in a previous response.<a href="#section-2-5" class="pilcrow">¶</a></p>
 <p id="section-2-6">For example, to retrieve the first 10 Users with <code>userName</code> starting
 with <code>J</code>, use an empty cursor and set the count to 10:<a href="#section-2-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2-7">
@@ -1384,20 +1389,20 @@ Content-Type: application/scim+json
 </pre><a href="#section-2-11" class="pilcrow">¶</a>
 </div>
 <p id="section-2-12">In the example above, the response includes the <span class="bcp14">OPTIONAL</span>
-previousCursor indicating that the Service Provider supports forward
+previousCursor indicating that the service provider supports forward
 and reverse traversal of result pages.<a href="#section-2-12" class="pilcrow">¶</a></p>
-<p id="section-2-13">As described in Section 3.4.1 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> Service Providers <span class="bcp14">SHOULD</span>
+<p id="section-2-13">As described in Section 3.4.1 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> service providers <span class="bcp14">SHOULD</span>
 return an accurate value for totalResults which is the total number
-of resources for all pages.  Service Providers implementing cursor
+of resources for all pages.  Service providers implementing cursor
 pagination that are unable to estimate totalResults <span class="bcp14">MAY</span> choose to omit the totalResults attribute.<a href="#section-2-13" class="pilcrow">¶</a></p>
 <div id="pagination-errors">
 <section id="section-2.1">
         <h3 id="name-pagination-errors">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-pagination-errors" class="section-name selfRef">Pagination errors</a>
         </h3>
-<p id="section-2.1-1">If a Service Provider encounters invalid pagination query
+<p id="section-2.1-1">If a service provider encounters invalid pagination query
 parameters (invalid cursor value, count value, etc), or other error
-conditions, the Service Provider <span class="bcp14">SHOULD</span> return the appropriate HTTP
+conditions, the service provider <span class="bcp14">SHOULD</span> return the appropriate HTTP
 response status code and detailed JSON error response as defined in
 Section 3.12 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>.  Most pagination error conditions would
 generate an HTTP response with status code 400.  Since many pagination
@@ -1452,6 +1457,10 @@ focus on communicating error details to the SCIM client developer.<a href="#sect
         </h3>
 <p id="section-2.2-1">If sorting is implemented as described Section 3.4.2.3 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>,
 then cursor-paged results <span class="bcp14">SHOULD</span> be sorted.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">When a service provider supports both index- and cursor-based pagination, clients can use the 'startIndex' and 'cursor' query parameters to request a specific method.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.2-3">Service providers supporting both pagination methods <span class="bcp14">MUST</span> choose a pagination method to use when responding to requests that have not specified a pagination query parameter. Service providers <span class="bcp14">MUST NOT</span> return an error due to the pagination method being unspecified when pagination is required to complete the response.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2-4">If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers <span class="bcp14">MAY</span> dynamically determine which pagination method is used for each response based on criteria of their choosing.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
+<p id="section-2.2-5">If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers <span class="bcp14">MAY</span> dynamically determine which pagination method is used for each response based on criteria of their choosing.<a href="#section-2.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cursors-as-the-only-pagination-method">
@@ -1459,7 +1468,7 @@ then cursor-paged results <span class="bcp14">SHOULD</span> be sorted.<a href="#
         <h3 id="name-cursors-as-the-only-paginat">
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-cursors-as-the-only-paginat" class="section-name selfRef">Cursors as the Only Pagination Method</a>
         </h3>
-<p id="section-2.3-1">A SCIM Service Provider <span class="bcp14">MAY</span> require cursor-based pagination to
+<p id="section-2.3-1">A service provider <span class="bcp14">MAY</span> require cursor-based pagination to
 retrieve all results for a query by including a <code>nextCursor</code> value in
 the response even when the query does not include the <code>cursor</code>
 parameter.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
@@ -1471,7 +1480,7 @@ Host: example.com
 Accept: application/scim+json
 </pre><a href="#section-2.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-2.3-4">The SCIM Service Provider may respond to the above query with a page
+<p id="section-2.3-4">The service provider may respond to the above query with a page
 containing defaultPageSize results and a <code>nextCursor</code> value as shown
 in the below example (Resources omitted for brevity):<a href="#section-2.3-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2.3-5">
@@ -1564,7 +1573,7 @@ Content-Type: application/scim+json
       </h2>
 <p id="section-4-1">The <code>/ServiceProviderConfig</code> resource defined in Section 4 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>
 facilitates discovery of SCIM service provider features.  A SCIM
-Service provider implementing cursor-based pagination <span class="bcp14">SHOULD</span> include
+service provider implementing cursor-based pagination <span class="bcp14">SHOULD</span> include
 the following additional attribute in JSON document returned by the
 <code>/ServiceProviderConfig</code> endpoint:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-4-2">
@@ -1586,48 +1595,55 @@ the following additional attribute in JSON document returned by the
 <span class="bcp14">REQUIRED</span>.<a href="#section-4-2.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-4-2.7">defaultPageSize</dt>
+<dt id="section-4-2.7">defaultPaginationMethod</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.8">
-          <p id="section-4-2.8.1">Non-negative integer value specifying the default number of results
-returned in a page when a count is not specified in the query.
-<span class="bcp14">OPTIONAL</span>.<a href="#section-4-2.8.1" class="pilcrow">¶</a></p>
+          <p id="section-4-2.8.1">A string value specifying the type of pagination that the service provider defaults to when the client has not specified which method it wishes to use. Possible values are "cursor" and "index".  <span class="bcp14">OPTIONAL</span>.<a href="#section-4-2.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-4-2.9">maxPageSize</dt>
+<dt id="section-4-2.9">defaultPageSize</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.10">
-          <p id="section-4-2.10.1">Non-negative integer specifying the maximum number of results
+          <p id="section-4-2.10.1">Positive integer value specifying the default number of results
+returned in a page when a count is not specified in the query.
+<span class="bcp14">OPTIONAL</span>.<a href="#section-4-2.10.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-2.11">maxPageSize</dt>
+        <dd style="margin-left: 1.5em" id="section-4-2.12">
+          <p id="section-4-2.12.1">Positive integer specifying the maximum number of results
 returned in a page regardless of what is specified for the count
 in a query. The maximum number of results returned may be further
-restricted by other criteria. <span class="bcp14">OPTIONAL</span>.<a href="#section-4-2.10.1" class="pilcrow">¶</a></p>
+restricted by other criteria. <span class="bcp14">OPTIONAL</span>.<a href="#section-4-2.12.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-4-2.11">cursorTimeout</dt>
-        <dd style="margin-left: 1.5em" id="section-4-2.12">
-          <p id="section-4-2.12.1">Non-negative integer specifying the maximum number seconds that a
-cursor is valid between page requests.  Clients waiting too long
+<dt id="section-4-2.13">cursorTimeout</dt>
+        <dd style="margin-left: 1.5em" id="section-4-2.14">
+          <p id="section-4-2.14.1">Positive integer specifying the maximum number seconds that a
+cursor is guaranteed to be valid between page requests.  Clients waiting too long
 between cursor pagination requests may receive an invalid cursor
-error response. No value being specified may mean that there is no
-cursor timeout or that the cursor timeout is not a static
-duration.  <span class="bcp14">OPTIONAL</span>.<a href="#section-4-2.12.1" class="pilcrow">¶</a></p>
+error response.  <span class="bcp14">OPTIONAL</span>.<a href="#section-4-2.14.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-4-3">Before using cursor-based pagination, a SCIM client <span class="bcp14">MAY</span> fetch the
+<p id="section-4-3">Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients <span class="bcp14">MUST NOT</span> interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:
+* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.
+* Service providers containing multiple resource types may have different values set for each resource type.
+* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">Before using cursor-based pagination, a SCIM client <span class="bcp14">MAY</span> fetch the
 Service Provider Configuration document from the SCIM service
-provider and verify that cursor-based pagination is supported.<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">For example:<a href="#section-4-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4-5">
+provider and verify that cursor-based pagination is supported.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">For example:<a href="#section-4-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-6">
 <pre>
 GET /ServiceProviderConfig
 Host: example.com
 Accept: application/scim+json
-</pre><a href="#section-4-5" class="pilcrow">¶</a>
+</pre><a href="#section-4-6" class="pilcrow">¶</a>
 </div>
-<p id="section-4-6">A service provider supporting both cursor-based pagination and index-
+<p id="section-4-7">A service provider supporting both cursor-based pagination and index-
 based pagination would return a document similar to the following
 (full <code>ServiceProviderConfig</code> schema defined in Section 5 of <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>
-has been omitted for brevity):<a href="#section-4-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4-7">
+has been omitted for brevity):<a href="#section-4-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-8">
 <pre>
 HTTP/1.1 200 OK
 Content-Type: application/scim+json
@@ -1639,26 +1655,30 @@ Content-Type: application/scim+json
 
    "pagination": {
       "cursor": true,
-      "index": true
+      "index": true,
+      "defaultPaginationMethod": "cursor",
+      "defaultPageSize": 100,
+      "maxPageSize": 250,
+      "cursorTimeout": 3600
    },
 
    ...
 }
-</pre><a href="#section-4-7" class="pilcrow">¶</a>
+</pre><a href="#section-4-8" class="pilcrow">¶</a>
 </div>
-<p id="section-4-8">Service Provider implementors <span class="bcp14">SHOULD</span> ensure that misuse of pagination
-by a SCIM client does not deplete Service Provider resources or
+<p id="section-4-9">Service provider implementors <span class="bcp14">SHOULD</span> ensure that misuse of pagination
+by a SCIM client does not deplete service provider resources or
 prevent valid requests from other clients being handled.  Defenses
-for a SCIM Service Provider are similar those used to protect other
+for a SCIM service provider are similar those used to protect other
 Web API services -- including the use of a "Web API gateway" layer,
 to provide authentication, rate limiting, IP allow/block lists,
-logging and monitoring, response caching, etc.<a href="#section-4-8" class="pilcrow">¶</a></p>
-<p id="section-4-9">For example, an obvious protection against abuse is for the Service
-Provider to require client authentication in order to retrieve large
+logging and monitoring, response caching, etc.<a href="#section-4-9" class="pilcrow">¶</a></p>
+<p id="section-4-10">For example, an obvious protection against abuse is for the service
+provider to require client authentication in order to retrieve large
 result sets and enforce an overriding <code>totalResults</code> limit for non-
-authenticated clients.  Another example would be for a Service
-Provider that implements cursor pagination to restrict the number of
-cursors that can be allocated by a client or enforce cursor lifetimes.<a href="#section-4-9" class="pilcrow">¶</a></p>
+authenticated clients.  Another example would be for a service
+provider that implements cursor pagination to restrict the number of
+cursors that can be allocated by a client or enforce cursor lifetimes.<a href="#section-4-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1675,10 +1695,10 @@ cursors that can be allocated by a client or enforce cursor lifetimes.<a href="#
 <p id="section-5.1-1">The threat landscape is characterized by two primary types of actors:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.1-2">
 <li id="section-5.1-2.1">
-            <p id="section-5.1-2.1.1">Unauthenticated and Authenticated Malicious Actors: These individuals or entities represent a malevolent threat. Their objectives include unauthorized access to data, alteration, or deletion through cursor-enabled queries. They may also seek to deplete server resources deliberately, aiming to cause a denial-of-service state, thereby reducing service availability.<a href="#section-5.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-2.1.1">Unauthenticated and Authenticated Malicious Actors: These individuals or entities represent a malevolent threat. Their objectives include unauthorized access to data, alteration, or deletion through cursor-enabled queries. They may also seek to deplete service provider resources deliberately, aiming to cause a denial-of-service state, thereby reducing service availability.<a href="#section-5.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-5.1-2.2">
-            <p id="section-5.1-2.2.1">Authenticated Benign Users: This category includes legitimate users who, due to confusion or a lack of understanding, inadvertently engage in actions that consume server resources excessively. Such actions, while not ill-intended, can lead to unintended denial of service by overwhelming the system's capacity.<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-2.2.1">Authenticated Benign Users: This category includes legitimate users who, due to confusion or a lack of understanding, inadvertently engage in actions that consume service provider resources excessively. Such actions, while not ill-intended, can lead to unintended denial of service by overwhelming the system's capacity.<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 </section>
@@ -1697,10 +1717,10 @@ cursors that can be allocated by a client or enforce cursor lifetimes.<a href="#
             <p id="section-5.2-2.2.1">Authorization checks <span class="bcp14">MUST</span> BE continuously applied as an actor navigates through the result set associated with a cursor. Under no circumstances should possession of a cursor be interpreted as granting any supplementary access privileges to the actor.<a href="#section-5.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-2.3">
-            <p id="section-5.2-2.3.1">In alignment with Section 2, cursor values are to be treated as opaque entities. Clients are strictly prohibited from making any inferences or assumptions about their internal structure.<a href="#section-5.2-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-2.3.1">In alignment with Section 2, cursor values <span class="bcp14">SHOULD</span> be treated as opaque entities. Clients should avoid making any inferences or assumptions about their internal structure.<a href="#section-5.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-2.4">
-            <p id="section-5.2-2.4.1">The system <span class="bcp14">MUST</span> handle error scenarios gracefully, while not exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the system should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the system to log different messages to a log accessible by administrators or other authorized personnel.<a href="#section-5.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-2.4.1">The system <span class="bcp14">SHOULD</span> handle error scenarios gracefully, while not exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the system should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the system to log different messages to a log accessible by administrators or other authorized personnel.<a href="#section-5.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1710,14 +1730,14 @@ cursors that can be allocated by a client or enforce cursor lifetimes.<a href="#
         <h3 id="name-integrity">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-integrity" class="section-name selfRef">Integrity</a>
         </h3>
-<p id="section-5.3-1">The extension discussed herein is query-only and does not inherently pose a substantial risk to data integrity. However, the focus is placed on safeguarding the integrity of the applications and clients that depend on this extension, rather than the integrity of the Service Provider. Specific considerations include:
+<p id="section-5.3-1">The extension discussed herein is query-only and does not inherently pose a substantial risk to data integrity. However, the focus is placed on safeguarding the integrity of the applications and clients that depend on this extension, rather than the integrity of the service provider. Specific considerations include:
 It is not required to tie a cursor to specific actor. However, if a cursor is tied to an actor and if the actor's permissions change, and the actor is still using the cursor, the actor may miss records OR there may be unauthorized access to data.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3-2.1">
-            <p id="section-5.3-2.1.1">Servers are authorized to invalidate all tokens/watermarks corresponding to an actor immediately following a change in permissions. This ensures that any queries executed post-permission change, utilizing old tokens/watermarks, will be denied.<a href="#section-5.3-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.1.1">When possible, service providers <span class="bcp14">SHOULD</span> invalidate all tokens/watermarks corresponding to an actor immediately following a change in permissions. This ensures that any queries executed post-permission change, utilizing old tokens/watermarks, will be denied.<a href="#section-5.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-2.2">
-            <p id="section-5.3-2.2.1">As an alternative approach, servers may opt to retain the existing tokens/watermarks but must ensure that any metadata tied to the result set, such as record counts, is updated to reflect the new permissions accurately.<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.2.1">As an alternative approach, service provider may opt to retain the existing tokens/watermarks but must ensure that any metadata tied to the result set, such as record counts, is updated to reflect the new permissions accurately.<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1727,14 +1747,14 @@ It is not required to tie a cursor to specific actor. However, if a cursor is ti
         <h3 id="name-availability">
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-availability" class="section-name selfRef">Availability</a>
         </h3>
-<p id="section-5.4-1">The concern for availability primarily stems from the potential for Denial of Service (DoS) attacks. If the server elects to retain substantial data or metadata for each cursor, numerous concurrent queries with &amp;cursor could strain and eventually exhaust server resources. This could be orchestrated by an attacker with malicious intent or could occur innocuously as a result of actions taken by a benign but confused actor.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-1">The concern for availability primarily stems from the potential for Denial of Service (DoS) attacks. If the service provider elects to retain substantial data or metadata for each cursor, numerous concurrent queries with &amp;cursor could strain and eventually exhaust service provider resources. This could be orchestrated by an attacker with malicious intent or could occur innocuously as a result of actions taken by a benign but confused actor.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.4-2">To mitigate such risks, the following strategies are recommended:<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.4-3.1">
             <p id="section-5.4-3.1.1">Implementation of rate limiting to control the volume and cadence of cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in <span>[<a href="#RFC6585" class="cite xref">RFC6585</a>]</span>.<a href="#section-5.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.4-3.2">
-            <p id="section-5.4-3.2.1">Cursory mechanisms must be designed in a manner that avoids any additional consumption of server resources with the initiation of new &amp;cursor requests.<a href="#section-5.4-3.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.4-3.2.1">Cursor mechanisms must be designed in a manner that avoids any additional consumption of service provider resources with the initiation of new &amp;cursor requests.<a href="#section-5.4-3.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.4-3.3">
             <p id="section-5.4-3.3.1">It is advisable to establish a ceiling on the number of cursors permissible at any given time. Alternatively, the adoption of an opaque identifier system that conservatively utilizes resources may be used.<a href="#section-5.4-3.3.1" class="pilcrow">¶</a></p>
@@ -1849,56 +1869,58 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
       <h2 id="name-change-log">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-change-log" class="section-name selfRef">Change Log</a>
       </h2>
-<p id="section-7-1">-04<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">-05<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-2.1">
-          <p id="section-7-2.1.1">Added IANA Considerations section<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-7-2.2">
-          <p id="section-7-2.2.1">Added Security Considerations section<a href="#section-7-2.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-7-2.3">
-          <p id="section-7-2.3.1">Added Backwards Compatibility Considerations section<a href="#section-7-2.3.1" class="pilcrow">¶</a></p>
+          <p id="section-7-2.1.1">Various updates in response to WG/IETF Last Call feedback<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-7-3">-03<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-3">-04<a href="#section-7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.1">
-          <p id="section-7-4.1.1">Minor grammatical/typo fixes, rename + changes to maxPageSize SCP definition<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-4.1.1">Added IANA Considerations section<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-7-4.2">
+          <p id="section-7-4.2.1">Added Security Considerations section<a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-7-4.3">
+          <p id="section-7-4.3.1">Added Backwards Compatibility Considerations section<a href="#section-7-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-7-5">-02<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-5">-03<a href="#section-7-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-6.1">
-          <p id="section-7-6.1.1">Typos/semantics, acknowledgements, expansion of cursorTimeout SCP definition<a href="#section-7-6.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-6.1.1">Minor grammatical/typo fixes, rename + changes to maxPageSize SCP definition<a href="#section-7-6.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-7-7">-01<a href="#section-7-7" class="pilcrow">¶</a></p>
+<p id="section-7-7">-02<a href="#section-7-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-8.1">
-          <p id="section-7-8.1.1">Updated after Httpdir review.<a href="#section-7-8.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-8.1.1">Typos/semantics, acknowledgements, expansion of cursorTimeout SCP definition<a href="#section-7-8.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-7-9">-00<a href="#section-7-9" class="pilcrow">¶</a></p>
+<p id="section-7-9">-01<a href="#section-7-9" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-10.1">
-          <p id="section-7-10.1.1">Adopted by SCIM WG.<a href="#section-7-10.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-10.1.1">Updated after Httpdir review.<a href="#section-7-10.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-7-11">-00<a href="#section-7-11" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7-12.1">
+          <p id="section-7-12.1.1">Adopted by SCIM WG.<a href="#section-7-12.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
 </div>
-<div id="acknowledgments">
+<div id="acknowledgments-and-contributions">
 <section id="section-8">
-      <h2 id="name-acknowledgments">
-<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      <h2 id="name-acknowledgments-and-contrib">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-acknowledgments-and-contrib" class="section-name selfRef">Acknowledgments and Contributions</a>
       </h2>
-<p id="section-8-1">The editor would like to acknowledge the tremendous contribution of Matt Peterson for his work in authoring the original versions of this draft and in providing continuing feedback after stepping back.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8-2.1">
-          <p id="section-8-2.1.1">Matt Peterson - One Identity<a href="#section-8-2.1.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-8-3">The editor would also like to acknowledge the contributions of the following individuals who provided valuable feedback while reviewing the draft:<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-1">The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">The authors would also like to acknowledge the following individuals who provided valuable feedback while reviewing the draft:<a href="#section-8-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8-4.1">
           <p id="section-8-4.1.1">Aaron Parecki - Okta<a href="#section-8-4.1.1" class="pilcrow">¶</a></p>
@@ -1907,13 +1929,7 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
           <p id="section-8-4.2.1">David Brossard - Axiomatics<a href="#section-8-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-8-4.3">
-          <p id="section-8-4.3.1">Dean H. Saxe - Amazon Web Services<a href="#section-8-4.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-8-4.4">
-          <p id="section-8-4.4.1">Pamela Dingle - Microsoft<a href="#section-8-4.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-8-4.5">
-          <p id="section-8-4.5.1">Paul Lanzi - Remediant<a href="#section-8-4.5.1" class="pilcrow">¶</a></p>
+          <p id="section-8-4.3.1">Pamela Dingle - Microsoft<a href="#section-8-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1921,7 +1937,7 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 <div id="sec-normative-references">
 <section id="section-9">
       <h2 id="name-normative-references">
-<a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
@@ -1956,6 +1972,14 @@ IANA Considerations<a href="#section-5.5-1" class="pilcrow">¶</a></p>
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Matt Peterson</span></div>
+<div dir="auto" class="left"><span class="org">Entrust</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:matt.peterson@entrust.com" class="email">matt.peterson@entrust.com</a>
+</div>
+</address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Danny Zollner (<span class="role">editor</span>)</span></div>
 <div dir="auto" class="left"><span class="org">Microsoft</span></div>
