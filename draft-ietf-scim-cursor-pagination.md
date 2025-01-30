@@ -505,7 +505,6 @@ SCIM `pagination` attribute
 
 
 # Acknowledgments and Contributions
-The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.
 
 The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.
 
@@ -513,6 +512,7 @@ The authors would also like to acknowledge the following individuals who provide
 
 * Aaron Parecki - Okta
 * David Brossard - Axiomatics
+* Dean H. Saxe - Amazon Web Services
 * Pamela Dingle - Microsoft
 
 
