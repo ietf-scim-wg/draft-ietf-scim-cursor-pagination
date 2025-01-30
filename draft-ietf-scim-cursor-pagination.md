@@ -199,7 +199,7 @@ Service providers supporting both pagination methods MUST choose a pagination me
 
 If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing.
 
-If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing. 
+If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing.
 
 ## Cursors as the Only Pagination Method
 
