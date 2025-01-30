@@ -1,8 +1,10 @@
 ---
 title: "Cursor-based Pagination of SCIM Resources"
 abbrev: "SCIM Cursor Pagination"
-docname: draft-ietf-scim-cursor-pagination-latest
-
+docname: draft-ietf-scim-cursor-pagination-latest
+
+
+
 
 category: std
 
@@ -191,11 +193,11 @@ For HTTP status code 400 (Bad Request) responses, the following detail error typ
 If sorting is implemented as described Section 3.4.2.3 of [RFC7644],
 then cursor-paged results SHOULD be sorted.
 
-## Default Pagination Method
+When a service provider supports both index- and cursor-based pagination, clients can use the 'startIndex' and 'cursor' query parameters to request a specific method.
 
-When a service provider supports both index- and cursor-based pagination, clients can use the 'startIndex' and 'cursor' query parameters to request a specific method. 
+Service providers supporting both pagination methods MUST choose a pagination method to use when responding to requests that have not specified a pagination query parameter. Service providers MUST NOT return an error due to the pagination method being unspecified when pagination is required to complete the response.
 
-Service providers supporting both pagination methods MUST choose a pagination method to use when responding to requests that have not specified a pagination query parameter. Service providers MUST NOT return an error due to the pagination method being unspecified when pagination is required to complete the response. 
+If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing.
 
 If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing. 
 
@@ -329,7 +331,7 @@ between cursor pagination requests may receive an invalid cursor
 error response.  OPTIONAL.
 
 Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients MUST NOT interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:
-
+* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.
 * Service providers containing multiple resource types may have different values set for each resource type.
 * Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.     
 
@@ -505,7 +507,7 @@ SCIM `pagination` attribute
 
 
 # Acknowledgments and Contributions
-{:numbered="false"}
+The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.
 
 The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section. 
 
