@@ -333,7 +333,7 @@ error response.  OPTIONAL.
 Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients MUST NOT interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:
 * Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.
 * Service providers containing multiple resource types may have different values set for each resource type.
-* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.     
+* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.
 
 Before using cursor-based pagination, a SCIM client MAY fetch the
 Service Provider Configuration document from the SCIM service
@@ -509,7 +509,7 @@ SCIM `pagination` attribute
 # Acknowledgments and Contributions
 The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.
 
-The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section. 
+The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.
 
 The authors would also like to acknowledge the following individuals who provided valuable feedback while reviewing the draft:
 
