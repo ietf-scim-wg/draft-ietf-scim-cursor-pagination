@@ -1460,7 +1460,6 @@ then cursor-paged results <span class="bcp14">SHOULD</span> be sorted.<a href="#
 <p id="section-2.2-2">When a service provider supports both index- and cursor-based pagination, clients can use the 'startIndex' and 'cursor' query parameters to request a specific method.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
 <p id="section-2.2-3">Service providers supporting both pagination methods <span class="bcp14">MUST</span> choose a pagination method to use when responding to requests that have not specified a pagination query parameter. Service providers <span class="bcp14">MUST NOT</span> return an error due to the pagination method being unspecified when pagination is required to complete the response.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
 <p id="section-2.2-4">If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers <span class="bcp14">MAY</span> dynamically determine which pagination method is used for each response based on criteria of their choosing.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
-<p id="section-2.2-5">If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers <span class="bcp14">MAY</span> dynamically determine which pagination method is used for each response based on criteria of their choosing.<a href="#section-2.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cursors-as-the-only-pagination-method">
@@ -1624,26 +1623,31 @@ error response.  <span class="bcp14">OPTIONAL</span>.<a href="#section-4-2.14.1"
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-4-3">Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients <span class="bcp14">MUST NOT</span> interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:
-* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.
-* Service providers containing multiple resource types may have different values set for each resource type.
-* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">Before using cursor-based pagination, a SCIM client <span class="bcp14">MAY</span> fetch the
+<p id="section-4-3">Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients <span class="bcp14">MUST NOT</span> interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:<a href="#section-4-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4-4.1">
+          <p id="section-4-4.1.1">Service providers containing multiple resource types may have different values set for each resource type.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-4.2">
+          <p id="section-4-4.2.1">Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-4-5">Before using cursor-based pagination, a SCIM client <span class="bcp14">MAY</span> fetch the
 Service Provider Configuration document from the SCIM service
-provider and verify that cursor-based pagination is supported.<a href="#section-4-4" class="pilcrow">¶</a></p>
-<p id="section-4-5">For example:<a href="#section-4-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4-6">
+provider and verify that cursor-based pagination is supported.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">For example:<a href="#section-4-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-7">
 <pre>
 GET /ServiceProviderConfig
 Host: example.com
 Accept: application/scim+json
-</pre><a href="#section-4-6" class="pilcrow">¶</a>
+</pre><a href="#section-4-7" class="pilcrow">¶</a>
 </div>
-<p id="section-4-7">A service provider supporting both cursor-based pagination and index-
+<p id="section-4-8">A service provider supporting both cursor-based pagination and index-
 based pagination would return a document similar to the following
 (full <code>ServiceProviderConfig</code> schema defined in Section 5 of <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>
-has been omitted for brevity):<a href="#section-4-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4-8">
+has been omitted for brevity):<a href="#section-4-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-9">
 <pre>
 HTTP/1.1 200 OK
 Content-Type: application/scim+json
@@ -1664,21 +1668,21 @@ Content-Type: application/scim+json
 
    ...
 }
-</pre><a href="#section-4-8" class="pilcrow">¶</a>
+</pre><a href="#section-4-9" class="pilcrow">¶</a>
 </div>
-<p id="section-4-9">Service provider implementors <span class="bcp14">SHOULD</span> ensure that misuse of pagination
+<p id="section-4-10">Service provider implementors <span class="bcp14">SHOULD</span> ensure that misuse of pagination
 by a SCIM client does not deplete service provider resources or
 prevent valid requests from other clients being handled.  Defenses
 for a SCIM service provider are similar those used to protect other
 Web API services -- including the use of a "Web API gateway" layer,
 to provide authentication, rate limiting, IP allow/block lists,
-logging and monitoring, response caching, etc.<a href="#section-4-9" class="pilcrow">¶</a></p>
-<p id="section-4-10">For example, an obvious protection against abuse is for the service
+logging and monitoring, response caching, etc.<a href="#section-4-10" class="pilcrow">¶</a></p>
+<p id="section-4-11">For example, an obvious protection against abuse is for the service
 provider to require client authentication in order to retrieve large
 result sets and enforce an overriding <code>totalResults</code> limit for non-
 authenticated clients.  Another example would be for a service
 provider that implements cursor pagination to restrict the number of
-cursors that can be allocated by a client or enforce cursor lifetimes.<a href="#section-4-10" class="pilcrow">¶</a></p>
+cursors that can be allocated by a client or enforce cursor lifetimes.<a href="#section-4-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
