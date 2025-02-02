@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T00:57:22.638567+00:00",
+  "timestamp": "2025-02-02T01:01:23.989916+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -546,25 +546,33 @@
       "id": "PR_kwDOJDk96s50wOjd",
       "title": "-05 final merge IETF 120",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/15",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ZollnerdMSFT",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-07-08T23:07:30Z",
-      "updatedAt": "2024-07-08T23:07:30Z",
+      "updatedAt": "2025-01-30T22:01:15Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "baseRefName": "main",
       "baseRefOid": "55d9c744dc55f303a6d9a5997a9cb6e74622a112",
       "headRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "headRefName": "dz-scim-cursor-pagination-branch-nancy-feedback",
       "headRefOid": "07c16ba10ce32ae5a7964769f9609d8b09c347e3",
-      "closedAt": null,
+      "closedAt": "2025-01-30T22:01:14Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Replaced by #16 ",
+          "createdAt": "2025-01-30T22:01:14Z",
+          "updatedAt": "2025-01-30T22:01:14Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -572,26 +580,129 @@
       "id": "PR_kwDOJDk96s6JQMlH",
       "title": "Adding -05 that was uploaded to IETF manually",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/16",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ZollnerdMSFT",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Was having trouble converting via GitHub makefile automation and ended up submitting via IETF Datatracker author/editor tools, adding the source file (that still will have issues converting I believe..)",
       "createdAt": "2025-01-28T16:24:06Z",
-      "updatedAt": "2025-01-28T16:31:54Z",
+      "updatedAt": "2025-01-30T21:59:27Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "baseRefName": "main",
       "baseRefOid": "55d9c744dc55f303a6d9a5997a9cb6e74622a112",
       "headRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "headRefName": "ZollnerdMSFT-SCIM-CursorPagination-v05",
-      "headRefOid": "9ebf3ebd815e5706be6ea241e2f25bfa9d3a0a86",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "261f0a070bcadfe728f8999fb35eb45ee6cadc58",
+      "closedAt": "2025-01-30T21:59:24Z",
+      "mergedAt": "2025-01-30T21:59:23Z",
+      "mergedBy": "aaronpk",
+      "mergeCommit": {
+        "oid": "b340f97aa28ee6ca096344175de7c994dcbeb987"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJDk96s6aFdaK",
+          "commit": {
+            "abbreviatedOid": "9ebf3eb"
+          },
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T21:44:27Z",
+          "updatedAt": "2025-01-30T21:44:27Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "```suggestion\r\nWhen a service provider supports both index- and cursor-based pagination, clients can use the 'startIndex' and 'cursor' query parameters to request a specific method.\r\n```",
+              "createdAt": "2025-01-30T21:44:27Z",
+              "updatedAt": "2025-01-30T21:44:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJDk96s6aFdiV",
+          "commit": {
+            "abbreviatedOid": "9ebf3eb"
+          },
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T21:44:47Z",
+          "updatedAt": "2025-01-30T21:44:47Z",
+          "comments": [
+            {
+              "originalPosition": 79,
+              "body": "```suggestion\r\nService providers supporting both pagination methods MUST choose a pagination method to use when responding to requests that have not specified a pagination query parameter. Service providers MUST NOT return an error due to the pagination method being unspecified when pagination is required to complete the response.\r\n```",
+              "createdAt": "2025-01-30T21:44:47Z",
+              "updatedAt": "2025-01-30T21:44:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJDk96s6aFdnO",
+          "commit": {
+            "abbreviatedOid": "9ebf3eb"
+          },
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T21:44:58Z",
+          "updatedAt": "2025-01-30T21:44:59Z",
+          "comments": [
+            {
+              "originalPosition": 81,
+              "body": "```suggestion\r\nIf the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing.\r\n```",
+              "createdAt": "2025-01-30T21:44:59Z",
+              "updatedAt": "2025-01-30T21:44:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJDk96s6aFdsH",
+          "commit": {
+            "abbreviatedOid": "9ebf3eb"
+          },
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T21:45:10Z",
+          "updatedAt": "2025-01-30T21:45:11Z",
+          "comments": [
+            {
+              "originalPosition": 142,
+              "body": "```suggestion\r\n* Default and maximum page size may be determined by factors besides or in addition to the number of resources returned, such as the size of each resource on the page.\r\n```",
+              "createdAt": "2025-01-30T21:45:10Z",
+              "updatedAt": "2025-01-30T21:45:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJDk96s6aFdx6",
+          "commit": {
+            "abbreviatedOid": "9ebf3eb"
+          },
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T21:45:25Z",
+          "updatedAt": "2025-01-30T21:45:25Z",
+          "comments": [
+            {
+              "originalPosition": 251,
+              "body": "```suggestion\r\nThe authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.\r\n```",
+              "createdAt": "2025-01-30T21:45:25Z",
+              "updatedAt": "2025-01-30T21:45:25Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
