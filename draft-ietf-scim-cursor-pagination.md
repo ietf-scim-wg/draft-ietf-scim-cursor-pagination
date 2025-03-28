@@ -479,7 +479,7 @@ SCIM `pagination` attribute
 # Change Log
  RFC Editor: Please remove this section in the release version of the document.
 
--06
+-07
  * Minor grammar change
  * Add informative reference to BCP195 and RFC9110
 
