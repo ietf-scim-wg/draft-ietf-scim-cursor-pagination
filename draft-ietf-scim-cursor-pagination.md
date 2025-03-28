@@ -40,7 +40,8 @@ normative:
   RFC7644:
 
 informative:
-
+  BCP195:
+  RFC9110:
 
 --- abstract
 
@@ -88,7 +89,7 @@ is already well-established.
 The following table describes the URL pagination parameters for requesting cursor-based pagination:
 
 | Parameter | Description |
-| `cursor` | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contained characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
+| `cursor` | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contain characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
 | `count` | A positive integer. Specifies the desired maximum number of query results per page, e.g., `count=10`. When specified, the service provider MUST NOT return more results than specified, although it MAY return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.
 {: title="Query Parameters"}
 
@@ -429,8 +430,8 @@ To mitigate such risks, the following strategies are recommended:
 
 ## Other Security References
 
-Using URIs to describe and locate resources has its own set of security considerations discussed in Section 7 of [RFC3986].
-IANA Considerations
+Using URIs to describe and locate resources has its own set of security considerations discussed in Section 7 of [RFC3986].  Implementations SHOULD also refer to [BCP195] and [RFC9110] for additional security considerations that are relvant for underlying TLS and HTTP protocols.
+
 
 # IANA Considerations
 
@@ -476,6 +477,11 @@ SCIM `pagination` attribute
   - Comments: see section 5 of [RFC7643] System for Cross-domain Identity Management: Protocol
 
 # Change Log
+ RFC Editor: Please remove this section in the release version of the document.
+
+-06
+ * Minor grammar changes
+ * Add
 
 -05
 
