@@ -480,8 +480,8 @@ SCIM `pagination` attribute
  RFC Editor: Please remove this section in the release version of the document.
 
 -06
- * Minor grammar changes
- * Add
+ * Minor grammar change
+ * Add informative reference to BCP195 and RFC9110
 
 -05
 
