@@ -5,10 +5,10 @@
 SCIM                                                         M. Peterson
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                         D. Zollner, Ed.
-Expires: 3 August 2025                                         Microsoft
+Expires: 1 October 2025                                        Microsoft
                                                                A. Sehgal
                                                      Amazon Web Services
-                                                         30 January 2025
+                                                           30 March 2025
 
 
                Cursor-based Pagination of SCIM Resources
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 August 2025.
+   This Internet-Draft will expire on 1 October 2025.
 
 Copyright Notice
 
@@ -85,7 +85,9 @@ Table of Contents
    6.  IANA Considerations
    7.  Change Log
    8.  Acknowledgments and Contributions
-   9.  Normative References
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Authors' Addresses
 
 1.  Introduction
@@ -128,26 +130,26 @@ Table of Contents
    The following table describes the URL pagination parameters for
    requesting cursor-based pagination:
 
-    +===========+====================================================+
-    | Parameter | Description                                        |
-    +===========+====================================================+
-    | cursor    | The string value of the nextCursor attribute from  |
-    |           | a previous result page.  The cursor value MUST be  |
-    |           | empty or omitted for the first request of a        |
-    |           | cursor-paginated query.  This value may only       |
-    |           | contained characters from the unreserved           |
-    |           | characters set defined in section 2.2 of [RFC3986] |
-    +-----------+----------------------------------------------------+
-    | count     | A positive integer.  Specifies the desired maximum |
-    |           | number of query results per page, e.g., count=10.  |
-    |           | When specified, the service provider MUST NOT      |
-    |           | return more results than specified, although it    |
-    |           | MAY return fewer results.  If count is not         |
-    |           | specified in the query, the maximum number of      |
-    |           | results is set by the service provider.            |
-    +-----------+----------------------------------------------------+
+     +===========+===================================================+
+     | Parameter | Description                                       |
+     +===========+===================================================+
+     | cursor    | The string value of the nextCursor attribute from |
+     |           | a previous result page.  The cursor value MUST be |
+     |           | empty or omitted for the first request of a       |
+     |           | cursor-paginated query.  This value may only      |
+     |           | contain characters from the unreserved characters |
+     |           | set defined in section 2.2 of [RFC3986]           |
+     +-----------+---------------------------------------------------+
+     | count     | A positive integer.  Specifies the desired        |
+     |           | maximum number of query results per page, e.g.,   |
+     |           | count=10.  When specified, the service provider   |
+     |           | MUST NOT return more results than specified,      |
+     |           | although it MAY return fewer results.  If count   |
+     |           | is not specified in the query, the maximum number |
+     |           | of results is set by the service provider.        |
+     +-----------+---------------------------------------------------+
 
-                        Table 1: Query Parameters
+                         Table 1: Query Parameters
 
    The following table describes cursor-based pagination attributes
    returned in a paged query response:
@@ -599,8 +601,10 @@ Table of Contents
 5.5.  Other Security References
 
    Using URIs to describe and locate resources has its own set of
-   security considerations discussed in Section 7 of [RFC3986].  IANA
-   Considerations
+   security considerations discussed in Section 7 of [RFC3986].
+   Implementations SHOULD also refer to [BCP195] and [RFC9110] for
+   additional security considerations that are relvant for underlying
+   TLS and HTTP protocols.
 
 6.  IANA Considerations
 
@@ -674,6 +678,12 @@ Table of Contents
 
 7.  Change Log
 
+   RFC Editor: Please remove this section in the release version of the
+   document.
+
+   -07 * Minor grammar change * Add informative reference to BCP195 and
+   RFC9110
+
    -05
 
    *  Various updates in response to WG/IETF Last Call feedback
@@ -721,7 +731,9 @@ Table of Contents
 
    *  Pamela Dingle - Microsoft
 
-9.  Normative References
+9.  References
+
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -750,6 +762,27 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+9.2.  Informative References
+
+   [BCP195]   Best Current Practice 195,
+              <https://www.rfc-editor.org/info/bcp195>.
+              At the time of writing, this BCP comprises the following:
+
+              Moriarty, K. and S. Farrell, "Deprecating TLS 1.0 and TLS
+              1.1", BCP 195, RFC 8996, DOI 10.17487/RFC8996, March 2021,
+              <https://www.rfc-editor.org/info/rfc8996>.
+
+              Sheffer, Y., Saint-Andre, P., and T. Fossati,
+              "Recommendations for Secure Use of Transport Layer
+              Security (TLS) and Datagram Transport Layer Security
+              (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
+              2022, <https://www.rfc-editor.org/info/rfc9325>.
+
+   [RFC9110]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "HTTP Semantics", STD 97, RFC 9110,
+              DOI 10.17487/RFC9110, June 2022,
+              <https://www.rfc-editor.org/rfc/rfc9110>.
 
 Authors' Addresses
 
