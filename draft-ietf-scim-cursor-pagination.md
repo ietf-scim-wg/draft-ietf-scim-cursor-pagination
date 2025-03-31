@@ -477,11 +477,13 @@ SCIM `pagination` attribute
   - Comments: see section 5 of [RFC7643] System for Cross-domain Identity Management: Protocol
 
 # Change Log
- RFC Editor: Please remove this section in the release version of the document.
+
+RFC Editor: Please remove this section in the release version of the document.
 
 -07
- * Minor grammar change
- * Add informative reference to BCP195 and RFC9110
+
+* Minor grammar change
+* Add informative reference to BCP195 and RFC9110
 
 -05
 
