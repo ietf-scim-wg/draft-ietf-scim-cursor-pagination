@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-30T01:09:20.140043+00:00",
+  "timestamp": "2025-04-01T01:12:10.296147+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -735,20 +735,62 @@
       "id": "PR_kwDOJDk96s6QlpYa",
       "title": "Changes prior to draft - 06",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/18",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "petrsnm",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-03-28T17:02:12Z",
-      "updatedAt": "2025-03-28T17:07:02Z",
+      "updatedAt": "2025-03-30T23:18:20Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "baseRefName": "main",
       "baseRefOid": "aa567086fbf4905b06d3bf394831c45eedab780a",
       "headRepository": "petrsnm/draft-ietf-scim-cursor-pagination",
       "headRefName": "main",
       "headRefOid": "9ef327a28bc7a5f16441c1f6a11a45edbc044a05",
+      "closedAt": "2025-03-30T23:18:20Z",
+      "mergedAt": "2025-03-30T23:18:19Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "6f69858ac914d124967227123a55bb759f8a80dd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJDk96s6impTG",
+          "commit": {
+            "abbreviatedOid": "9ef327a"
+          },
+          "author": "ansg-aws",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-30T23:18:07Z",
+          "updatedAt": "2025-03-30T23:18:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOJDk96s6Qze4q",
+      "title": "Adjust markdown whitespace for correct xml and txt generation",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/19",
+      "state": "OPEN",
+      "author": "petrsnm",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-03-31T16:44:06Z",
+      "updatedAt": "2025-03-31T16:44:07Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "6f69858ac914d124967227123a55bb759f8a80dd",
+      "headRepository": "petrsnm/draft-ietf-scim-cursor-pagination",
+      "headRefName": "main",
+      "headRefOid": "f832fdecae51ebf2adc20b9e165ab917477c7cee",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
