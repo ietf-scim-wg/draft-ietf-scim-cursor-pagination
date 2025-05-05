@@ -1,10 +1,7 @@
 ---
 title: "Cursor-based Pagination of SCIM Resources"
 abbrev: "SCIM Cursor Pagination"
-docname: draft-ietf-scim-cursor-pagination-08
-
-
-
+docname: draft-ietf-scim-cursor-pagination-latest
 
 category: std
 
@@ -469,9 +466,9 @@ RFC Editor: Please remove this section in the release version of the document.
 
 * Fix several typos and wording consistencies
 * Add reference to RFC7644 in Security Considerations
-* Adjust indenting and wording to clarify the definition of the pagination attribute in serviceProviderConfig.
-* Reference RFC section 2.3 (not section 2.2) for unreserved characters 
-* Reference section RFC 7644 3.4.3 (not section 3.4.2.4 ) for POST query 
+* Adjust indenting and wording to clarify the definition of the pagination attribute in serviceProviderConfig
+* Reference RFC section 2.3 (not section 2.2) for unreserved characters
+* Reference section RFC 7644 3.4.3 (not section 3.4.2.4 ) for POST query
 
 -07
 
