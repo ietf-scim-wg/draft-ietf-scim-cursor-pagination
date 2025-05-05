@@ -312,7 +312,7 @@ pagination
    : Positive integer specifying the maximum number of results returned in a page regardless of what is specified for the count in a query. The maximum number of results returned may be further restricted by other criteria. OPTIONAL.
 
    cursorTimeout
-   : Positive integer specifying the maximum number seconds that a cursor is guaranteed to be valid between page requests.  clients waiting too long between cursor pagination requests may receive an invalid cursor error response.  OPTIONAL.
+   : Positive integer specifying the minimum number of seconds that a cursor is valid between page requests. Clients waiting too long between cursor pagination requests may receive an invalid cursor error response. No value being specified may mean that there is no cursor timeout or that the cursor timeout is not a static duration.  OPTIONAL.
 
 Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients MUST NOT interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:
 
