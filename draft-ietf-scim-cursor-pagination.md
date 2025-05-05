@@ -513,7 +513,7 @@ The authors would also like to acknowledge the following individuals who provide
 
 * Aaron Parecki - Okta
 * David Brossard - Axiomatics
-* Dean H. Saxe - Amazon Web Services
+* Dean H. Saxe - Beyond Identity
 * Pamela Dingle - Microsoft
 
 
