@@ -114,7 +114,7 @@ Accept: application/scim+json
 Authorization: Bearer U8YJcYYRMjbGeepD
 ~~~
 
-The SCIM provider in response to the query above returns metadata regarding pagination similar
+The SCIM service provider in response to the query above returns metadata regarding pagination similar
 to the following example (actual resources removed for brevity):
 
 ~~~
@@ -141,7 +141,11 @@ GET /Users?filter=username%20sw%20J&cursor=VZUTiyhEQJ94IR&count=10
 Host: example.com
 Accept: application/scim+json
 Authorization: Bearer U8YJcYYRMjbGeepD
+~~~
 
+The service provider responds with:
+
+~~~
 HTTP/1.1 200 OK
 Content-Type: application/scim+json
 
