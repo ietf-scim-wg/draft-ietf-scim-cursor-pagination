@@ -3,9 +3,6 @@ title: "Cursor-based Pagination of SCIM Resources"
 abbrev: "SCIM Cursor Pagination"
 docname: draft-ietf-scim-cursor-pagination-latest
 
-
-
-
 category: std
 
 ipr: trust200902
@@ -59,7 +56,7 @@ The two common patterns for result pagination are index-based pagination
 and cursor-based pagination.  Rather than
 attempt to compare and contrast the advantages and disadvantages of
 competing pagination patterns, this document simply recognizes that
-SCIM service providers are commonly implemented as an
+SCIM (System for Cross-Domain Identity Management) service providers are commonly implemented as an
 interoperability layer on top of already existing application
 codebases, databases, and/or APIs that already have a well established pagination pattern.
 
@@ -86,15 +83,14 @@ is already well-established.
 
 # Query Parameters and Response Attributes
 
-The following table describes the URL pagination parameters for requesting cursor-based pagination:
+The following table describes the URL pagination query parameters for requesting cursor-based pagination:
 
 | Parameter | Description |
-| `cursor` | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contain characters from the unreserved characters set defined in section 2.2 of [RFC3986] |
+| `cursor` | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contain characters from the unreserved characters set defined in section 2.3 of [RFC3986]. |
 | `count` | A positive integer. Specifies the desired maximum number of query results per page, e.g., `count=10`. When specified, the service provider MUST NOT return more results than specified, although it MAY return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.
 {: title="Query Parameters"}
 
-The following table describes cursor-based pagination attributes
-returned in a paged query response:
+The following table describes cursor-based pagination attributes returned in a paged query response:
 
 | Element | Description |
 | `nextCursor` | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include `nextCursor` in all paged query responses except when returning the last page. `nextCursor` is omitted from a response only to indicate that there are no more result pages. |
@@ -185,8 +181,8 @@ For HTTP status code 400 (Bad Request) responses, the following detail error typ
 
 | `scimType` | Description | Applicability |
 | `invalidCursor` | Cursor value is invalid. Cursor value SHOULD be empty to request the first page and set to the `nextCursor` or `previousCursor` value for subsequent queries.| `GET` (Section 3.4.2 of [RFC7644])|
-| `expiredCursor` | Cursor has expired. Do not wait longer than `cursorTimeout` (600 sec) to request additional pages.| `GET` (Section 3.4.2 of [RFC7644])|
-| `invalidCount` | Count value is invalid. Count value must be between 1 - and maxPageSize (500) | `GET` (Section 3.4.2 of [RFC7644])|
+| `expiredCursor` | Cursor has expired. Do not wait longer than service provider's `cursorTimeout` to request additional pages.| `GET` (Section 3.4.2 of [RFC7644])|
+| `invalidCount` | Count value is invalid. Count value must be between 1 - and service provider's maxPageSize | `GET` (Section 3.4.2 of [RFC7644])|
 {: title="Pagination Errors"}
 
 ## Sorting
@@ -250,10 +246,7 @@ if index-based, cursor-based or both types of pagination are supported.
 
 # Querying Resources using HTTP POST
 
-Section 3.4.2.4 of [RFC7644] defines how clients MAY execute the HTTP
-`POST` method combined with the `/.search` path extension to issue
-execute queries without passing parameters on the URL.  When using
-`/.search`, the client would pass the parameters defined in Section 2
+Section 3.4.3 of [RFC7644] defines how clients MAY execute queries without passing parameters on the URL by using the `POST` verb combined with the `/.search` path extension execute. When posting to `/.search`, the client would pass the parameters defined in Section 2 in the body of the POST request.
 
 ~~~
 POST /User/.search
@@ -298,36 +291,25 @@ the following additional attribute in JSON document returned by the
 `/ServiceProviderConfig` endpoint:
 
 pagination
-: A complex type that indicates pagination configuration options.
-OPTIONAL.
+: A complex type that indicates pagination configuration options. OPTIONAL.  The following sub-attributes are defined:
 
-cursor
-: A Boolean value specifying support of cursor-based pagination.
-REQUIRED.
+   cursor
+   : A Boolean value specifying support of cursor-based pagination. REQUIRED.
 
-index
-: A Boolean value specifying support of index-based pagination.
-REQUIRED.
+   index
+   : A Boolean value specifying support of index-based pagination. REQUIRED.
 
-defaultPaginationMethod
-: A string value specifying the type of pagination that the service provider defaults to when the client has not specified which method it wishes to use. Possible values are "cursor" and "index".  OPTIONAL.
+   defaultPaginationMethod
+   : A string value specifying the type of pagination that the service provider defaults to when the client has not specified which method it wishes to use. Possible values are "cursor" and "index".  OPTIONAL.
 
-defaultPageSize
-: Positive integer value specifying the default number of results
-returned in a page when a count is not specified in the query.
-OPTIONAL.
+   defaultPageSize
+   : Positive integer value specifying the default number of results returned in a page when a count is not specified in the query. OPTIONAL.
 
-maxPageSize
-: Positive integer specifying the maximum number of results
-returned in a page regardless of what is specified for the count
-in a query. The maximum number of results returned may be further
-restricted by other criteria. OPTIONAL.
+   maxPageSize
+   : Positive integer specifying the maximum number of results returned in a page regardless of what is specified for the count in a query. The maximum number of results returned may be further restricted by other criteria. OPTIONAL.
 
-cursorTimeout
-: Positive integer specifying the maximum number seconds that a
-cursor is guaranteed to be valid between page requests.  Clients waiting too long
-between cursor pagination requests may receive an invalid cursor
-error response.  OPTIONAL.
+   cursorTimeout
+   : Positive integer specifying the minimum number of seconds that a cursor is valid between page requests. Clients waiting too long between cursor pagination requests may receive an invalid cursor error response. No value being specified may mean that there is no cursor timeout or that the cursor timeout is not a static duration.  OPTIONAL.
 
 Service providers may choose not to advertise Service Provider Configuration information regarding default pagination method, page size or cursor validity. Clients MUST NOT interpret the lack of published Service Provider Configuration values to mean that no defaults or limits on page sizes or cursor lifetimes exist, or that there is no default pagination method. Service providers may choose not to publish values for the pagination sub-attributes for many reasons. Examples include:
 
@@ -373,7 +355,7 @@ Content-Type: application/scim+json
 }
 ~~~
 
-Service provider implementors SHOULD ensure that misuse of pagination
+Service provider implementers SHOULD ensure that misuse of pagination
 by a SCIM client does not deplete service provider resources or
 prevent valid requests from other clients being handled.  Defenses
 for a SCIM service provider are similar those used to protect other
@@ -390,7 +372,7 @@ cursors that can be allocated by a client or enforce cursor lifetimes.
 
 # Security Considerations
 
-This section elaborates on the security considerations associated with the implementation of cursor pagination in SCIM. This draft is under the same security and privacy considerations of those described in RFC 7644. It is imperative that implementers consider the following security aspects to safeguard against both deliberate attacks and inadvertent misuse that may compromise the system's security posture.
+This section elaborates on the security considerations associated with the implementation of cursor pagination in SCIM. This document is under the same security and privacy considerations of those described in [RFC7644]. It is imperative that implementers additionally consider the following security aspects to safeguard against both deliberate attacks and inadvertent misuse that may compromise the system's security posture.
 
 ## Threat Model and Security Environment
 
@@ -403,7 +385,7 @@ The threat landscape is characterized by two primary types of actors:
 
 To ensure that confidential data remains appropriately secured:
 
-* Implementors MUST ensure that pagination through results sets is strictly confined to the data that the actor's current identity has been authorized to access. This holds true even in cases where the actor has obtained a cursor pertaining to a result set that was generated by a different actor.
+* Implementers MUST ensure that pagination through results sets is strictly confined to the data that the actor's current identity has been authorized to access. This holds true even in cases where the actor has obtained a cursor pertaining to a result set that was generated by a different actor.
 * Authorization checks MUST BE continuously applied as an actor navigates through the result set associated with a cursor. Under no circumstances should possession of a cursor be interpreted as granting any supplementary access privileges to the actor.
 * In alignment with Section 2, cursor values SHOULD be treated as opaque entities. Clients should avoid making any inferences or assumptions about their internal structure.
 * The system SHOULD handle error scenarios gracefully, while not exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the system should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the system to log different messages to a log accessible by administrators or other authorized personnel.
@@ -477,11 +459,21 @@ SCIM `pagination` attribute
   - Comments: see section 5 of [RFC7643] System for Cross-domain Identity Management: Protocol
 
 # Change Log
- RFC Editor: Please remove this section in the release version of the document.
+
+RFC Editor: Please remove this section in the release version of the document.
+
+-08
+
+* Fix several typos and wording consistencies
+* Add reference to RFC7644 in Security Considerations
+* Adjust indenting and wording to clarify the definition of the pagination attribute in serviceProviderConfig
+* Reference RFC section 2.3 (not section 2.2) for unreserved characters
+* Reference section RFC 7644 3.4.3 (not section 3.4.2.4 ) for POST query
 
 -07
- * Minor grammar change
- * Add informative reference to BCP195 and RFC9110
+
+* Minor grammar change
+* Add informative reference to BCP195 and RFC9110
 
 -05
 
@@ -514,11 +506,11 @@ SCIM `pagination` attribute
 
 The authors would like to acknowledge the contribution of Paul Lanzi (IDenovate) in leading the writing of security considerations section.
 
-The authors would also like to acknowledge the following individuals who provided valuable feedback while reviewing the draft:
+The authors would also like to acknowledge the following individuals who provided valuable feedback while reviewing the document:
 
 * Aaron Parecki - Okta
 * David Brossard - Axiomatics
-* Dean H. Saxe - Amazon Web Services
+* Dean H. Saxe - Beyond Identity
 * Pamela Dingle - Microsoft
 
 
