@@ -9,6 +9,7 @@ ipr: trust200902
 area: IETF
 workgroup: SCIM
 keyword: [Internet-Draft, SCIM]
+updates: [7643, 7644]
 
 stand_alone: yes
 smart_quotes: no
@@ -76,6 +77,11 @@ encourages broader cross-application identity management
 interoperability by encouraging SCIM service provider implementations
 for applications and identity systems where cursor-based pagination
 is already well-established.
+
+This document updates RFCs 7643 and 7644 because it adds attributes to
+existing structures from those documents, as described in this memo in
+Section 2. These changes are only invoked with the "cursor" query
+parameter.
 
 ## Notational Conventions
 
@@ -421,46 +427,13 @@ Using URIs to describe and locate resources has its own set of security consider
 
 # IANA Considerations
 
-This specification requests IANA to amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643], for the `urn:ietf:params:scim:api:messages:2.0:SearchRequest` message URI and adds the following new fields:
+This specification requests IANA to amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643].
 
-SCIM `cursor` attribute
+For the `urn:ietf:params:scim:api:messages:2.0:ListResponse`, add section 2 of this document to the References column. 
 
- - Field Name: `cursor`.
- - Status: permanent.
- - Specification Document: this specification, Section 2
- - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
+For the `urn:ietf:params:scim:api:messages:2.0:SearchRequest`, add section 2 of this document to the References column. 
 
-SCIM `count` attribute
-
-  - Field Name: `count`
-  - Status: permanent
-  - Specification Document: this specification, Section 2
-  - Comments: see section 3.4.3 of [RFC7644] System for Cross-domain Identity Management: Protocol
-
-This specification amends the entry  for urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and adds the following fields:
-
-SCIM `nextCursor` attribute
-
-  - Field Name: `nextCursor`
-  - Status: permanent
-  - Specification Document: this specification, Section 2
-  - Comments: see section 3.4.2 of [RFC7644] System for Cross-domain Identity Management: Protocol
-
-SCIM `previousCursor` attribute
-
-  - Field Name: `previousCursor`
-  - Status: permanent
-  - Specification Document: this specification, Section 2
-  - Comments: see section 3.4.2 of [RFC7644] System for Cross-domain Identity Management: Protocol
-
-This specification amends the entry  for urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig schema URI, and adds the following field:
-
-SCIM `pagination` attribute
-
-  - Field Name: `pagination`
-  - Status: permanent
-  - Specification Document: this specification, Section 4
-  - Comments: see section 5 of [RFC7643] System for Cross-domain Identity Management: Protocol
+For the `urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig`, add section 4 of this document to the References column.
 
 # Change Log
 
@@ -473,6 +446,8 @@ RFC Editor: Please remove this section in the release version of the document.
 * Adjust indenting and wording to clarify the definition of the pagination attribute in serviceProviderConfig
 * Reference RFC section 2.3 (not section 2.2) for unreserved characters
 * Reference section RFC 7644 3.4.3 (not section 3.4.2.4 ) for POST query
+* Added updates 7644, 7643
+* Changed IANA considerations to add sections of this document to References column of SCIM Schema URIs for Data Resources impacted by this document
 
 -07
 
