@@ -429,9 +429,9 @@ Using URIs to describe and locate resources has its own set of security consider
 
 This specification requests IANA to amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643].
 
-For the `urn:ietf:params:scim:api:messages:2.0:ListResponse`, add section 2 of this document to the References column. 
+For the `urn:ietf:params:scim:api:messages:2.0:ListResponse`, add section 2 of this document to the References column.
 
-For the `urn:ietf:params:scim:api:messages:2.0:SearchRequest`, add section 2 of this document to the References column. 
+For the `urn:ietf:params:scim:api:messages:2.0:SearchRequest`, add section 2 of this document to the References column.
 
 For the `urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig`, add section 4 of this document to the References column.
 
