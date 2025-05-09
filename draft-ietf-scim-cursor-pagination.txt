@@ -4,11 +4,11 @@
 
 SCIM                                                         M. Peterson
 Internet-Draft                                                   Entrust
-Intended status: Standards Track                         D. Zollner, Ed.
-Expires: 7 November 2025                                       Microsoft
-                                                               A. Sehgal
+Updates: [7643, 7644] (if approved)                      D. Zollner, Ed.
+Intended status: Standards Track                               Microsoft
+Expires: 10 November 2025                                      A. Sehgal
                                                      Amazon Web Services
-                                                              6 May 2025
+                                                              9 May 2025
 
 
                Cursor-based Pagination of SCIM Resources
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 November 2025.
+   This Internet-Draft will expire on 10 November 2025.
 
 Copyright Notice
 
@@ -117,6 +117,11 @@ Table of Contents
    interoperability by encouraging SCIM service provider implementations
    for applications and identity systems where cursor-based pagination
    is already well-established.
+
+   This document updates RFCs 7643 and 7644 because it adds attributes
+   to existing structures from those documents, as described in this
+   memo in Section 2.  These changes are only invoked with the "cursor"
+   query parameter.
 
 1.1.  Notational Conventions
 
@@ -191,9 +196,9 @@ Table of Contents
    Accept: application/scim+json
    Authorization: Bearer U8YJcYYRMjbGeepD
 
-   The SCIM provider in response to the query above returns metadata
-   regarding pagination similar to the following example (actual
-   resources removed for brevity):
+   The SCIM service provider in response to the query above returns
+   metadata regarding pagination similar to the following example
+   (actual resources removed for brevity):
 
    HTTP/1.1 200 OK
    Content-Type: application/scim+json
@@ -216,6 +221,8 @@ Table of Contents
    Host: example.com
    Accept: application/scim+json
    Authorization: Bearer U8YJcYYRMjbGeepD
+
+   The service provider responds with:
 
    HTTP/1.1 200 OK
    Content-Type: application/scim+json
@@ -613,72 +620,16 @@ Table of Contents
 6.  IANA Considerations
 
    This specification requests IANA to amends the registry "SCIM Schema
-   URIs for Data Resources" established by [RFC7643], for the
-   urn:ietf:params:scim:api:messages:2.0:SearchRequest message URI and
-   adds the following new fields:
+   URIs for Data Resources" established by [RFC7643].
 
-   SCIM cursor attribute
+   For the urn:ietf:params:scim:api:messages:2.0:ListResponse, add
+   section 2 of this document to the References column.
 
-   *  Field Name: cursor.
+   For the urn:ietf:params:scim:api:messages:2.0:SearchRequest, add
+   section 2 of this document to the References column.
 
-   *  Status: permanent.
-
-   *  Specification Document: this specification, Section 2
-
-   *  Comments: see section 3.4.3 of [RFC7644] System for Cross-domain
-      Identity Management: Protocol
-
-   SCIM count attribute
-
-   *  Field Name: count
-
-   *  Status: permanent
-
-   *  Specification Document: this specification, Section 2
-
-   *  Comments: see section 3.4.3 of [RFC7644] System for Cross-domain
-      Identity Management: Protocol
-
-   This specification amends the entry for
-   urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and
-   adds the following fields:
-
-   SCIM nextCursor attribute
-
-   *  Field Name: nextCursor
-
-   *  Status: permanent
-
-   *  Specification Document: this specification, Section 2
-
-   *  Comments: see section 3.4.2 of [RFC7644] System for Cross-domain
-      Identity Management: Protocol
-
-   SCIM previousCursor attribute
-
-   *  Field Name: previousCursor
-
-   *  Status: permanent
-
-   *  Specification Document: this specification, Section 2
-
-   *  Comments: see section 3.4.2 of [RFC7644] System for Cross-domain
-      Identity Management: Protocol
-
-   This specification amends the entry for
-   urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig schema
-   URI, and adds the following field:
-
-   SCIM pagination attribute
-
-   *  Field Name: pagination
-
-   *  Status: permanent
-
-   *  Specification Document: this specification, Section 4
-
-   *  Comments: see section 5 of [RFC7643] System for Cross-domain
-      Identity Management: Protocol
+   For the urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig,
+   add section 4 of this document to the References column.
 
 7.  Change Log
 
@@ -699,6 +650,12 @@ Table of Contents
 
    *  Reference section RFC 7644 3.4.3 (not section 3.4.2.4 ) for POST
       query
+
+   *  Added updates 7644, 7643
+
+   *  Changed IANA considerations to add sections of this document to
+      References column of SCIM Schema URIs for Data Resources impacted
+      by this document
 
    -07
 

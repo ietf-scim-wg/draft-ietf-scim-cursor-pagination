@@ -1054,7 +1054,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Peterson, et al.</td>
-<td class="center">Expires 7 November 2025</td>
+<td class="center">Expires 10 November 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,14 +1065,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="workgroup">SCIM</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-ietf-scim-cursor-pagination-latest</dd>
+<dt class="label-updates">Updates:</dt>
+<dd class="updates">
+<a href="https://www.rfc-editor.org/rfc/rfc[7643" class="eref">[7643</a>, <a href="https://www.rfc-editor.org/rfc/rfc7644]" class="eref">7644]</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-06" class="published">6 May 2025</time>
+<time datetime="2025-05-09" class="published">9 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-07">7 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-11-10">10 November 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1129,7 +1132,7 @@ databases, or APIs where cursor-based pagination is already well established.<a 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1263,6 +1266,10 @@ encourages broader cross-application identity management
 interoperability by encouraging SCIM service provider implementations
 for applications and identity systems where cursor-based pagination
 is already well-established.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document updates RFCs 7643 and 7644 because it adds attributes to
+existing structures from those documents, as described in this memo in
+Section 2. These changes are only invoked with the "cursor" query
+parameter.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="notational-conventions">
 <section id="section-1.1">
         <h3 id="name-notational-conventions">
@@ -1351,7 +1358,7 @@ Accept: application/scim+json
 Authorization: Bearer U8YJcYYRMjbGeepD
 </pre><a href="#section-2-7" class="pilcrow">¶</a>
 </div>
-<p id="section-2-8">The SCIM provider in response to the query above returns metadata regarding pagination similar
+<p id="section-2-8">The SCIM service provider in response to the query above returns metadata regarding pagination similar
 to the following example (actual resources removed for brevity):<a href="#section-2-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2-9">
 <pre>
@@ -1378,7 +1385,11 @@ GET /Users?filter=username%20sw%20J&amp;cursor=VZUTiyhEQJ94IR&amp;count=10
 Host: example.com
 Accept: application/scim+json
 Authorization: Bearer U8YJcYYRMjbGeepD
-
+</pre><a href="#section-2-11" class="pilcrow">¶</a>
+</div>
+<p id="section-2-12">The service provider responds with:<a href="#section-2-12" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2-13">
+<pre>
 HTTP/1.1 200 OK
 Content-Type: application/scim+json
 
@@ -1392,15 +1403,15 @@ Content-Type: application/scim+json
       ...
    }]
 }
-</pre><a href="#section-2-11" class="pilcrow">¶</a>
+</pre><a href="#section-2-13" class="pilcrow">¶</a>
 </div>
-<p id="section-2-12">In the example above, the response includes the <span class="bcp14">OPTIONAL</span>
+<p id="section-2-14">In the example above, the response includes the <span class="bcp14">OPTIONAL</span>
 previousCursor indicating that the service provider supports forward
-and reverse traversal of result pages.<a href="#section-2-12" class="pilcrow">¶</a></p>
-<p id="section-2-13">As described in Section 3.4.1 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> service providers <span class="bcp14">SHOULD</span>
+and reverse traversal of result pages.<a href="#section-2-14" class="pilcrow">¶</a></p>
+<p id="section-2-15">As described in Section 3.4.1 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> service providers <span class="bcp14">SHOULD</span>
 return an accurate value for totalResults which is the total number
 of resources for all pages.  Service providers implementing cursor
-pagination that are unable to estimate totalResults <span class="bcp14">MAY</span> choose to omit the totalResults attribute.<a href="#section-2-13" class="pilcrow">¶</a></p>
+pagination that are unable to estimate totalResults <span class="bcp14">MAY</span> choose to omit the totalResults attribute.<a href="#section-2-15" class="pilcrow">¶</a></p>
 <div id="pagination-errors">
 <section id="section-2.1">
         <h3 id="name-pagination-errors">
@@ -1781,84 +1792,10 @@ It is not required to tie a cursor to specific actor. However, if a cursor is ti
       <h2 id="name-iana-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-6-1">This specification requests IANA to amends the registry "SCIM Schema URIs for Data Resources" established by <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>, for the <code>urn:ietf:params:scim:api:messages:2.0:SearchRequest</code> message URI and adds the following new fields:<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">SCIM <code>cursor</code> attribute<a href="#section-6-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-3.1">
-          <p id="section-6-3.1.1">Field Name: <code>cursor</code>.<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-3.2">
-          <p id="section-6-3.2.1">Status: permanent.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-3.3">
-          <p id="section-6-3.3.1">Specification Document: this specification, Section 2<a href="#section-6-3.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-3.4">
-          <p id="section-6-3.4.1">Comments: see section 3.4.3 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> System for Cross-domain Identity Management: Protocol<a href="#section-6-3.4.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-6-4">SCIM <code>count</code> attribute<a href="#section-6-4" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-5.1">
-          <p id="section-6-5.1.1">Field Name: <code>count</code><a href="#section-6-5.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-5.2">
-          <p id="section-6-5.2.1">Status: permanent<a href="#section-6-5.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-5.3">
-          <p id="section-6-5.3.1">Specification Document: this specification, Section 2<a href="#section-6-5.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-5.4">
-          <p id="section-6-5.4.1">Comments: see section 3.4.3 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> System for Cross-domain Identity Management: Protocol<a href="#section-6-5.4.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-6-6">This specification amends the entry  for urn:ietf:params:scim:api:messages:2.0:ListResponse message URI, and adds the following fields:<a href="#section-6-6" class="pilcrow">¶</a></p>
-<p id="section-6-7">SCIM <code>nextCursor</code> attribute<a href="#section-6-7" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-8.1">
-          <p id="section-6-8.1.1">Field Name: <code>nextCursor</code><a href="#section-6-8.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-8.2">
-          <p id="section-6-8.2.1">Status: permanent<a href="#section-6-8.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-8.3">
-          <p id="section-6-8.3.1">Specification Document: this specification, Section 2<a href="#section-6-8.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-8.4">
-          <p id="section-6-8.4.1">Comments: see section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> System for Cross-domain Identity Management: Protocol<a href="#section-6-8.4.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-6-9">SCIM <code>previousCursor</code> attribute<a href="#section-6-9" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-10.1">
-          <p id="section-6-10.1.1">Field Name: <code>previousCursor</code><a href="#section-6-10.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-10.2">
-          <p id="section-6-10.2.1">Status: permanent<a href="#section-6-10.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-10.3">
-          <p id="section-6-10.3.1">Specification Document: this specification, Section 2<a href="#section-6-10.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-10.4">
-          <p id="section-6-10.4.1">Comments: see section 3.4.2 of <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> System for Cross-domain Identity Management: Protocol<a href="#section-6-10.4.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-6-11">This specification amends the entry  for urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig schema URI, and adds the following field:<a href="#section-6-11" class="pilcrow">¶</a></p>
-<p id="section-6-12">SCIM <code>pagination</code> attribute<a href="#section-6-12" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-13.1">
-          <p id="section-6-13.1.1">Field Name: <code>pagination</code><a href="#section-6-13.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-13.2">
-          <p id="section-6-13.2.1">Status: permanent<a href="#section-6-13.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-13.3">
-          <p id="section-6-13.3.1">Specification Document: this specification, Section 4<a href="#section-6-13.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-13.4">
-          <p id="section-6-13.4.1">Comments: see section 5 of <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span> System for Cross-domain Identity Management: Protocol<a href="#section-6-13.4.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
+<p id="section-6-1">This specification requests IANA to amends the registry "SCIM Schema URIs for Data Resources" established by <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">For the <code>urn:ietf:params:scim:api:messages:2.0:ListResponse</code>, add section 2 of this document to the References column.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">For the <code>urn:ietf:params:scim:api:messages:2.0:SearchRequest</code>, add section 2 of this document to the References column.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">For the <code>urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig</code>, add section 4 of this document to the References column.<a href="#section-6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="change-log">
@@ -1883,6 +1820,12 @@ It is not required to tie a cursor to specific actor. However, if a cursor is ti
 </li>
         <li class="normal" id="section-7-3.5">
           <p id="section-7-3.5.1">Reference section RFC 7644 3.4.3 (not section 3.4.2.4 ) for POST query<a href="#section-7-3.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-7-3.6">
+          <p id="section-7-3.6.1">Added updates 7644, 7643<a href="#section-7-3.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-7-3.7">
+          <p id="section-7-3.7.1">Changed IANA considerations to add sections of this document to References column of SCIM Schema URIs for Data Resources impacted by this document<a href="#section-7-3.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-7-4">-07<a href="#section-7-4" class="pilcrow">¶</a></p>
