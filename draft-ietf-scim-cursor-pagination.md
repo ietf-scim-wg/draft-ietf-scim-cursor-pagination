@@ -141,6 +141,8 @@ GET /Users?filter=username%20sw%20J&cursor=VZUTiyhEQJ94IR&count=10
 Host: example.com
 Accept: application/scim+json
 Authorization: Bearer U8YJcYYRMjbGeepD
+~~~
+~~~
 
 HTTP/1.1 200 OK
 Content-Type: application/scim+json
