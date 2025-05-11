@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-08T01:08:49.896972+00:00",
+  "timestamp": "2025-05-11T01:12:36.570162+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -809,6 +809,81 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOJDk96s6Vdyrt",
+      "title": "Ready to publish rev 08 of the draft",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/20",
+      "state": "MERGED",
+      "author": "petrsnm",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-05-08T16:46:45Z",
+      "updatedAt": "2025-05-09T14:42:14Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "a3929d3fff98c3d2fe20c6d697559b3320a39eec",
+      "headRepository": "petrsnm/draft-ietf-scim-cursor-pagination",
+      "headRefName": "main",
+      "headRefOid": "b571eba9f3ff6c71ff5a35645f94fa1dd8b40c00",
+      "closedAt": "2025-05-09T14:42:14Z",
+      "mergedAt": "2025-05-09T14:42:14Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "ad0652779782c5b92f9b498e20125f1cdde21ab0"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOJDk96s6VhhUm",
+      "title": "fix http example to use two pieces of artwork",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/21",
+      "state": "OPEN",
+      "author": "reschke",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-05-09T04:11:10Z",
+      "updatedAt": "2025-05-09T05:10:04Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "a3929d3fff98c3d2fe20c6d697559b3320a39eec",
+      "headRepository": "reschke/draft-ietf-scim-cursor-pagination",
+      "headRefName": "patch-1",
+      "headRefOid": "2426636ebba8c9d8bac1c2a5669567ff78c91e06",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJDk96s6ogTR_",
+          "commit": {
+            "abbreviatedOid": "2426636"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-09T05:10:03Z",
+          "updatedAt": "2025-05-09T05:10:04Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\n\r\n~~~ http-message\r\n```\r\n\r\n(I think that's the right label for these.)",
+              "createdAt": "2025-05-09T05:10:03Z",
+              "updatedAt": "2025-05-09T05:10:38Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
