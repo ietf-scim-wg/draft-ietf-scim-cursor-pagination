@@ -99,8 +99,8 @@ The following table describes the URL pagination query parameters for requesting
 The following table describes cursor-based pagination attributes returned in a paged query response:
 
 | Element | Description |
-| `nextCursor` | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include `nextCursor` in all paged query responses except when returning the last page. `nextCursor` is omitted from a response only to indicate that there are no more result pages. |
-| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.
+| `nextCursor` | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include `nextCursor` in all paged query responses except when returning the last page. `nextCursor` MUST be omitted from a response only to indicate that there are no more result pages. |
+| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.  `previousCursor` MUST not be returned with the first page.
 {: title="Response Attributes"}
 
 Cursor values are opaque; clients MUST NOT make assumptions about their structure. When the client wants to retrieve
@@ -237,11 +237,11 @@ When a service provider supports both index-based and cursor-based pagination, c
 
 Implementers of SCIM service providers that previously supported only index-based pagination and are adding support for cursor-based pagination should use index as the default pagination method to avoid incompatibility with clients that expect index-based pagination behaviors when no pagination query parameters are specified.
 
- SCIM clients can query the service provider configuration endpoint to determine if index-based, cursor-based or both types of pagination are supported and which of these is the default.
+ SCIM clients can query the [service provider configuration](#SPC) endpoint to determine if index-based, cursor-based or both types of pagination are supported and which of these is the default.
 
 # Querying Resources using HTTP POST
 
-Section 3.4.3 of [RFC7644] defines how clients may execute queries without passing parameters on the URL by using the `POST` verb combined with the `/.search` path extension execute. When posting to `/.search`, the client would pass the parameters defined in Section 2 in the body of the POST request.
+Section 3.4.3 of [RFC7644] defines how clients may execute queries without passing parameters on the URL by using the `POST` verb combined with the `/.search` path extension execute. When posting to `/.search`, the client would pass the parameters defined in Section 2 in the body of the POST request. For example:
 
 ~~~
 POST /User/.search
@@ -277,7 +277,7 @@ Content-Type: application/scim+json
 }
 ~~~
 
-# Service Provider Configuration
+# Service Provider Configuration {#SPC}
 
 The `/ServiceProviderConfig` resource defined in Section 4 of [RFC7644]
 facilitates discovery of SCIM service provider features.  A SCIM
