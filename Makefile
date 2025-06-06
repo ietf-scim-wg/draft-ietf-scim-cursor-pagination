@@ -1,6 +1,6 @@
 LIBDIR := lib
 include $(LIBDIR)/main.mk
-
+.SECONDARY: draft-ietf-scim-cursor-pagination.xml
 $(LIBDIR)/main.mk:
 ifneq (,$(shell grep "path *= *$(LIBDIR)" .gitmodules 2>/dev/null))
 	git submodule sync

@@ -9,7 +9,7 @@ ipr: trust200902
 area: IETF
 workgroup: SCIM
 keyword: [Internet-Draft, SCIM]
-updates: [7643, 7644]
+updates: 7643, 7644
 
 stand_alone: yes
 smart_quotes: no
@@ -43,11 +43,8 @@ informative:
 
 --- abstract
 
-This document defines additional SCIM (System for Cross-Domain Identity Management) query parameters and result
-attributes to allow use of cursor-based pagination in SCIM
-implementations that are implemented with existing code bases,
-databases, or APIs where cursor-based pagination is already well established.
-
+This document updates [RFC7643] and [RFC7644] by defining additional SCIM (System for Cross-Domain Identity Management) query parameters and result attributes to allow use of cursor-based pagination in SCIM
+service providers that are implemented with existing code bases, databases, or APIs where cursor-based pagination is already well established.
 
 --- middle
 
@@ -66,7 +63,7 @@ index-based pagination defined in Section 3.4.2.4 of [RFC7644]
 ultimately requires the SCIM service provider to fully iterate the
 underlying cursor, store the results, and then serve indexed pages
 from the stored results.  This task of "pagination translation"
-dramatically increases complexity and memory requirements for
+increases complexity and memory requirements for
 implementing a SCIM service provider, and may be an impediment to
 SCIM adoption for some applications and identity systems.
 
@@ -80,35 +77,38 @@ is already well-established.
 
 This document updates RFCs 7643 and 7644 because it adds attributes to
 existing structures from those documents, as described in this memo in
-Section 2. These changes are only invoked with the "cursor" query
-parameter.
+[](#section2). These changes are invoked when using the “cursor” parameter
+when making SCIM search requests using GET or POST methods.
 
 ## Notational Conventions
 
 {::boilerplate bcp14-tagged}
 
-# Query Parameters and Response Attributes
+## Definitions
+This document uses the terms defined in section 1.2 of [RFC7643]
+
+# Query Parameters and Response Attributes {#section2}
 
 The following table describes the URL pagination query parameters for requesting cursor-based pagination:
 
 | Parameter | Description |
 | `cursor` | The string value of the nextCursor attribute from a previous result page. The cursor value MUST be empty or omitted for the first request of a cursor-paginated query. This value may only contain characters from the unreserved characters set defined in section 2.3 of [RFC3986]. |
-| `count` | A positive integer. Specifies the desired maximum number of query results per page, e.g., `count=10`. When specified, the service provider MUST NOT return more results than specified, although it MAY return fewer results. If count is not specified in the query, the maximum number of results is set by the service provider.
+| `count` | Specifies the desired maximum number of query results per page, e.g., 10.  A negative value SHALL be interpreted as "0".  A value of "0" indicates that no resource results are to be returned except for "totalResults". When specified, the service provider MUST NOT return more although it MAY return fewer results. If unspecified, the maximum number of returned is set by the service provider. |
 {: title="Query Parameters"}
 
 The following table describes cursor-based pagination attributes returned in a paged query response:
 
 | Element | Description |
-| `nextCursor` | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include `nextCursor` in all paged query responses except when returning the last page. `nextCursor` is omitted from a response only to indicate that there are no more result pages. |
-| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.
+| `nextCursor` | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include `nextCursor` in all paged query responses except when returning the last page. `nextCursor` MUST be omitted from a response only to indicate that there are no more result pages. |
+| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.  `previousCursor` MUST not be returned with the first page.
 {: title="Response Attributes"}
 
-Cursor values are opaque; clients MUST not make assumptions about their structure. When the client wants to retrieve
+Cursor values are opaque; clients MUST NOT make assumptions about their structure. When the client wants to retrieve
 another result page for a query, it MUST query the same service
 provider endpoint with all query parameters and values being
 identical to the initial query with the exception of the cursor value
 which SHOULD be set to a `nextCursor` (or `previousCursor`) value that
-was returned by service provider in a previous response.
+was returned by the service provider in a previous response.
 
 For example, to retrieve the first 10 Users with `userName` starting
 with `J`, use an empty cursor and set the count to 10:
@@ -158,7 +158,7 @@ Content-Type: application/scim+json
 {
    "totalResults": 100,
    "itemsPerPage": 10,
-   "previousCursor: "ze7L30kMiiLX6x"
+   "previousCursor: "ze7L30kMiiLX6x",
    "nextCursor": "YkU3OF86Pz0rGv",
    "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
    "Resources":[{
@@ -167,11 +167,11 @@ Content-Type: application/scim+json
 }
 ~~~
 
-In the example above, the response includes the OPTIONAL
+In the example above, the response includes the optional
 previousCursor indicating that the service provider supports forward
 and reverse traversal of result pages.
 
-As described in Section 3.4.1 of [RFC7644] service providers SHOULD
+As described in Section 3.4.1 of [RFC7644] service providers should
 return an accurate value for totalResults which is the total number
 of resources for all pages.  Service providers implementing cursor
 pagination that are unable to estimate totalResults MAY choose to omit the totalResults attribute.
@@ -182,17 +182,14 @@ If a service provider encounters invalid pagination query
 parameters (invalid cursor value, count value, etc), or other error
 conditions, the service provider SHOULD return the appropriate HTTP
 response status code and detailed JSON error response as defined in
-Section 3.12 of [RFC7644].  Most pagination error conditions would
-generate an HTTP response with status code 400.  Since many pagination
-error conditions are not user recoverable, error messages SHOULD
-focus on communicating error details to the SCIM client developer.
+Section 3.12 of [RFC7644].
 
-For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in [RFC7644] Section 3.12, Table 9: SCIM Detail Error Keyword Values.
+For HTTP status code 400 (Bad Request) responses, the following detail error types are defined. These error types extend the list of error types defined in section 3.12 of [RFC7644], Table 9: SCIM Detail Error Keyword Values.
 
 | `scimType` | Description | Applicability |
 | `invalidCursor` | Cursor value is invalid. Cursor value SHOULD be empty to request the first page and set to the `nextCursor` or `previousCursor` value for subsequent queries.| `GET` (Section 3.4.2 of [RFC7644])|
 | `expiredCursor` | Cursor has expired. Do not wait longer than service provider's `cursorTimeout` to request additional pages.| `GET` (Section 3.4.2 of [RFC7644])|
-| `invalidCount` | Count value is invalid. Count value must be between 1 - and service provider's maxPageSize | `GET` (Section 3.4.2 of [RFC7644])|
+| `invalidCount` | Count value is invalid. Count value must be between 0 and service provider's maxPageSize and must value identical count of the initial query.  | `GET` (Section 3.4.2 of [RFC7644])|
 {: title="Pagination Errors"}
 
 ## Sorting
@@ -200,13 +197,7 @@ For HTTP status code 400 (Bad Request) responses, the following detail error typ
 If sorting is implemented as described Section 3.4.2.3 of [RFC7644],
 then cursor-paged results SHOULD be sorted.
 
-When a service provider supports both index- and cursor-based pagination, clients can use the 'startIndex' and 'cursor' query parameters to request a specific method.
-
-Service providers supporting both pagination methods MUST choose a pagination method to use when responding to requests that have not specified a pagination query parameter. Service providers MUST NOT return an error due to the pagination method being unspecified when pagination is required to complete the response.
-
-If the default pagination method is not advertised in the Service Provider Configuration data, service provider implementers MAY dynamically determine which pagination method is used for each response based on criteria of their choosing.
-
-## Cursors as the Only Pagination Method
+## Implementing Cursors as the Only Pagination Method
 
 A service provider MAY require cursor-based pagination to
 retrieve all results for a query by including a `nextCursor` value in
@@ -240,23 +231,17 @@ Content-Type: application/scim+json
 }
 ~~~
 
-## Backwards Compatibility Considerations
+## Implementing Both Cursors and Index Pagination
 
-Implementers of SCIM service providers that previously supported
-index-based pagination and are adding support for cursor-based pagination
-SHOULD carefully consider the impact to existing SCIM clients before
-changing the default pagination method in a return set. SCIM clients
-that previously expected index-based pagination may not be compatible
-with cursor-based pagination without making changes to the SCIM client.
-Adding cursor-based pagination support but leaving the default return
-set pagination method as-is SHOULD not impact existing SCIM clients.
+When a service provider supports both index-based and cursor-based pagination, clients can use the 'startIndex' or 'cursor' query parameters to request a specific method.  Additionally, service providers supporting both pagination methods MUST choose a default pagination method to use when responding to requests that have not specified a pagination query parameter.
 
-SCIM clients can query the provider configuration endpoint to determine
-if index-based, cursor-based or both types of pagination are supported.
+Implementers of SCIM service providers that previously supported only index-based pagination and are adding support for cursor-based pagination should use index as the default pagination method to avoid incompatibility with clients that expect index-based pagination behaviors when no pagination query parameters are specified.
+
+ SCIM clients can query the [service provider configuration](#section4) endpoint to determine if index-based, cursor-based or both types of pagination are supported and which of these is the default.
 
 # Querying Resources using HTTP POST
 
-Section 3.4.3 of [RFC7644] defines how clients MAY execute queries without passing parameters on the URL by using the `POST` verb combined with the `/.search` path extension execute. When posting to `/.search`, the client would pass the parameters defined in Section 2 in the body of the POST request.
+Section 3.4.3 of [RFC7644] defines how clients may execute queries without passing parameters on the URL by using the `POST` verb combined with the `/.search` path extension execute. When posting to `/.search`, the client would pass the parameters defined in [](#section2) in the body of the POST request. For example:
 
 ~~~
 POST /User/.search
@@ -275,7 +260,7 @@ Authorization: Bearer U8YJcYYRMjbGeepD
 
 Which would return a result containing a `nextCursor` value which may
 be used by the client in a subsequent call to return the next page of
-resources
+resources:
 
 ~~~
 HTTP/1.1 200 OK
@@ -292,7 +277,7 @@ Content-Type: application/scim+json
 }
 ~~~
 
-# Service Provider Configuration
+# Service Provider Configuration {#section4}
 
 The `/ServiceProviderConfig` resource defined in Section 4 of [RFC7644]
 facilitates discovery of SCIM service provider features.  A SCIM
@@ -365,21 +350,6 @@ Content-Type: application/scim+json
 }
 ~~~
 
-Service provider implementers SHOULD ensure that misuse of pagination
-by a SCIM client does not deplete service provider resources or
-prevent valid requests from other clients being handled.  Defenses
-for a SCIM service provider are similar those used to protect other
-Web API services -- including the use of a "Web API gateway" layer,
-to provide authentication, rate limiting, IP allow/block lists,
-logging and monitoring, response caching, etc.
-
-For example, an obvious protection against abuse is for the service
-provider to require client authentication in order to retrieve large
-result sets and enforce an overriding `totalResults` limit for non-
-authenticated clients.  Another example would be for a service
-provider that implements cursor pagination to restrict the number of
-cursors that can be allocated by a client or enforce cursor lifetimes.
-
 # Security Considerations
 
 This section elaborates on the security considerations associated with the implementation of cursor pagination in SCIM. This document is under the same security and privacy considerations of those described in [RFC7644]. It is imperative that implementers additionally consider the following security aspects to safeguard against both deliberate attacks and inadvertent misuse that may compromise the system's security posture.
@@ -389,51 +359,50 @@ This section elaborates on the security considerations associated with the imple
 The threat landscape is characterized by two primary types of actors:
 
 1. Unauthenticated and Authenticated Malicious Actors: These individuals or entities represent a malevolent threat. Their objectives include unauthorized access to data, alteration, or deletion through cursor-enabled queries. They may also seek to deplete service provider resources deliberately, aiming to cause a denial-of-service state, thereby reducing service availability.
-2. Authenticated Benign Users: This category includes legitimate users who, due to confusion or a lack of understanding, inadvertently engage in actions that consume service provider resources excessively. Such actions, while not ill-intended, can lead to unintended denial of service by overwhelming the system's capacity.
+2. Authenticated Benign Users: This category includes legitimate users who, due to confusion or a lack of understanding, inadvertently engage in actions that consume service provider resources excessively. Such actions, while not ill-intended, can lead to unintended denial of service by overwhelming the service provider's capacity.
 
 ## Confidentiality
 
 To ensure that confidential data remains appropriately secured:
 
 * Implementers MUST ensure that pagination through results sets is strictly confined to the data that the actor's current identity has been authorized to access. This holds true even in cases where the actor has obtained a cursor pertaining to a result set that was generated by a different actor.
-* Authorization checks MUST BE continuously applied as an actor navigates through the result set associated with a cursor. Under no circumstances should possession of a cursor be interpreted as granting any supplementary access privileges to the actor.
-* In alignment with Section 2, cursor values SHOULD be treated as opaque entities. Clients should avoid making any inferences or assumptions about their internal structure.
-* The system SHOULD handle error scenarios gracefully, while not exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the system should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the system to log different messages to a log accessible by administrators or other authorized personnel.
+* Authorization checks MUST be continuously applied as an actor navigates through the result set associated with a cursor. Under no circumstances should possession of a cursor be interpreted as granting any supplementary access privileges to the actor.
+* In alignment with [](#section2), cursor values MUST be treated as opaque entities.
+* The service provider SHOULD handle error scenarios without exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the service provider should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the service provider to log different messages to a log accessible by administrators or other authorized personnel.
 
 ## Integrity
 
 The extension discussed herein is query-only and does not inherently pose a substantial risk to data integrity. However, the focus is placed on safeguarding the integrity of the applications and clients that depend on this extension, rather than the integrity of the service provider. Specific considerations include:
 It is not required to tie a cursor to specific actor. However, if a cursor is tied to an actor and if the actor's permissions change, and the actor is still using the cursor, the actor may miss records OR there may be unauthorized access to data.
 
-* When possible, service providers SHOULD invalidate all tokens/watermarks corresponding to an actor immediately following a change in permissions. This ensures that any queries executed post-permission change, utilizing old tokens/watermarks, will be denied.
-* As an alternative approach, service provider may opt to retain the existing tokens/watermarks but must ensure that any metadata tied to the result set, such as record counts, is updated to reflect the new permissions accurately.
+* When possible, service providers SHOULD invalidate all cursors corresponding to an actor immediately following a change in permissions. This ensures that any queries executed post-permission change, utilizing old cursors, will be denied.
+* As an alternative approach, service provider may opt to retain the existing cursors but must ensure that any metadata tied to the result set, such as record counts, is updated to reflect the new permissions accurately.
 
 ## Availability
 
-The concern for availability primarily stems from the potential for Denial of Service (DoS) attacks. If the service provider elects to retain substantial data or metadata for each cursor, numerous concurrent queries with &cursor could strain and eventually exhaust service provider resources. This could be orchestrated by an attacker with malicious intent or could occur innocuously as a result of actions taken by a benign but confused actor.
+The concern for availability primarily stems from the potential for Denial of Service (DoS) attacks. If the service provider elects to retain substantial data or metadata for each cursor, numerous initial queries that allocate cursors could strain and eventually exhaust service provider resources. Such an attack could be orchestrated by an attacker with malicious intent or could occur unintentionally as a result of client testing or bugs.
 
-To mitigate such risks, the following strategies are recommended:
+To mitigate risks, the following strategies are recommended for service providers:
 
-* Implementation of rate limiting to control the volume and cadence of cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in [RFC6585].
-* Cursor mechanisms must be designed in a manner that avoids any additional consumption of service provider resources with the initiation of new &cursor requests.
-* It is advisable to establish a ceiling on the number of cursors permissible at any given time. Alternatively, the adoption of an opaque identifier system that conservatively utilizes resources may be used.
-* Token invalidation mechanisms (including mechanisms triggered by permissions changes) must be designed to be resource-efficient to prevent them from being exploited for DoS attacks.
-* Actors may face challenges in maintaining a seamless pagination experience if their permissions are in a state of flux. Proactive measures should be taken to ensure that permission changes do not disrupt the user experience.
+* Clients should authenticate to retrieve large result sets.  Anonymous queries yielding numerous results, may return  an HTTP status code 400 (Bad Request) with the error type "tooMany," as outlined in [RFC7644] section 3.12.
+* Implement rate limiting to control the volume and cadence of cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in [RFC6585].
+* Allow administrator of the service provider to set a ceiling on the number of cursors permissible at any given time or to specify a maxPageSize value. Guidance on configuring such values should be documented in the implementation administrator/installation guide.
+* cursors invalidation mechanisms (including mechanisms triggered by permissions changes) must be designed to be resource-efficient to prevent them from being exploited for DoS attacks.
 
 ## Other Security References
 
-Using URIs to describe and locate resources has its own set of security considerations discussed in Section 7 of [RFC3986].  Implementations SHOULD also refer to [BCP195] and [RFC9110] for additional security considerations that are relvant for underlying TLS and HTTP protocols.
+Using URIs to describe and locate resources has its own set of security considerations discussed in Section 7 of [RFC3986].  Implementations should also refer to [BCP195] and [RFC9110] for additional security considerations that are relevant for underlying TLS and HTTP protocols.
 
 
 # IANA Considerations
 
 This specification requests IANA to amends the registry "SCIM Schema URIs for Data Resources" established by [RFC7643].
 
-For the `urn:ietf:params:scim:api:messages:2.0:ListResponse`, add section 2 of this document to the References column.
+For the `urn:ietf:params:scim:api:messages:2.0:ListResponse`, add [](#section2) of this document to the References column.
 
-For the `urn:ietf:params:scim:api:messages:2.0:SearchRequest`, add section 2 of this document to the References column.
+For the `urn:ietf:params:scim:api:messages:2.0:SearchRequest`, add [](#section2) of this document to the References column.
 
-For the `urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig`, add section 4 of this document to the References column.
+For the `urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig`, add [](#section4) of this document to the References column.
 
 # Change Log
 
