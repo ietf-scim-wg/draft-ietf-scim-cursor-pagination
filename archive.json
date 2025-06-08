@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-11T01:12:36.570162+00:00",
+  "timestamp": "2025-06-08T01:16:39.858408+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -850,7 +850,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-05-09T04:11:10Z",
-      "updatedAt": "2025-05-09T05:10:04Z",
+      "updatedAt": "2025-06-06T15:49:10Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "baseRefName": "main",
       "baseRefOid": "a3929d3fff98c3d2fe20c6d697559b3320a39eec",
@@ -882,8 +882,56 @@
               "updatedAt": "2025-05-09T05:10:38Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJDk96s6tK-St",
+          "commit": {
+            "abbreviatedOid": "2426636"
+          },
+          "author": "reschke",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-06T15:49:10Z",
+          "updatedAt": "2025-06-06T15:49:10Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Right.\r\n\r\nBut I was afraid to make it more complicate. That change probably would apply to more examples.",
+              "createdAt": "2025-06-06T15:49:10Z",
+              "updatedAt": "2025-06-06T15:49:11Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOJDk96s6ZOlu7",
+      "title": "Changes for revision 09",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/22",
+      "state": "MERGED",
+      "author": "petrsnm",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Changes based on feedback from\r\nRoman Danyliw\r\nMohamed Boucadair\r\nEric Vyncke\r\nMike Bishop\r\n",
+      "createdAt": "2025-06-05T15:48:56Z",
+      "updatedAt": "2025-06-06T13:18:54Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "ad0652779782c5b92f9b498e20125f1cdde21ab0",
+      "headRepository": "petrsnm/draft-ietf-scim-cursor-pagination",
+      "headRefName": "main",
+      "headRefOid": "67deaf8c86f9f97af90a06f47b8d9f9d63f538a0",
+      "closedAt": "2025-06-06T13:18:54Z",
+      "mergedAt": "2025-06-06T13:18:54Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "9942e3765302a6ecbd26ee12729aa8cfb168f66f"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
