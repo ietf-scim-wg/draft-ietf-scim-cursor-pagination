@@ -6,9 +6,9 @@ SCIM                                                         M. Peterson
 Internet-Draft                                                   Entrust
 Updates: 7643, 7644 (if approved)                        D. Zollner, Ed.
 Intended status: Standards Track                               Microsoft
-Expires: 8 December 2025                                       A. Sehgal
+Expires: 13 December 2025                                      A. Sehgal
                                                      Amazon Web Services
-                                                             6 June 2025
+                                                            11 June 2025
 
 
                Cursor-based Pagination of SCIM Resources
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 December 2025.
+   This Internet-Draft will expire on 13 December 2025.
 
 Copyright Notice
 
@@ -188,13 +188,12 @@ Table of Contents
 
                         Table 2: Response Attributes
 
-   Cursor values are opaque; clients MUST NOT make assumptions about
-   their structure.  When the client wants to retrieve another result
-   page for a query, it MUST query the same service provider endpoint
-   with all query parameters and values being identical to the initial
-   query with the exception of the cursor value which SHOULD be set to a
-   nextCursor (or previousCursor) value that was returned by the service
-   provider in a previous response.
+   Cursor values are URL-safe strings that are opaque to the client.  To
+   retrieve another result page for a query, the client MUST query the
+   same service provider endpoint with all query parameters and values
+   being identical to the initial query with the exception of the cursor
+   value which SHOULD be set to a nextCursor (or previousCursor) value
+   that was returned by the service provider in a previous response.
 
    For example, to retrieve the first 10 Users with userName starting
    with J, use an empty cursor and set the count to 10:
@@ -295,7 +294,7 @@ Table of Contents
 2.2.  Sorting
 
    If sorting is implemented as described Section 3.4.2.3 of [RFC7644],
-   then cursor-paged results SHOULD be sorted.
+   then cursor-paged results should be sorted.
 
 2.3.  Implementing Cursors as the Only Pagination Method
 
@@ -515,18 +514,22 @@ Table of Contents
       no circumstances should possession of a cursor be interpreted as
       granting any supplementary access privileges to the actor.
 
-   *  In alignment with Section 2, cursor values MUST be treated as
-      opaque entities.
+   *  In alignment with Section 2, cursor values are URL-Safe strings
+      that are opaque to clients.  Server providers should obfuscate
+      cursors values to prevent clients from interpreting cursors or
+      forging new cursors.  Service providers should be able to easily
+      detect forged cursor values and immediately return an
+      invalidCursor as described in Section 2.1
 
-   *  The service provider SHOULD handle error scenarios without
-      exposing sensitive data.  For instance, if an actor attempts to
-      access a page of results outside their authorized scope, or if a
-      request is made for a non-existent page, the service provider
-      should respond with identical error messages, so as not to
-      disclose any details of the underlying data or the nature of the
-      authorization failure.  It is acceptable, however, for the service
-      provider to log different messages to a log accessible by
-      administrators or other authorized personnel.
+   *  The service provider MUST handle error scenarios without exposing
+      sensitive data.  For instance, if an actor attempts to access a
+      page of results outside their authorized scope, or if a request is
+      made for a non-existent page, the service provider should respond
+      with identical error messages, so as not to disclose any details
+      of the underlying data or the nature of the authorization failure.
+      It is acceptable, however, for the service provider to log
+      different messages to a log accessible by administrators or other
+      authorized personnel.
 
 5.3.  Integrity
 
@@ -543,9 +546,8 @@ Table of Contents
    *  When possible, service providers SHOULD invalidate all cursors
       corresponding to an actor immediately following a change in
       permissions.  This ensures that any queries executed post-
-      permission change, utilizing old cursors, will be denied.
-
-   *  As an alternative approach, service provider may opt to retain the
+      permission change, utilizing old cursors, will be denied.  As an
+      alternative approach, service provider may opt to retain the
       existing cursors but must ensure that any metadata tied to the
       result set, such as record counts, is updated to reflect the new
       permissions accurately.
