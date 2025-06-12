@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-10T01:11:34.408058+00:00",
+  "timestamp": "2025-06-12T01:10:10.271527+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -938,24 +938,26 @@
       "id": "PR_kwDOJDk96s6ZuDwo",
       "title": "Changes for Andy Newton and Paul Wouters",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/23",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "petrsnm",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Changes for Andy Newton and Paul Wouters.  I described the changes in in responses  to the wg mailing list",
       "createdAt": "2025-06-09T17:26:39Z",
-      "updatedAt": "2025-06-09T17:26:40Z",
+      "updatedAt": "2025-06-11T11:05:53Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "baseRefName": "main",
       "baseRefOid": "9942e3765302a6ecbd26ee12729aa8cfb168f66f",
       "headRepository": "petrsnm/draft-ietf-scim-cursor-pagination",
       "headRefName": "main",
       "headRefOid": "b4ff661443e8dcd77bbc3ed5e3f5355d2b0b30fd",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-11T11:05:53Z",
+      "mergedAt": "2025-06-11T11:05:53Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "6e0e9bebe1906f49f09b4ed18d35b14b0c6f085f"
+      },
       "comments": [],
       "reviews": []
     }
