@@ -12,13 +12,13 @@
        This document updates   and   by defining additional SCIM (System for Cross-Domain Identity Management) query parameters and result attributes to allow use of cursor-based pagination in SCIM
 service providers that are implemented with existing code bases, databases, or APIs where cursor-based pagination is already well established. 
     " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="xml2rfc 3.29.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="SCIM" name="keyword">
 <meta content="draft-ietf-scim-cursor-pagination-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.12.10
+  xml2rfc 3.29.0
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -27,7 +27,7 @@ service providers that are implemented with existing code bases, databases, or A
     platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
+    requests 2.32.4
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Peterson, et al.</td>
-<td class="center">Expires 13 December 2025</td>
+<td class="center">Expires 22 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7643" class="eref">7643</a>, <a href="https://www.rfc-editor.org/rfc/rfc7644" class="eref">7644</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-11" class="published">11 June 2025</time>
+<time datetime="2025-06-20" class="published">20 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-13">13 December 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-22">22 December 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,7 +1083,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="author">
       <div class="author-name">D. Zollner, <span class="editor">Ed.</span>
 </div>
-<div class="org">Microsoft</div>
+<div class="org">Independent</div>
 </div>
 <div class="author">
       <div class="author-name">A. Sehgal</div>
@@ -1128,7 +1128,7 @@ service providers that are implemented with existing code bases, databases, or A
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1201,13 +1201,10 @@ service providers that are implemented with existing code bases, databases, or A
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-confidentiality" class="internal xref">Confidentiality</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-integrity" class="internal xref">Integrity</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-availability" class="internal xref">Availability</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
-                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-availability" class="internal xref">Availability</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
-                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-other-security-references" class="internal xref">Other Security References</a></p>
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-other-security-references" class="internal xref">Other Security References</a></p>
 </li>
             </ul>
 </li>
@@ -1707,58 +1704,47 @@ Content-Type: application/scim+json
             <p id="section-5.2-2.2.1">Authorization checks <span class="bcp14">MUST</span> be continuously applied as an actor navigates through the result set associated with a cursor. Under no circumstances should possession of a cursor be interpreted as granting any supplementary access privileges to the actor.<a href="#section-5.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-2.3">
-            <p id="section-5.2-2.3.1">In alignment with <a href="#section2" class="auto internal xref">Section 2</a>, cursor values are URL-Safe strings that are opaque to clients.  Server providers should obfuscate cursors
-values to prevent clients from interpreting cursors or forging new cursors.  Service providers should be able to easily detect forged cursor values and immediately return an <code>invalidCursor</code> as described in <a href="#section2.1" class="auto internal xref">Section 2.1</a><a href="#section-5.2-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-2.3.1">When possible, service providers <span class="bcp14">SHOULD</span> invalidate all cursors corresponding to an actor immediately following a change in permissions. This ensures that any queries executed post-permission change, utilizing old cursors, will be denied. As an alternative approach, service provider may opt to retain the existing cursors but must ensure that any metadata tied to the result set, such as record counts, is updated to reflect the new permissions accurately.<a href="#section-5.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-2.4">
-            <p id="section-5.2-2.4.1">The service provider <span class="bcp14">MUST</span> handle error scenarios without exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the service provider should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the service provider to log different messages to a log accessible by administrators or other authorized personnel.<a href="#section-5.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-2.4.1">In alignment with <a href="#section2" class="auto internal xref">Section 2</a>, cursor values are URL-Safe strings that are opaque to clients.  Server providers should obfuscate cursors
+values to prevent clients from interpreting cursors or forging new cursors.  Service providers should be able to easily detect forged cursor values and immediately return an <code>invalidCursor</code> as described in <a href="#section2.1" class="auto internal xref">Section 2.1</a><a href="#section-5.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-</section>
-</div>
-<div id="integrity">
-<section id="section-5.3">
-        <h3 id="name-integrity">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-integrity" class="section-name selfRef">Integrity</a>
-        </h3>
-<p id="section-5.3-1">The extension discussed herein is query-only and does not inherently pose a substantial risk to data integrity. However, the focus is placed on safeguarding the integrity of the applications and clients that depend on this extension, rather than the integrity of the service provider. Specific considerations include:
-It is not required to tie a cursor to specific actor. However, if a cursor is tied to an actor and if the actor's permissions change, and the actor is still using the cursor, the actor may miss records OR there may be unauthorized access to data.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.3-2.1">
-            <p id="section-5.3-2.1.1">When possible, service providers <span class="bcp14">SHOULD</span> invalidate all cursors corresponding to an actor immediately following a change in permissions. This ensures that any queries executed post-permission change, utilizing old cursors, will be denied. As an alternative approach, service provider may opt to retain the existing cursors but must ensure that any metadata tied to the result set, such as record counts, is updated to reflect the new permissions accurately.<a href="#section-5.3-2.1.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-2.5">
+            <p id="section-5.2-2.5.1">The service provider <span class="bcp14">MUST</span> handle error scenarios without exposing sensitive data. For instance, if an actor attempts to access a page of results outside their authorized scope, or if a request is made for a non-existent page, the service provider should respond with identical error messages, so as not to disclose any details of the underlying data or the nature of the authorization failure. It is acceptable, however, for the service provider to log different messages to a log accessible by administrators or other authorized personnel.<a href="#section-5.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="availability">
-<section id="section-5.4">
+<section id="section-5.3">
         <h3 id="name-availability">
-<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-availability" class="section-name selfRef">Availability</a>
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-availability" class="section-name selfRef">Availability</a>
         </h3>
-<p id="section-5.4-1">The concern for availability primarily stems from the potential for Denial of Service (DoS) attacks. If the service provider elects to retain substantial data or metadata for each cursor, numerous initial queries that allocate cursors could strain and eventually exhaust service provider resources. Such an attack could be orchestrated by an attacker with malicious intent or could occur unintentionally as a result of client testing or bugs.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">To mitigate risks, the following strategies are recommended for service providers:<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">The concern for availability primarily stems from the potential for Denial of Service (DoS) attacks. If the service provider elects to retain substantial data or metadata for each cursor, numerous initial queries that allocate cursors could strain and eventually exhaust service provider resources. Such an attack could be orchestrated by an attacker with malicious intent or could occur unintentionally as a result of client testing or bugs.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">To mitigate risks, the following strategies are recommended for service providers:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.4-3.1">
-            <p id="section-5.4-3.1.1">Clients should authenticate to retrieve large result sets.  Anonymous queries yielding numerous results, may return  an HTTP status code 400 (Bad Request) with the error type "tooMany," as outlined in <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> section 3.12.<a href="#section-5.4-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.3-3.1">
+            <p id="section-5.3-3.1.1">Clients should authenticate to retrieve large result sets.  Anonymous queries yielding numerous results, may return an HTTP status code 400 (Bad Request) with the error type "tooMany," as outlined in <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span> section 3.12.<a href="#section-5.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.4-3.2">
-            <p id="section-5.4-3.2.1">Implement rate limiting to control the volume and cadence of cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in <span>[<a href="#RFC6585" class="cite xref">RFC6585</a>]</span>.<a href="#section-5.4-3.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-3.2">
+            <p id="section-5.3-3.2.1">Implement rate limiting to control the volume and cadence of cursor requests. This approach should adhere to established standards for rate limiting, details of which can be found in <span>[<a href="#RFC6585" class="cite xref">RFC6585</a>]</span>.<a href="#section-5.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.4-3.3">
-            <p id="section-5.4-3.3.1">Allow administrator of the service provider to set a ceiling on the number of cursors permissible at any given time or to specify a maxPageSize value. Guidance on configuring such values should be documented in the implementation administrator/installation guide.<a href="#section-5.4-3.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-3.3">
+            <p id="section-5.3-3.3.1">Allow administrator of the service provider to set a ceiling on the number of cursors permissible at any given time or to specify a maxPageSize value. Guidance on configuring such values should be documented in the implementation administrator/installation guide.<a href="#section-5.3-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.4-3.4">
-            <p id="section-5.4-3.4.1">cursors invalidation mechanisms (including mechanisms triggered by permissions changes) must be designed to be resource-efficient to prevent them from being exploited for DoS attacks.<a href="#section-5.4-3.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-3.4">
+            <p id="section-5.3-3.4.1">Cursor invalidation mechanisms (including mechanisms triggered by permissions changes) must be designed to be resource-efficient to prevent them from being exploited for DoS attacks.<a href="#section-5.3-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="other-security-references">
-<section id="section-5.5">
+<section id="section-5.4">
         <h3 id="name-other-security-references">
-<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-other-security-references" class="section-name selfRef">Other Security References</a>
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-other-security-references" class="section-name selfRef">Other Security References</a>
         </h3>
-<p id="section-5.5-1">Using URIs to describe and locate resources has its own set of security considerations discussed in Section 7 of <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.  Implementations should also refer to <span>[<a href="#BCP195" class="cite xref">BCP195</a>]</span> and <span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span> for additional security considerations that are relevant for underlying TLS and HTTP protocols.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-1">Using URIs to describe and locate resources has its own set of security considerations discussed in Section 7 of <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.  Implementations should also refer to <span>[<a href="#BCP195" class="cite xref">BCP195</a>]</span> and <span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span> for additional security considerations that are relevant for underlying TLS and HTTP protocols.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1958,10 +1944,10 @@ It is not required to tie a cursor to specific actor. However, if a cursor is ti
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Danny Zollner (<span class="role">editor</span>)</span></div>
-<div dir="auto" class="left"><span class="org">Microsoft</span></div>
+<div dir="auto" class="left"><span class="org">Independent</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:danny.zollner@microsoft.com" class="email">danny.zollner@microsoft.com</a>
+<a href="mailto:danny@zolnerd.com" class="email">danny@zolnerd.com</a>
 </div>
 </address>
 <address class="vcard">
