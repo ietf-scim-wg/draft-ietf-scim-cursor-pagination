@@ -23,8 +23,8 @@ author:
     email: matt.peterson@entrust.com
    -
     name: Danny Zollner
-    organization: Microsoft
-    email: danny.zollner@microsoft.com
+    organization: Independent
+    email: danny@zolnerd.com
     role: editor
    -
     name: Anjali Sehgal
