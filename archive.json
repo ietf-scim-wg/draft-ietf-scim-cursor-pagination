@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-12T01:10:10.271527+00:00",
+  "timestamp": "2025-06-22T01:17:38.369573+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -957,6 +957,34 @@
       "mergedBy": "ansg-aws",
       "mergeCommit": {
         "oid": "6e0e9bebe1906f49f09b4ed18d35b14b0c6f085f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOJDk96s6bdpXC",
+      "title": "Additional changes for 09",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/24",
+      "state": "MERGED",
+      "author": "petrsnm",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-20T19:02:45Z",
+      "updatedAt": "2025-06-20T19:27:27Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "6e0e9bebe1906f49f09b4ed18d35b14b0c6f085f",
+      "headRepository": "petrsnm/draft-ietf-scim-cursor-pagination",
+      "headRefName": "main",
+      "headRefOid": "66201ad9f3de6033a39e09ab1a153416d04f4cff",
+      "closedAt": "2025-06-20T19:27:27Z",
+      "mergedAt": "2025-06-20T19:27:27Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "2bd0d4f29a10f64b946334781e80b2ce1d72ba55"
       },
       "comments": [],
       "reviews": []
