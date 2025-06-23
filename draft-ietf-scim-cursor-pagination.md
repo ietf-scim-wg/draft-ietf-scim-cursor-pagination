@@ -24,7 +24,7 @@ author:
    -
     name: Danny Zollner
     organization: Independent
-    email: danny@zolnerd.com
+    email: danny@zollnerd.com
     role: editor
    -
     name: Anjali Sehgal
