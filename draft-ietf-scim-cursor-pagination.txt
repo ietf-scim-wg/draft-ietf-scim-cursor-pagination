@@ -6,9 +6,9 @@ SCIM                                                         M. Peterson
 Internet-Draft                                                   Entrust
 Updates: 7643, 7644 (if approved)                        D. Zollner, Ed.
 Intended status: Standards Track                             Independent
-Expires: 22 December 2025                                      A. Sehgal
+Expires: 2 January 2026                                        A. Sehgal
                                                      Amazon Web Services
-                                                            20 June 2025
+                                                             1 July 2025
 
 
                Cursor-based Pagination of SCIM Resources
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 December 2025.
+   This Internet-Draft will expire on 2 January 2026.
 
 Copyright Notice
 
@@ -735,7 +735,7 @@ Authors' Addresses
 
    Danny Zollner (editor)
    Independent
-   Email: danny@zolnerd.com
+   Email: danny@zollnerd.com
 
 
    Anjali Sehgal
