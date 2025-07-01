@@ -43,7 +43,7 @@ informative:
 
 --- abstract
 
-This document updates [RFC7643] and [RFC7644] by defining additional SCIM (System for Cross-Domain Identity Management) query parameters and result attributes to allow use of cursor-based pagination in SCIM
+This document updates RFC7643 and RFC7644 by defining additional SCIM (System for Cross-Domain Identity Management) query parameters and result attributes to allow use of cursor-based pagination in SCIM
 service providers that are implemented with existing code bases, databases, or APIs where cursor-based pagination is already well established.
 
 --- middle
