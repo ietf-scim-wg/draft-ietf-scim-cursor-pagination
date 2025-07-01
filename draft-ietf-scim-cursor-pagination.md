@@ -99,7 +99,7 @@ The following table describes cursor-based pagination attributes returned in a p
 
 | Element | Description |
 | `nextCursor` | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include `nextCursor` in all paged query responses except when returning the last page. `nextCursor` MUST be omitted from a response only to indicate that there are no more result pages. |
-| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.  `previousCursor` MUST not be returned with the first page.
+| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.  `previousCursor` MUST NOT be returned with the first page.
 {: title="Response Attributes"}
 
 Cursor values are URL-safe strings that are opaque to the client.
