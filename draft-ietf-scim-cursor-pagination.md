@@ -77,8 +77,7 @@ is already well-established.
 
 This document updates RFCs 7643 and 7644 because it adds attributes to
 existing structures from those documents, as described in this memo in
-[](#section2). These changes are invoked when using the “cursor” parameter
-when making SCIM search requests using GET or POST methods.
+[](#section2). These changes are invoked when using the "cursor" parameter when making SCIM search requests using GET or POST methods.
 
 ## Notational Conventions
 
