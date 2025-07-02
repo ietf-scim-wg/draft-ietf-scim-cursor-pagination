@@ -43,7 +43,7 @@ informative:
 
 --- abstract
 
-This document updates [RFC7643] and [RFC7644] by defining additional SCIM (System for Cross-Domain Identity Management) query parameters and result attributes to allow use of cursor-based pagination in SCIM
+This document updates RFC7643 and RFC7644 by defining additional SCIM (System for Cross-Domain Identity Management) query parameters and result attributes to allow use of cursor-based pagination in SCIM
 service providers that are implemented with existing code bases, databases, or APIs where cursor-based pagination is already well established.
 
 --- middle
@@ -77,8 +77,7 @@ is already well-established.
 
 This document updates RFCs 7643 and 7644 because it adds attributes to
 existing structures from those documents, as described in this memo in
-[](#section2). These changes are invoked when using the “cursor” parameter
-when making SCIM search requests using GET or POST methods.
+[](#section2). These changes are invoked when using the "cursor" parameter when making SCIM search requests using GET or POST methods.
 
 ## Notational Conventions
 
@@ -100,7 +99,7 @@ The following table describes cursor-based pagination attributes returned in a p
 
 | Element | Description |
 | `nextCursor` | A cursor value string that MAY be used in a subsequent request to obtain the next page of results. Service providers supporting cursor-based pagination MUST include `nextCursor` in all paged query responses except when returning the last page. `nextCursor` MUST be omitted from a response only to indicate that there are no more result pages. |
-| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.  `previousCursor` MUST not be returned with the first page.
+| `previousCursor` | A cursor value string that MAY be used in a subsequent request to obtain the previous page of results. Returning `previousCursor` is OPTIONAL.  `previousCursor` MUST NOT be returned with the first page.
 {: title="Response Attributes"}
 
 Cursor values are URL-safe strings that are opaque to the client.
