@@ -6,9 +6,9 @@ SCIM                                                         M. Peterson
 Internet-Draft                                                   Entrust
 Updates: 7643, 7644 (if approved)                        D. Zollner, Ed.
 Intended status: Standards Track                             Independent
-Expires: 2 January 2026                                        A. Sehgal
+Expires: 3 January 2026                                        A. Sehgal
                                                      Amazon Web Services
-                                                             1 July 2025
+                                                             2 July 2025
 
 
                Cursor-based Pagination of SCIM Resources
@@ -16,9 +16,9 @@ Expires: 2 January 2026                                        A. Sehgal
 
 Abstract
 
-   This document updates [RFC7643] and [RFC7644] by defining additional
-   SCIM (System for Cross-Domain Identity Management) query parameters
-   and result attributes to allow use of cursor-based pagination in SCIM
+   This document updates RFC7643 and RFC7644 by defining additional SCIM
+   (System for Cross-Domain Identity Management) query parameters and
+   result attributes to allow use of cursor-based pagination in SCIM
    service providers that are implemented with existing code bases,
    databases, or APIs where cursor-based pagination is already well
    established.
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2026.
+   This Internet-Draft will expire on 3 January 2026.
 
 Copyright Notice
 
@@ -121,7 +121,7 @@ Table of Contents
 
    This document updates RFCs 7643 and 7644 because it adds attributes
    to existing structures from those documents, as described in this
-   memo in Section 2.  These changes are invoked when using the “cursor”
+   memo in Section 2.  These changes are invoked when using the "cursor"
    parameter when making SCIM search requests using GET or POST methods.
 
 1.1.  Notational Conventions
@@ -181,7 +181,7 @@ Table of Contents
     | previousCursor | A cursor value string that MAY be used in a    |
     |                | subsequent request to obtain the previous page |
     |                | of results.  Returning previousCursor is       |
-    |                | OPTIONAL.  previousCursor MUST not be returned |
+    |                | OPTIONAL.  previousCursor MUST NOT be returned |
     |                | with the first page.                           |
     +----------------+------------------------------------------------+
 
