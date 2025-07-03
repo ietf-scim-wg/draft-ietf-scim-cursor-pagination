@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-24T01:11:31.519544+00:00",
+  "timestamp": "2025-07-03T01:11:39.394680+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -994,24 +994,54 @@
       "id": "PR_kwDOJDk96s6br_rb",
       "title": "Missed an L in danny's contact ",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/25",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "petrsnm",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-06-23T15:13:38Z",
-      "updatedAt": "2025-06-23T15:13:39Z",
+      "updatedAt": "2025-07-01T10:48:14Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "baseRefName": "main",
       "baseRefOid": "2bd0d4f29a10f64b946334781e80b2ce1d72ba55",
       "headRepository": "petrsnm/draft-ietf-scim-cursor-pagination",
       "headRefName": "main",
       "headRefOid": "ec5b7dedb160c8d7f2a1d64ff9516b5a7833c52a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-07-01T10:48:13Z",
+      "mergedAt": "2025-07-01T10:48:13Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "2f352b9892a7a82a3b94b2e2e2295bc82029afe8"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOJDk96s6c-ZSU",
+      "title": "Fix all idnits found by author-tools",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/26",
+      "state": "MERGED",
+      "author": "petrsnm",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-01T20:45:27Z",
+      "updatedAt": "2025-07-02T10:41:32Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
+      "baseRefName": "main",
+      "baseRefOid": "2f352b9892a7a82a3b94b2e2e2295bc82029afe8",
+      "headRepository": "petrsnm/draft-ietf-scim-cursor-pagination",
+      "headRefName": "main",
+      "headRefOid": "138f52e29d1c2772ecb000b8ee394b33f9ef8bed",
+      "closedAt": "2025-07-02T10:41:32Z",
+      "mergedAt": "2025-07-02T10:41:32Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "516a402081367a5d9974804cfb03463e412820a8"
+      },
       "comments": [],
       "reviews": []
     }
