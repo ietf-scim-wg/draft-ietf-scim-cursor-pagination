@@ -395,7 +395,7 @@ For the `urn:ietf:params:scim:api:messages:2.0:ListResponse`, add [](#section2) 
 
 For the `urn:ietf:params:scim:api:messages:2.0:SearchRequest`, add [](#section2) of this document to the References column.
 
-For the `urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig`, add [](#section4) of this document to the References column.
+For the `urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig`, add [](#section4) of this document to the References column.
 
 # Change Log
 
