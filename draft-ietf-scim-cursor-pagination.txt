@@ -6,9 +6,9 @@ SCIM                                                         M. Peterson
 Internet-Draft                                                   Entrust
 Updates: 7643, 7644 (if approved)                        D. Zollner, Ed.
 Intended status: Standards Track                             Independent
-Expires: 3 January 2026                                        A. Sehgal
+Expires: 11 January 2026                                       A. Sehgal
                                                      Amazon Web Services
-                                                             2 July 2025
+                                                            10 July 2025
 
 
                Cursor-based Pagination of SCIM Resources
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2026.
+   This Internet-Draft will expire on 11 January 2026.
 
 Copyright Notice
 
@@ -582,8 +582,8 @@ Table of Contents
 
 6.  IANA Considerations
 
-   This specification requests IANA to amends the registry "SCIM Schema
-   URIs for Data Resources" established by [RFC7643].
+   This specification requests IANA to amends the SCIM Server-Related
+   Schema URIs registry established by [RFC7643].
 
    For the urn:ietf:params:scim:api:messages:2.0:ListResponse, add
    Section 2 of this document to the References column.
@@ -591,7 +591,7 @@ Table of Contents
    For the urn:ietf:params:scim:api:messages:2.0:SearchRequest, add
    Section 2 of this document to the References column.
 
-   For the urn:ietf:params:scim:api:messages:2.0:ServiceProviderConfig,
+   For the urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig,
    add Section 4 of this document to the References column.
 
 7.  Change Log
