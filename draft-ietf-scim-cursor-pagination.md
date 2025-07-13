@@ -21,11 +21,11 @@ author:
     name: Matt Peterson
     organization: Entrust
     email: matt.peterson@entrust.com
+    role: editor
    -
     name: Danny Zollner
     organization: Independent
     email: danny@zollnerd.com
-    role: editor
    -
     name: Anjali Sehgal
     organization: Amazon Web Services
@@ -451,7 +451,7 @@ The authors would also like to acknowledge the following individuals who provide
 
 * Aaron Parecki - Okta
 * David Brossard - Axiomatics
-* Dean H. Saxe - Beyond Identity
+* Dean H. Saxe - Independent
 * Pamela Dingle - Microsoft
 
 
