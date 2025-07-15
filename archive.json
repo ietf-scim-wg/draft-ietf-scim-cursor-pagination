@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-13T01:20:28.818429+00:00",
+  "timestamp": "2025-07-15T01:17:07.238087+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
   "labels": [
     {
@@ -1078,24 +1078,26 @@
       "id": "PR_kwDOJDk96s6ekDw8",
       "title": "Updated editor + acknowledgement details",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-cursor-pagination/pull/28",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ZollnerdMSFT",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Switched editor tag to Matt, adjusted employer mention for acknowledgements",
       "createdAt": "2025-07-11T20:33:01Z",
-      "updatedAt": "2025-07-11T20:33:01Z",
+      "updatedAt": "2025-07-13T16:12:24Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "baseRefName": "main",
       "baseRefOid": "1d2aa3b7536b3ce6e18bc0188e720b3b05501c7d",
       "headRepository": "ietf-scim-wg/draft-ietf-scim-cursor-pagination",
       "headRefName": "ZollnerdMSFT-patch-1",
       "headRefOid": "0c7bbffa39a0b7187f1954394a6b4640bcaa4bbd",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-07-13T16:12:24Z",
+      "mergedAt": "2025-07-13T16:12:24Z",
+      "mergedBy": "ansg-aws",
+      "mergeCommit": {
+        "oid": "18e71867fa4b591aaccdac0749099ad7023fe6e2"
+      },
       "comments": [],
       "reviews": []
     }
